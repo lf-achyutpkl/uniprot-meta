@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>unipro-meta demo</title>
+
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+
+    <script type="module">
+      import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
+      import '@polymer/iron-demo-helpers/demo-snippet';
+    </script>
+
+    <script type="module" src="../uniprot-meta.js"></script>
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic uniprot-meta demo</h3>
+      <demo-snippet>
+        <template>
+          <div>
+            <uniprot-meta 
+              metaUrl="https://www.ebi.ac.uk/proteins/api/proteins/P04629" 
+              fieldPath="protein.recommendedName.fullName.value" 
+              detailUrl="http://www.ncbi.nlm.nih.gov/pubmed/1281417">
+              <label>NTRK1 </label>
+            </uniprot-meta>
+            <input type="text" />
+          </div>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container centered">
+        <h3>uniprot-meta with table</h3>
+        <demo-snippet>
+          <template>
+            <div>
+              <table border="1">
+                <thead>
+                  <tr>
+                    <th>
+                      <uniprot-meta 
+                        metaUrl="https://www.ebi.ac.uk/proteins/api/proteins/P04627" 
+                        fieldPath="protein.recommendedName.fullName.value" 
+                        detailUrl="http://www.ncbi.nlm.nih.gov/pubmed/1281417">
+                        <label>Protein</label>
+                      </uniprot-meta>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      Sample data
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+          </template>
+        </demo-snippet>
+      </div>
+  </body>
+</html>
