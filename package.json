@@ -4,7 +4,8 @@
   "main": "unipro-meta.js",
   "dependencies": {
     "@polymer/polymer": "^3.0.0",
-    "lit-element": "^2.2.1"
+    "lit-element": "^2.2.1",
+    "poly-validator": "^0.0.3"
   },
   "devDependencies": {
     "@polymer/iron-demo-helpers": "^3.1.0",
