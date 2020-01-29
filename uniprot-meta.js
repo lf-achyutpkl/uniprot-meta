@@ -29,11 +29,30 @@ class UniprotMeta extends LitElement {
           width: var(--icon-width, 16px);
           height: var(--icon-height, 16px);
         }
+        ::slotted(input[invalid]) {
+          color: red;
+          border: 2px solid red;
+        }
+        ::slotted(input:not([invalid])) {
+          color: black;
+          border: 2px solid blue;
+        }
+        
     `;
   }
 
   firstUpdated() {
     this.fetchAndSetMetaData();
+  }
+
+  _handleValueChange(e) {
+    this.isValid = this.regex.test(e.target.value);
+
+    if(this.isValid){
+      e.target.removeAttribute('invalid');
+    } else {
+      e.target.setAttribute('invalid', true);
+    }
   }
 
   /**
@@ -42,7 +61,12 @@ class UniprotMeta extends LitElement {
   async fetchAndSetMetaData() {
     const response = await this.apiCall(this.metaUrl);
     this.metaData = await this.readValue(response, this.fieldPath);
-    
+
+    // if(this.validate && this.metaData.regex) {
+    if(this.validate) {
+      this.regex = new RegExp('^[a-z]*$', 'g');
+      this.shadowRoot.querySelector('slot').addEventListener('keyup', e => this._handleValueChange(e))
+    }
   }
 
   /**
@@ -93,7 +117,10 @@ class UniprotMeta extends LitElement {
       metaUrl: { type: String },
       fieldPath: { type: String },
       metaData: { type: String },
-      detailUrl: { type: String }
+      detailUrl: { type: String },
+      validate: { type: Boolean },
+      regex: { type: String },
+      isValid: { type: Boolean }
     };
   }
 }

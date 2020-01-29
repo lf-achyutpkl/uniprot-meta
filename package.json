@@ -3,6 +3,7 @@
   "description": "Convert any component metadata aware.",
   "main": "unipro-meta.js",
   "dependencies": {
+    "@polymer/iron-validator-behavior": "^3.0.1",
     "@polymer/polymer": "^3.0.0",
     "lit-element": "^2.2.1"
   },
