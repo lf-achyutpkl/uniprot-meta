@@ -11,10 +11,6 @@
     <script type="module">
       import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
       import '@polymer/iron-demo-helpers/demo-snippet';
-
-      setTimeout(() => {
-        console.log('aaucha ta....', geneID.validate())
-      }, 4000)
     </script>
 
     <script type="module" src="../uniprot-meta.js"></script>
@@ -26,14 +22,32 @@
   </head>
   <body>
     <div class="vertical-section-container centered">
-      <h3>Basic uniprot-meta demo</h3>
+      <h3>Basic uniprot-meta with validation</h3>
       <demo-snippet>
         <template>
           <div>
-            <label>NTRK1 </label>
+            <label>GeneID </label>
             <uniprot-meta
               id="geneID" 
               validate
+              metaUrl="https://www.ebi.ac.uk/proteins/api/proteins/P04629" 
+              fieldPath="protein.recommendedName.fullName.value" 
+              detailUrl="http://www.ncbi.nlm.nih.gov/pubmed/1281417">
+              <input name="geneID" type="text" />
+            </uniprot-meta>
+          </div>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container centered">
+      <h3>Basic uniprot-meta without validation</h3>
+      <demo-snippet>
+        <template>
+          <div>
+            <label>GeneID (without validation) </label>
+            <uniprot-meta
+              id="geneID" 
               metaUrl="https://www.ebi.ac.uk/proteins/api/proteins/P04629" 
               fieldPath="protein.recommendedName.fullName.value" 
               detailUrl="http://www.ncbi.nlm.nih.gov/pubmed/1281417">

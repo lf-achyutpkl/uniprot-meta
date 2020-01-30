@@ -12,7 +12,8 @@ import { LitElement, html, css } from 'lit-element';
 class UniprotMeta extends LitElement {
   constructor() {
     super();
-    this.metaData = 'Loading...'
+    this.metaData = 'Loading...';
+    this.isLoading = true;
   }
 
   static get styles() {
@@ -33,11 +34,6 @@ class UniprotMeta extends LitElement {
           color: red;
           border: 2px solid red;
         }
-        ::slotted(input:not([invalid])) {
-          color: black;
-          border: 2px solid blue;
-        }
-        
     `;
   }
 
@@ -61,12 +57,17 @@ class UniprotMeta extends LitElement {
   async fetchAndSetMetaData() {
     const response = await this.apiCall(this.metaUrl);
     this.metaData = await this.readValue(response, this.fieldPath);
+    this.isLoading = false;
 
     // if(this.validate && this.metaData.regex) {
     if(this.validate) {
-      this.regex = new RegExp('^[a-z]*$', 'g');
+      this.regex = new RegExp('^[a-z]*$');
       this.shadowRoot.querySelector('slot').addEventListener('keyup', e => this._handleValueChange(e))
     }
+  }
+
+  validate() {
+    return this.isValid;
   }
 
   /**
@@ -107,6 +108,7 @@ class UniprotMeta extends LitElement {
           src='../assets/images/info-icon.png' 
           @click=${this.handleIconClick} 
           title=${this.metaData} />
+          ${this.isLoading ? 'Loading..' : ''}
         </span>`
     ;
 
@@ -114,6 +116,7 @@ class UniprotMeta extends LitElement {
 
   static get properties() {
     return { 
+      isLoading: { type: Boolean },
       metaUrl: { type: String },
       fieldPath: { type: String },
       metaData: { type: String },
