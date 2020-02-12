@@ -6,6 +6,8 @@ import '@polymer/paper-input/paper-input'
 import '@polymer/paper-input/paper-input-container'
 import '@polymer/paper-button/paper-button'
 import '@polymer/paper-dialog/paper-dialog'
+import '@polymer/paper-toolbar/paper-toolbar'
+import '@polymer/paper-icon-button/paper-icon-button'
 
 import '../components/protocol-overview'
 import '../components/protocol-steps'
@@ -45,30 +47,28 @@ class ProtocolBase extends LitElement {
       paper-dialog {
         width: 50%;
       }
+      paper-toolbar {
+        margin-top: 0;
+      }
       #show-protocol {
         background: #4285f4;
         color: white;
       }
       #hide-protocol {
-        color: #4285f4;
+        color: #fff;
       }
     `;
   }
 
   render() {
     return html `
-    <style>
-
-
-    </style>
-
     <paper-input-container attr-for-value="ssn-value">    
       <label slot="label">
         ${this.label}
       </label>
       <input slot="input" class="paper-input-input">
       <span slot="suffix">
-        <paper-button 
+        <paper-button
           id="show-protocol"
           @click="${() => { this.showDialog = true}}"
         >
@@ -81,7 +81,24 @@ class ProtocolBase extends LitElement {
       .opened="${this.showDialog}"
       modal
     >
-      <paper-tabs selected="${this.selected}" noink>
+      <paper-toolbar
+        justify="start"
+        bottom-justify="end"
+      >
+        <h2 slot="top">Protocol </h2>         
+        <paper-button 
+          slot="bottom"
+          id="hide-protocol"
+          @click="${() => { this.showDialog = false}}"
+        >
+          Close
+        </paper-button>         
+      </paper-toolbar>
+      <paper-tabs 
+        selected="${this.selected}"
+        noink
+        scrollable
+      >
           ${this.tabs.map((tab, index) => {
             return html`
               <paper-tab
@@ -99,13 +116,7 @@ class ProtocolBase extends LitElement {
         ></protocol-overview>
         <protocol-steps></protocol-steps>
         <protocol-data></protocol-data>
-      </iron-pages>
-      <paper-button 
-        id="hide-protocol"
-        @click="${() => { this.showDialog = false}}"
-      >
-          Close
-      </paper-button>      
+      </iron-pages> 
     </paper-dialog>
     `;
   }
