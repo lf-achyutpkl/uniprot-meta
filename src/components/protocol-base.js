@@ -3,6 +3,10 @@ import '@polymer/paper-tabs/paper-tabs.js';
 import '@polymer/paper-tabs/paper-tab.js';
 import '@polymer/iron-pages/iron-pages.js';
 
+import '../components/protocol-overview'
+import '../components/protocol-steps'
+import '../components/protocol-data'
+
 /**
  * `protocol-base`
  * Display protocol for any process.
@@ -11,6 +15,22 @@ import '@polymer/iron-pages/iron-pages.js';
  * @polymer
  */
 class ProtocolBase extends LitElement {
+
+  static get properties () {
+    return {
+      selected: { type: Number }
+    }
+  }
+
+  constructor () {
+    super()
+    this.tabs = [
+      { title: 'Overview'},
+      { title: 'Protocol'},
+      { title: 'Data'}
+    ]
+    this.selected = 0
+  }
 
   render() {
     return html `
@@ -54,23 +74,25 @@ class ProtocolBase extends LitElement {
         }
 
     </style>
-    <h1 class="center">Experiment only</h1>
     <div class="wrapper">
-        <button>Edit</button>
-        <paper-tabs selected={{selected}} noink>
-            <paper-tab>Overview</paper-tab>
-            <paper-tab>Protocal</paper-tab>
-            <paper-tab>Data</paper-tab>
-        </paper-tabs>
+      <button>Edit</button>
+      <paper-tabs selected="${this.selected}" noink>
+          ${this.tabs.map((tab, index) => {
+            return html`
+              <paper-tab
+                @click="${() => {this.selected = index}}"
+              >
+                ${tab.title}
+              </paper-tab>
+            `
+          })}
+      </paper-tabs>
 
-        <iron-pages selected={{selected}} >
-     
-            <div>
-                 <input type="test"  value="Amet aliquam id diam maecenas ultricies mi eget mauris pharetra."/><br>
-            </div>
-            <div>Ipsum faucibus vitae aliquet nec. Amet aliquam id diam maecenas ultricies mi eget mauris pharetra. Tincidunt augue interdum velit euismod in. In pellentesque massa placerat duis ultricies lacus sed turpis tincidunt.</div>
-            <div>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam nulla facilisi cras fermentum odio. Pellentesque adipiscing commodo elit at imperdiet dui accumsan sit amet. Ipsum faucibus vitae aliquet nec. Amet aliquam id diam maecenas ultricies mi eget mauris pharetra. Tincidunt augue interdum velit euismod in. In pellentesque massa placerat duis ultricies lacus sed turpis tincidunt. Lacus suspendisse faucibus interdum posuere lorem ipsum dolor sit. Sollicitudin tempor id eu nisl nunc mi ipsum.</div>
-        </iron-pages>
+      <iron-pages selected=${this.selected} >
+        <protocol-overview></protocol-overview>
+        <protocol-steps></protocol-steps>    
+        <protocol-data></protocol-data>
+      </iron-pages>
     </div>
         
     `;
