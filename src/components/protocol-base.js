@@ -41,31 +41,6 @@ class ProtocolBase extends LitElement {
     this.showDialog = false
   }
 
-  static get styles() {
-    return css`
-      paper-dialog {
-        width: 50%;
-      }
-      .ma-0 {
-        margin: 0;
-      }
-      .light-grey{
-        background: rgb(241, 241, 241);
-      }
-      #show-protocol {
-        background: #4285f4;
-        color: white;
-      }
-      #hide-protocol {
-        color: #fff;
-      }
-      paper-tabs {
-        --paper-tab-ink: #4285f4;
-        --paper-tabs-selection-bar-color: #4285f4;   
-      }
-    `;
-  }
-
   render() {
     return html `
     <paper-input-container attr-for-value="ssn-value">    
@@ -128,6 +103,32 @@ class ProtocolBase extends LitElement {
     </paper-dialog>
     `;
   }
+
+  static get styles() {
+    return css`
+      paper-dialog {
+        width: 50%;
+      }
+      .ma-0 {
+        margin: 0;
+      }
+      .light-grey{
+        background: rgb(241, 241, 241);
+      }
+      #show-protocol {
+        background: #4285f4;
+        color: white;
+      }
+      #hide-protocol {
+        color: #fff;
+      }
+      paper-tabs {
+        --paper-tab-ink: #4285f4;
+        --paper-tabs-selection-bar-color: #4285f4;   
+      }
+    `;
+  }
+
 }
 
 window.customElements.define('protocol-base', ProtocolBase);
