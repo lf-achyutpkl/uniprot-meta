@@ -6,7 +6,7 @@ import '@polymer/paper-input/paper-input-container'
 import '@polymer/paper-button/paper-button'
 import '@polymer/paper-dialog/paper-dialog'
 import '@polymer/paper-toolbar/paper-toolbar'
-import '@polymer/paper-icon-button/paper-icon-button'
+import '@polymer/iron-icon/iron-icon'
 
 import '../components/protocol-overview'
 import '../components/protocol-steps'
@@ -42,7 +42,7 @@ class ProtocolBase extends LitElement {
   }
   render() {
     return html `
-    <paper-input-container attr-for-value="ssn-value">    
+    <paper-input-container>    
       <label slot="label">
         ${this.label}
       </label>
@@ -87,7 +87,7 @@ class ProtocolBase extends LitElement {
           `
         })}
       </paper-tabs>
-      <iron-pages
+      <iron-pages 
         class="light-grey ma-0"
         selected=${this.selected} 
       >
@@ -106,10 +106,13 @@ class ProtocolBase extends LitElement {
       paper-dialog {
         width: 40%;
       }
+      iron-pages{
+        padding: 30px;
+      }
       .ma-0 {
         margin: 0;
       }
-      .light-grey {
+      .light-grey{
         background: rgb(241, 241, 241);
       }
       #show-protocol {
@@ -118,7 +121,7 @@ class ProtocolBase extends LitElement {
       }
       paper-tabs {
         --paper-tab-ink: #4285f4;
-        --paper-tabs-selection-bar-color: #4285f4;   
+        --paper-tabs-selection-bar-color: #4285f4;
       }
     `;
   }
