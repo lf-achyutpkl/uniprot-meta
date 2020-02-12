@@ -40,7 +40,6 @@ class ProtocolBase extends LitElement {
     this.selected = 0
     this.showDialog = false
   }
-
   render() {
     return html `
     <paper-input-container attr-for-value="ssn-value">    
@@ -67,30 +66,28 @@ class ProtocolBase extends LitElement {
         bottom-justify="end"
         class="ma-0"
       >
-        <h2 slot="top">Protocol </h2>         
-        <paper-button 
-          slot="bottom"
-          id="hide-protocol"
+        <h2 slot="top">Protocol </h2>
+        <paper-icon-button
+          slot="bottom" 
+          icon="close"
           @click="${() => { this.showDialog = false}}"
-        >
-          Close
-        </paper-button>         
+        ></paper-icon-button>
       </paper-toolbar>
       <paper-tabs 
         selected="${this.selected}"
         class="ma-0"
       >
-          ${this.tabs.map((tab, index) => {
-            return html`
-              <paper-tab
-                @click="${() => {this.selected = index}}"
-              >
-                <h3>${tab.title}</h3>
-              </paper-tab>
-            `
-          })}
+        ${this.tabs.map((tab, index) => {
+          return html`
+            <paper-tab
+              @click="${() => {this.selected = index}}"
+            >
+              <h3>${tab.title}</h3>
+            </paper-tab>
+          `
+        })}
       </paper-tabs>
-      <iron-pages 
+      <iron-pages
         class="light-grey ma-0"
         selected=${this.selected} 
       >
@@ -107,20 +104,17 @@ class ProtocolBase extends LitElement {
   static get styles() {
     return css`
       paper-dialog {
-        width: 50%;
+        width: 40%;
       }
       .ma-0 {
         margin: 0;
       }
-      .light-grey{
+      .light-grey {
         background: rgb(241, 241, 241);
       }
       #show-protocol {
         background: #4285f4;
         color: white;
-      }
-      #hide-protocol {
-        color: #fff;
       }
       paper-tabs {
         --paper-tab-ink: #4285f4;
@@ -128,7 +122,6 @@ class ProtocolBase extends LitElement {
       }
     `;
   }
-
 }
 
 window.customElements.define('protocol-base', ProtocolBase);
