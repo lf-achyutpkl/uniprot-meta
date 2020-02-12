@@ -1,10 +1,17 @@
-import {LitElement,html} from 'lit-element';
+import {LitElement,html,css} from 'lit-element';
 
 class StepList extends LitElement{
     static get properties(){
         return {
             step:{type:String}
         }
+    }
+    static get styles(){
+        return css `
+            li{
+                color:red;
+            }
+        `;
     }
     render(){
         return html`

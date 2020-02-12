@@ -14,6 +14,8 @@ class ProtocolSteps extends LitElement {
   render() {
     return html`
       <list-wrapper-tag></list-wrapper-tag>
+      <list-wrapper-tag></list-wrapper-tag>
+      <list-wrapper-tag></list-wrapper-tag>
     
     `;
   }
