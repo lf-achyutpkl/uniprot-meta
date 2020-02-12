@@ -29,25 +29,20 @@ class ProtocolOverview extends LitElement {
         float:right;
       }
 
-      .status{
-        color:green;
-        border:1px solid green;
-        border-radius:10px;
-        padding:2px;
-      }
+     
       .bolder{
         font-size:20px;
       }
-      
-      .half{
-        width:50%;
-      }
+     
       .wrapper{
         height:400px;
         overflow:auto;
       }
       .btn{
         margin:10px;
+      }
+      iron-icon{
+        cursor:pointer;
       }
     `;
   }
