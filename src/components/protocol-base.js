@@ -2,7 +2,6 @@ import { LitElement, html, css } from 'lit-element';
 import '@polymer/paper-tabs/paper-tabs.js';
 import '@polymer/paper-tabs/paper-tab.js';
 import '@polymer/iron-pages/iron-pages.js';
-import '@polymer/paper-input/paper-input'
 import '@polymer/paper-input/paper-input-container'
 import '@polymer/paper-button/paper-button'
 import '@polymer/paper-dialog/paper-dialog'
@@ -47,8 +46,11 @@ class ProtocolBase extends LitElement {
       paper-dialog {
         width: 50%;
       }
-      paper-toolbar {
-        margin-top: 0;
+      .ma-0 {
+        margin: 0;
+      }
+      .light-grey{
+        background: rgb(241, 241, 241);
       }
       #show-protocol {
         background: #4285f4;
@@ -56,6 +58,10 @@ class ProtocolBase extends LitElement {
       }
       #hide-protocol {
         color: #fff;
+      }
+      paper-tabs {
+        --paper-tab-ink: #4285f4;
+        --paper-tabs-selection-bar-color: #4285f4;   
       }
     `;
   }
@@ -84,6 +90,7 @@ class ProtocolBase extends LitElement {
       <paper-toolbar
         justify="start"
         bottom-justify="end"
+        class="ma-0"
       >
         <h2 slot="top">Protocol </h2>         
         <paper-button 
@@ -96,21 +103,22 @@ class ProtocolBase extends LitElement {
       </paper-toolbar>
       <paper-tabs 
         selected="${this.selected}"
-        noink
-        scrollable
+        class="ma-0"
       >
           ${this.tabs.map((tab, index) => {
             return html`
               <paper-tab
                 @click="${() => {this.selected = index}}"
               >
-                ${tab.title}
+                <h3>${tab.title}</h3>
               </paper-tab>
             `
           })}
       </paper-tabs>
-
-      <iron-pages selected=${this.selected} >
+      <iron-pages 
+        class="light-grey ma-0"
+        selected=${this.selected} 
+      >
         <protocol-overview
           .isEditable="${this.isEditable}"
         ></protocol-overview>
