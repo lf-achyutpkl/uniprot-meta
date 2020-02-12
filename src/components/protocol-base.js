@@ -2,12 +2,7 @@ import { LitElement, html, css } from 'lit-element';
 import '@polymer/paper-tabs/paper-tabs.js';
 import '@polymer/paper-tabs/paper-tab.js';
 import '@polymer/iron-pages/iron-pages.js';
-<<<<<<< HEAD
-import '@polymer/paper-input/paper-input';
-import '@polymer/paper-input/paper-input-container';
-=======
 import '@polymer/paper-input/paper-input-container'
->>>>>>> 42f962e1f272cacf8e885d19a839d44c99517b9a
 import '@polymer/paper-button/paper-button'
 import '@polymer/paper-dialog/paper-dialog'
 import '@polymer/paper-toolbar/paper-toolbar'
@@ -49,7 +44,8 @@ class ProtocolBase extends LitElement {
   static get styles() {
     return css`
       paper-dialog {
-        width: 50%;
+        width: 40%;
+        
       }
       .ma-0 {
         margin: 0;
