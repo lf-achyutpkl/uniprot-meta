@@ -2,8 +2,8 @@ import { LitElement, html, css } from 'lit-element';
 import '@polymer/paper-tabs/paper-tabs.js';
 import '@polymer/paper-tabs/paper-tab.js';
 import '@polymer/iron-pages/iron-pages.js';
-import '@polymer/paper-input/paper-input'
-import '@polymer/paper-input/paper-input-container'
+import '@polymer/paper-input/paper-input';
+import '@polymer/paper-input/paper-input-container';
 import '@polymer/paper-button/paper-button'
 import '@polymer/paper-dialog/paper-dialog'
 import '@polymer/paper-toolbar/paper-toolbar'

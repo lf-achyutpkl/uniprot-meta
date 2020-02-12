@@ -51,7 +51,7 @@ class ProtocolOverview extends LitElement {
     this.name = "Lorem ipsum";
     this.experimentId = "NAX63V9X";
     this.description = "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
-    this.experimentNotes = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+    this.experimentNotes = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur adipiscing elit.";
   }
 
   render() {
