@@ -4,7 +4,7 @@ import '@polymer/paper-input/paper-input';
 import '@polymer/paper-input/paper-textarea';
 import '@polymer/paper-input/paper-input-container';
 import '@polymer/paper-icon-button/paper-icon-button';
-
+import '@polymer/iron-icons/iron-icons';
 /**
  * `protocol-overview`
  * Display protocol overview for any process.
@@ -72,9 +72,10 @@ class ProtocolOverview extends LitElement {
         <paper-textarea label="Description" 
                         value=${this.description}>
                       </paper-textarea>
-        <paper-input class="name-input half" 
+        <paper-input class="name-input" 
                      label="Experiment ID" 
                      value=${this.experimentId} >
+                     <iron-icon icon="open-in-new" slot="suffix"></iron-icon>
                     </paper-input>
                     
         <paper-textarea label="Expertiment Notes" 
