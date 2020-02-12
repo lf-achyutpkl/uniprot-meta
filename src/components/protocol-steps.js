@@ -1,4 +1,7 @@
 import { LitElement, html } from 'lit-element';
+import '@polymer/paper-input/paper-input';
+import '@polymer/paper-button/paper-button';
+import '../components/list-wrapper';
 
 /**
  * `protocol-steps`
@@ -10,7 +13,8 @@ import { LitElement, html } from 'lit-element';
 class ProtocolSteps extends LitElement {
   render() {
     return html`
-      <h1> Protocol Steps </h1>
+      <list-wrapper-tag></list-wrapper-tag>
+    
     `;
   }
 }
