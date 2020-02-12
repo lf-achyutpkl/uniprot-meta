@@ -1,7 +1,13 @@
-import { LitElement, html } from 'lit-element';
+import { LitElement, html, css } from 'lit-element';
 import '@polymer/paper-tabs/paper-tabs.js';
 import '@polymer/paper-tabs/paper-tab.js';
 import '@polymer/iron-pages/iron-pages.js';
+import '@polymer/paper-input/paper-input'
+import '@polymer/paper-input/paper-input-container'
+import '@polymer/paper-button/paper-button'
+import '@polymer/paper-dialog/paper-dialog'
+import '@polymer/paper-toolbar/paper-toolbar'
+import '@polymer/paper-icon-button/paper-icon-button'
 
 import '../components/protocol-overview'
 import '../components/protocol-steps'
@@ -18,7 +24,10 @@ class ProtocolBase extends LitElement {
 
   static get properties () {
     return {
-      selected: { type: Number }
+      label: { type: String },
+      selected: { type: Number },
+      isEditable: { type: Boolean },
+      showDialog: { type: Boolean }
     }
   }
 
@@ -30,53 +39,66 @@ class ProtocolBase extends LitElement {
       { title: 'Data'}
     ]
     this.selected = 0
+    this.showDialog = false
+  }
+
+  static get styles() {
+    return css`
+      paper-dialog {
+        width: 50%;
+      }
+      paper-toolbar {
+        margin-top: 0;
+      }
+      #show-protocol {
+        background: #4285f4;
+        color: white;
+      }
+      #hide-protocol {
+        color: #fff;
+      }
+    `;
   }
 
   render() {
     return html `
-    <style>
-        paper-tabs{
-            --paper-tabs-selection-bar-color: black;
-            width:100%;
-        }
-        paper-tab-ink{
-            color:red;
-        }
-        .wrapper{
-
-            width:100%;
-            margin:0 auto;
-            box-shadow:0 10px 50px #e8e8e8;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        iron-pages{
-            
-            height:300px;
-            overflow:auto;
-            padding:20px;
-        }
-        button{
-            float:right;
-            cursor:pointer;
-            background-color:#04d643;
-            border:1px solid white;
-            color:white;
-        }
-        input{
-            border:none;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size:16px;
-            color:black;
-            width:100%;
-        }
-        .center{
-            text-align:center;
-        }
-
-    </style>
-    <div class="wrapper">
-      <button>Edit</button>
-      <paper-tabs selected="${this.selected}" noink>
+    <paper-input-container attr-for-value="ssn-value">    
+      <label slot="label">
+        ${this.label}
+      </label>
+      <input slot="input" class="paper-input-input">
+      <span slot="suffix">
+        <paper-button
+          id="show-protocol"
+          @click="${() => { this.showDialog = true}}"
+        >
+          Show Protocol
+        </paper-button>
+      </span>
+    </paper-input-container>
+    
+    <paper-dialog
+      .opened="${this.showDialog}"
+      modal
+    >
+      <paper-toolbar
+        justify="start"
+        bottom-justify="end"
+      >
+        <h2 slot="top">Protocol </h2>         
+        <paper-button 
+          slot="bottom"
+          id="hide-protocol"
+          @click="${() => { this.showDialog = false}}"
+        >
+          Close
+        </paper-button>         
+      </paper-toolbar>
+      <paper-tabs 
+        selected="${this.selected}"
+        noink
+        scrollable
+      >
           ${this.tabs.map((tab, index) => {
             return html`
               <paper-tab
@@ -89,12 +111,13 @@ class ProtocolBase extends LitElement {
       </paper-tabs>
 
       <iron-pages selected=${this.selected} >
-        <protocol-overview></protocol-overview>
-        <protocol-steps></protocol-steps>    
+        <protocol-overview
+          .isEditable="${this.isEditable}"
+        ></protocol-overview>
+        <protocol-steps></protocol-steps>
         <protocol-data></protocol-data>
-      </iron-pages>
-    </div>
-        
+      </iron-pages> 
+    </paper-dialog>
     `;
   }
 }
