@@ -6,7 +6,6 @@ import '@polymer/paper-input/paper-input-container'
 import '@polymer/paper-button/paper-button'
 import '@polymer/paper-dialog/paper-dialog'
 import '@polymer/paper-toolbar/paper-toolbar'
-import '@polymer/iron-icon/iron-icon'
 
 import '../components/protocol-overview'
 import '../components/protocol-steps'
@@ -49,7 +48,7 @@ class ProtocolBase extends LitElement {
       <input slot="input" class="paper-input-input">
       <span slot="suffix">
         <paper-button
-          id="show-protocol"
+          id="show-protocol-button"
           @click="${() => { this.showDialog = true}}"
         >
           Show Protocol
@@ -86,9 +85,9 @@ class ProtocolBase extends LitElement {
             </paper-tab>
           `
         })}
-      </paper-tabs>
+      </paper-tabs>    
       <iron-pages 
-        class="light-grey ma-0"
+        class="ma-0 pa-0"
         selected=${this.selected} 
       >
         <protocol-overview
@@ -96,7 +95,7 @@ class ProtocolBase extends LitElement {
         ></protocol-overview>
         <protocol-steps></protocol-steps>
         <protocol-data></protocol-data>
-      </iron-pages> 
+      </iron-pages>
     </paper-dialog>
     `;
   }
@@ -106,16 +105,13 @@ class ProtocolBase extends LitElement {
       paper-dialog {
         width: 40%;
       }
-      iron-pages{
-        padding: 30px;
-      }
       .ma-0 {
         margin: 0;
       }
-      .light-grey{
-        background: rgb(241, 241, 241);
+      .pa-0 {
+        padding: 0;
       }
-      #show-protocol {
+      #show-protocol-button {
         background: #4285f4;
         color: white;
       }
