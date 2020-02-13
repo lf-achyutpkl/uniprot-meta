@@ -41,7 +41,7 @@ class ProtocolOverview extends LitElement {
       .wrapper{
         height:400px;
         overflow:auto;
-      
+        padding:30px;
       }
       .btn{
         margin:10px;
