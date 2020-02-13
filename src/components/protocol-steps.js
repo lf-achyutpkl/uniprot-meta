@@ -15,8 +15,7 @@ class ProtocolSteps extends LitElement {
   static get properties(){
     return{
       protocolDetails: { type: Object },
-      protocolSteps: { type: Object },
-      protocolStepsParsed: { type: Boolean }
+      protocolSteps: { type: Object }
     }
   }  
 
@@ -27,9 +26,7 @@ class ProtocolSteps extends LitElement {
 
   connectedCallback () {
     super.connectedCallback()
-    this.protocolStepsParsed = false
     this.parseProtocolSteps()
-    this.protocolStepsParsed = true
   }
 
   parseProtocolSteps() {
@@ -50,8 +47,6 @@ class ProtocolSteps extends LitElement {
       .steps-title{
         color:black;
         font-size:13px;
-        display:block;
-        padding:10px;
       }
       .wrapper{
         height:400px;
@@ -60,34 +55,29 @@ class ProtocolSteps extends LitElement {
       }
       .steps-container{
         padding:10px;
+        font-size: 17px;
       }
     `;
   }
  
-  
   render() {
     return html `
     <div class="wrapper">
-      ${
-        this.protocolStepsParsed ? 
-          html `
-          ${Object.entries(this.protocolSteps).map(([title, details]) => {
-            return html `
-              <div class="protocol-container">
-                <span class="steps-title">${title}</span>
-                <div class="steps-container">
-                  ${details.map(step => {
-                    return html`
-                      <p style="display:flex">
-                        ${step.stepNumber}.
-                        ${unsafeHTML(step.description)}
-                      </p>`
-                  })} 
-                </div>
-              </div>`
+      ${Object.entries(this.protocolSteps).map(([title, details]) => {
+        return html `
+          <div class="protocol-container">
+            <span class="steps-title">${title}</span>
+            <div class="steps-container">
+              ${details.map(step => {
+                return html`
+                  <p style="display:flex">
+                    ${step.stepNumber}.
+                    ${unsafeHTML(step.description)}
+                  </p>`
+              })} 
+            </div>
+          </div>`
           })}
-          `: 'Loading ...'
-        }
       </div>
     `;
   }

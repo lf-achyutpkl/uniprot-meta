@@ -23,7 +23,7 @@ class ProtocolBase extends LitElement {
   static get properties () {
     return {
       label: { type: String },
-      selected: { type: Number },
+      selectedTab: { type: Number },
       isEditable: { type: Boolean },
       showDialog: { type: Boolean },
       protocolId: { type: String },
@@ -39,13 +39,18 @@ class ProtocolBase extends LitElement {
       { title: 'Protocol'},
       { title: 'Data'}
     ]
-    this.selected = 0
+    this.selectedTab = 0
     this.showDialog = false
   }
 
   async displayDialog () {
     this.protocolDetails = await this.fetchProtocolDetails()
     this.showDialog = true
+  }
+
+  hideDialog () {
+    this.showDialog = false
+    this.selectedTab = 0
   }
 
   async fetchProtocolDetails() {
@@ -89,17 +94,17 @@ class ProtocolBase extends LitElement {
               <paper-icon-button
                 slot="bottom" 
                 icon="close"
-                @click="${() => { this.showDialog = false}}"
+                @click="${this.hideDialog}"
               ></paper-icon-button>
             </paper-toolbar>
             <paper-tabs 
-              selected="${this.selected}"
+              selected="${this.selectedTab}"
               class="ma-0"
             >
               ${this.tabs.map((tab, index) => {
                 return html`
                   <paper-tab
-                    @click="${() => {this.selected = index}}"
+                    @click="${() => {this.selectedTab = index}}"
                   >
                     <h3>${tab.title}</h3>
                   </paper-tab>
@@ -108,7 +113,7 @@ class ProtocolBase extends LitElement {
             </paper-tabs>    
             <iron-pages 
               class="ma-0 pa-0"
-              selected=${this.selected} 
+              selected=${this.selectedTab} 
             >
               <protocol-overview
                 .protocolDetails="${this.protocolDetails}"
