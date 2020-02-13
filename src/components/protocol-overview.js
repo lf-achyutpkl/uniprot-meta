@@ -48,21 +48,34 @@ class ProtocolOverview extends LitElement {
 
   constructor(){
     super();
-    this.name = " RIu jhsd sd";
-    this.experimentId = "NAHXY8-9";
-    this.description = " pop qeq mewei sai eur qp iwei oqwie oiwe nas ker qwe bhd skajsu eqwo ans ans sjdha laksaj lkasjd all xssa kasj";
-    this.experimentNotes = "nuh  aksjja akajw nksn uerh aslkj wieio asoiio wep laksd erjh kjsd askd wela kasdj erhj lkas ";
+    this.name = '';
+    this.experimentId = '';
+    this.description = '';
+    this.experimentNotes = '';
     this.data = {
       "description":"some-description","experiment-id":9,"experiment-notes":"some-notes","name":"xyz"
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  fetchOverviewData(){
-    
-  }
+   firstUpdated(){
+      
+   }
+   fetchDataOverview(){
+    //  const ID = '';
+    //  const URL = `https://my-awesome-project-a149c.firebaseio.com/overview/${ID}.json`;
+    //  fetch(URL,{
+    //    method:'GET',
+    //    headers:{'Content-Type':'application/json'}
+    //  })
+    //  .then(response => {
+    //    if(!response.ok) throw response;
+    //    return response.json();
+    //  })
+    //  .then(data => )
+
+   }
   handleSubmit(){
-    console.log("submit button clicked");
     const URL = 'https://my-awesome-project-a149c.firebaseio.com/overview.json';
     fetch(URL,{
       method:'POST',

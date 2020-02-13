@@ -148,7 +148,7 @@ class ProtocolBase extends LitElement {
   static get styles() {
     return css`
       paper-dialog {
-        width: 40%;
+        width: 50%;
       }
       paper-spinner {
         --paper-spinner-layer-1-color: #fff;

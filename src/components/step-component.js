@@ -25,7 +25,11 @@ class StepsComponent extends LitElement {
         }
         table{
           border-collapse: collapse;
+          width:calc(100% - 20px);
     
+        }
+        td{
+          padding:10px;
         }
         
         

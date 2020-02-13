@@ -44,6 +44,9 @@ class ProtocolSteps extends LitElement {
 
   static get styles(){
     return css `
+    .protocol-container{
+      border-bottom:1px solid black;
+    }
       .steps-title{
         color:black;
         font-size:13px;
