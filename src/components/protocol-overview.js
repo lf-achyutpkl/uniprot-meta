@@ -54,10 +54,14 @@ class ProtocolOverview extends LitElement {
 
   constructor(){
     super();
-    this.name = "Lorem ipsum";
-    this.experimentId = "NAX63V9X";
-    this.description = "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
-    this.experimentNotes = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur adipiscing elit";
+    this.name = "";
+    this.experimentId = "";
+    this.description = "";
+    this.experimentNotes = "";
+  }
+  handleSubmit(){
+    console.log("submit button clicked");
+    
   }
 
   render() {
