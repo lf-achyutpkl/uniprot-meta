@@ -25,7 +25,10 @@ class ProtocolBase extends LitElement {
       label: { type: String },
       selected: { type: Number },
       isEditable: { type: Boolean },
-      showDialog: { type: Boolean }
+      showDialog: { type: Boolean },
+      protocolId: { type: String },
+      protocolDetails: {type: Object },
+      loading: { type: Boolean }
     }
   }
 
@@ -39,6 +42,20 @@ class ProtocolBase extends LitElement {
     this.selected = 0
     this.showDialog = false
   }
+
+  async displayDialog () {
+    this.protocolDetails = await this.fetchProtocolDetails()
+    this.showDialog = true
+  }
+
+  async fetchProtocolDetails() {
+    this.loading = true
+    const uri = `https://www.protocols.io/api/v3/protocols/${this.protocolId}`
+    const res = await fetch(uri);
+    this.loading = false
+    return res.json();
+  }
+
   render() {
     return html `
     <paper-input-container>    
@@ -49,54 +66,65 @@ class ProtocolBase extends LitElement {
       <span slot="suffix">
         <paper-button
           id="show-protocol-button"
-          @click="${() => { this.showDialog = true}}"
+          @click="${this.displayDialog}"
         >
-          Show Protocol
+          ${this.loading ? 'Loading...' : 'Show Protocol'} 
         </paper-button>
       </span>
     </paper-input-container>
     
-    <paper-dialog
-      .opened="${this.showDialog}"
-      modal
-    >
-      <paper-toolbar
-        justify="start"
-        bottom-justify="end"
-        class="ma-0"
-      >
-        <h2 slot="top">Protocol </h2>
-        <paper-icon-button
-          slot="bottom" 
-          icon="close"
-          @click="${() => { this.showDialog = false}}"
-        ></paper-icon-button>
-      </paper-toolbar>
-      <paper-tabs 
-        selected="${this.selected}"
-        class="ma-0"
-      >
-        ${this.tabs.map((tab, index) => {
-          return html`
-            <paper-tab
-              @click="${() => {this.selected = index}}"
+    ${
+      this.showDialog ? 
+        html `
+          <paper-dialog
+            .opened="${this.showDialog}"
+            modal
+          >
+            <paper-toolbar
+              justify="start"
+              bottom-justify="end"
+              class="ma-0"
             >
-              <h3>${tab.title}</h3>
-            </paper-tab>
-          `
-        })}
-      </paper-tabs>    
-      <iron-pages 
-        class="ma-0 pa-0"
-        selected=${this.selected} 
-      >
-        <protocol-overview
-          .isEditable="${this.isEditable}"
-        ></protocol-overview>
-        <protocol-steps></protocol-steps>
-        <protocol-data></protocol-data>
-      </iron-pages>
-    </paper-dialog>
+              <h2 slot="top">Protocol </h2>
+              <paper-icon-button
+                slot="bottom" 
+                icon="close"
+                @click="${() => { this.showDialog = false}}"
+              ></paper-icon-button>
+            </paper-toolbar>
+            <paper-tabs 
+              selected="${this.selected}"
+              class="ma-0"
+            >
+              ${this.tabs.map((tab, index) => {
+                return html`
+                  <paper-tab
+                    @click="${() => {this.selected = index}}"
+                  >
+                    <h3>${tab.title}</h3>
+                  </paper-tab>
+                `
+              })}
+            </paper-tabs>    
+            <iron-pages 
+              class="ma-0 pa-0"
+              selected=${this.selected} 
+            >
+              <protocol-overview
+                .protocolDetails="${this.protocolDetails}"
+                .isEditable="${this.isEditable}"
+              ></protocol-overview>
+              <protocol-steps
+                .protocolDetails="${this.protocolDetails}"              
+              ></protocol-steps>
+              <protocol-data
+                .protocolDetails="${this.protocolDetails}"
+              ></protocol-data>
+            </iron-pages>
+          </paper-dialog>        
+        `: null
+    }
+
     `;
   }
 
