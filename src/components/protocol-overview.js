@@ -22,9 +22,6 @@ class ProtocolOverview extends LitElement {
 
   static get styles(){
     return css `
-      form{
-        padding:20px;
-      }
       .green{
         background-color:#30B542;
         color:white;
@@ -32,16 +29,13 @@ class ProtocolOverview extends LitElement {
       .right{
         float:right;
       }
-
-     
       .bolder{
         font-size:20px;
       }
-     
       .wrapper{
         height:400px;
         overflow:auto;
-        padding:30px;
+        padding:0 30px ;
       }
       .btn{
         margin:10px;
@@ -54,10 +48,14 @@ class ProtocolOverview extends LitElement {
 
   constructor(){
     super();
-    this.name = "Lorem ipsum";
-    this.experimentId = "NAX63V9X";
-    this.description = "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
-    this.experimentNotes = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur adipiscing elit";
+    this.name = " RIu jhsd sd";
+    this.experimentId = "NAHXY8-9";
+    this.description = " pop qeq mewei sai eur qp iwei oqwie oiwe nas ker qwe bhd skajsu eqwo ans ans sjdha laksaj lkasjd all xssa kasj";
+    this.experimentNotes = "nuh  aksjja akajw nksn uerh aslkj wieio asoiio wep laksd erjh kjsd askd wela kasdj erhj lkas ";
+  }
+  handleSubmit(){
+    console.log("submit button clicked");
+    
   }
 
   render() {
