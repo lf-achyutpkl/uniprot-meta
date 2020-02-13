@@ -22,6 +22,9 @@ class ProtocolOverview extends LitElement {
 
   static get styles(){
     return css `
+      form{
+        padding:10px;
+      }
       .green{
         background-color:#30B542;
         color:white;
@@ -38,6 +41,7 @@ class ProtocolOverview extends LitElement {
       .wrapper{
         height:400px;
         overflow:auto;
+      
       }
       .btn{
         margin:10px;

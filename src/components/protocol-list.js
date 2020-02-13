@@ -9,7 +9,7 @@ class StepList extends LitElement{
     static get styles(){
         return css `
             li{
-                color:red;
+               
             }
         `;
     }
