@@ -23,15 +23,27 @@ class ProtocolSteps extends LitElement {
 
       .protocol-container{
         padding:10px;
+        border-bottom:1px solid b
       }
       .steps-title{
         color:black;
-        font-size:20px;
+        font-size:18px;
         display:block;
+        padding:10px;
       }
       .wrapper{
         height:400px;
         overflow:auto;
+      }
+      .steps-container{
+        padding:10px;
+      }
+      .text-blocks{
+        margin:10px;
+        font-size:14px;
+      }
+      .text-blocks:hover{
+        background-color:#f2f2f2;
       }
     `;
   }
@@ -47,7 +59,7 @@ class ProtocolSteps extends LitElement {
         <ol class="steps-container">
           ${proto.steps.map(step => {
             return html`
-              <li >${step}</li>
+              <li class="text-blocks">${step}</li>
             `;
           })} 
         </ol>

@@ -23,7 +23,7 @@ class ProtocolOverview extends LitElement {
   static get styles(){
     return css `
       form{
-        padding:10px;
+        padding:20px;
       }
       .green{
         background-color:#30B542;
