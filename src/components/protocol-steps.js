@@ -49,19 +49,19 @@ class ProtocolSteps extends LitElement {
 
   static get styles(){
     return css `
-      .protocol-container{
-        padding:10px;
-        font-size: 17px;
-      }
       .steps-title{
         color:black;
         font-size:13px;
         display:block;
+        padding:10px;
       }
       .wrapper{
         height:400px;
         overflow:auto;
         padding:30px;
+      }
+      .steps-container{
+        padding:10px;
       }
     `;
   }
