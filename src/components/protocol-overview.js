@@ -58,9 +58,29 @@ class ProtocolOverview extends LitElement {
     this.experimentId = "NAHXY8-9";
     this.description = " pop qeq mewei sai eur qp iwei oqwie oiwe nas ker qwe bhd skajsu eqwo ans ans sjdha laksaj lkasjd all xssa kasj";
     this.experimentNotes = "nuh  aksjja akajw nksn uerh aslkj wieio asoiio wep laksd erjh kjsd askd wela kasdj erhj lkas ";
+    this.data = {
+      "description":"some-description","experiment-id":9,"experiment-notes":"some-notes","name":"xyz"
+    }
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  fetchOverviewData(){
+    
   }
   handleSubmit(){
     console.log("submit button clicked");
+    const URL = 'https://my-awesome-project-a149c.firebaseio.com/overview.json';
+    fetch(URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(this.data)
+    })
+    .then(response => {
+      if(!response.ok) throw response;
+      return response.json();
+    })
+    .then(data => console.log(data))
+    .catch(error => console.error(error))
     
   }
 
@@ -75,7 +95,7 @@ class ProtocolOverview extends LitElement {
           </paper-input>            
           <paper-textarea label="Expertiment Notes" value=${this.experimentNotes}></paper-textarea>
         </div>
-        <paper-button raised class="green right btn">Save</paper-button>  
+        <paper-button raised class="green right btn" @click=${this.handleSubmit}>Save</paper-button>  
       </form>
     `;
   }
