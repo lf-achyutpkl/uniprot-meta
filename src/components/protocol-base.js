@@ -6,6 +6,8 @@ import '@polymer/paper-input/paper-input-container'
 import '@polymer/paper-button/paper-button'
 import '@polymer/paper-dialog/paper-dialog'
 import '@polymer/paper-toolbar/paper-toolbar'
+import '@polymer/paper-spinner/paper-spinner'
+import '@polymer/iron-icons'
 
 import '../components/protocol-overview'
 import '../components/protocol-steps'
@@ -63,7 +65,13 @@ class ProtocolBase extends LitElement {
 
   render() {
     return html `
-    <paper-input-container>    
+    <paper-input-container>
+      <span slot="prefix">
+        <iron-icon 
+          class="mr-6"
+          icon="info-outline"
+        ></iron-icon>
+      </span>
       <label slot="label">
         ${this.label}
       </label>
@@ -73,7 +81,12 @@ class ProtocolBase extends LitElement {
           id="show-protocol-button"
           @click="${this.displayDialog}"
         >
-          ${this.loading ? 'Loading...' : 'Show Protocol'} 
+          ${this.loading ? 
+            html `
+              <paper-spinner
+                active
+              ></paper-spinner>
+            ` : 'Show Protocol'} 
         </paper-button>
       </span>
     </paper-input-container>
@@ -128,8 +141,7 @@ class ProtocolBase extends LitElement {
             </iron-pages>
           </paper-dialog>        
         `: null
-    }
-
+      }
     `;
   }
 
@@ -138,15 +150,21 @@ class ProtocolBase extends LitElement {
       paper-dialog {
         width: 40%;
       }
+      paper-spinner {
+        --paper-spinner-layer-1-color: #fff;
+      }
       .ma-0 {
         margin: 0;
       }
       .pa-0 {
         padding: 0;
       }
+      .mr-6 {
+        margin-right: 6px;
+      }
       #show-protocol-button {
         background: #4285f4;
-        color: white;
+        color: #fff;
       }
       paper-tabs {
         --paper-tab-ink: #4285f4;
