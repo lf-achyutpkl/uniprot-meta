@@ -1,7 +1,7 @@
 import { LitElement, html,css } from 'lit-element';
 import '@polymer/paper-input/paper-input';
 import '@polymer/paper-button/paper-button';
-import {unsafeHTML} from 'lit-html/directives/unsafe-html.js';
+import './step-component';
 
 /**
  * `protocol-steps`
@@ -70,10 +70,8 @@ class ProtocolSteps extends LitElement {
             <div class="steps-container">
               ${details.map(step => {
                 return html`
-                  <p style="display:flex">
-                    ${step.stepNumber}.
-                    ${unsafeHTML(step.description)}
-                  </p>`
+                  <steps-component stepIndex="${step.stepNumber}" description="${step.description}"></steps-component>
+                  `
               })} 
             </div>
           </div>`
