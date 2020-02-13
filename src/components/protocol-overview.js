@@ -16,7 +16,7 @@ import '@polymer/iron-icons/iron-icons';
 class ProtocolOverview extends LitElement {
   static get properties(){
     return{
-      
+      protocolDetails: { type: Object }
     }
   }
 
@@ -62,7 +62,7 @@ class ProtocolOverview extends LitElement {
 
   render() {
     return html`
-      <form > 
+      <form>
         <div class="wrapper">
           <paper-input class="name-input" label="Name" value=${this.name}> </paper-input>
           <paper-textarea label="Description" value=${this.description}> </paper-textarea>
@@ -71,7 +71,7 @@ class ProtocolOverview extends LitElement {
           </paper-input>            
           <paper-textarea label="Expertiment Notes" value=${this.experimentNotes}></paper-textarea>
         </div>
-        <paper-button raised class="green right btn">Save</paper-button>
+        <paper-button raised class="green right btn">Save</paper-button>  
       </form>
     `;
   }
