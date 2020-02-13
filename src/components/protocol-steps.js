@@ -1,7 +1,6 @@
 import { LitElement, html,css } from 'lit-element';
 import '@polymer/paper-input/paper-input';
 import '@polymer/paper-button/paper-button';
-import data from './data';
 import {unsafeHTML} from 'lit-html/directives/unsafe-html.js';
 
 /**
@@ -23,7 +22,6 @@ class ProtocolSteps extends LitElement {
 
   constructor(){
     super();
-    this.data = data;
     this.protocolSteps = {}
   }
 

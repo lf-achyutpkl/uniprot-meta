@@ -23,7 +23,7 @@ class ProtocolOverview extends LitElement {
   static get styles(){
     return css `
       form{
-        padding:20px;
+        
       }
       .green{
         background-color:#30B542;
@@ -41,7 +41,7 @@ class ProtocolOverview extends LitElement {
       .wrapper{
         height:400px;
         overflow:auto;
-        padding:30px;
+        padding:0 30px ;
       }
       .btn{
         margin:10px;
@@ -54,10 +54,10 @@ class ProtocolOverview extends LitElement {
 
   constructor(){
     super();
-    this.name = "";
-    this.experimentId = "";
-    this.description = "";
-    this.experimentNotes = "";
+    this.name = " RIu jhsd sd";
+    this.experimentId = "NAHXY8-9";
+    this.description = " pop qeq mewei sai eur qp iwei oqwie oiwe nas ker qwe bhd skajsu eqwo ans ans sjdha laksaj lkasjd all xssa kasj";
+    this.experimentNotes = "nuh  aksjja akajw nksn uerh aslkj wieio asoiio wep laksd erjh kjsd askd wela kasdj erhj lkas ";
   }
   handleSubmit(){
     console.log("submit button clicked");
