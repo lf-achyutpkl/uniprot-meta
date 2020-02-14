@@ -2,13 +2,12 @@ import { LitElement, html, css } from 'lit-element';
 import '@polymer/paper-tabs/paper-tabs.js';
 import '@polymer/paper-tabs/paper-tab.js';
 import '@polymer/iron-pages/iron-pages.js';
-import '@polymer/paper-input/paper-input-container'
+import '@polymer/paper-input/paper-input'
 import '@polymer/paper-button/paper-button'
 import '@polymer/paper-dialog/paper-dialog'
-import '@polymer/paper-toolbar/paper-toolbar'
+import '@polymer/app-layout/app-toolbar/app-toolbar'
 import '@polymer/paper-spinner/paper-spinner'
 import '@polymer/iron-icons'
-
 import '../components/protocol-overview'
 import '../components/protocol-steps'
 import '../components/protocol-data'
@@ -65,17 +64,15 @@ class ProtocolBase extends LitElement {
 
   render() {
     return html `
-    <paper-input-container>
+    <paper-input
+      label="${this.label}"
+    >
       <span slot="prefix">
         <iron-icon 
           class="mr-6"
           icon="info-outline"
         ></iron-icon>
       </span>
-      <label slot="label">
-        ${this.label}
-      </label>
-      <input slot="input" class="paper-input-input">
       <span slot="suffix">
         <paper-button
           id="show-protocol-button"
@@ -89,7 +86,7 @@ class ProtocolBase extends LitElement {
             ` : 'Show Protocol'} 
         </paper-button>
       </span>
-    </paper-input-container>
+    </paper-input>
     
     ${
       this.showDialog ? 
@@ -98,18 +95,15 @@ class ProtocolBase extends LitElement {
             .opened="${this.showDialog}"
             modal
           >
-            <paper-toolbar
-              justify="start"
-              bottom-justify="end"
+            <app-toolbar
               class="ma-0"
             >
               <h2 slot="top">GeneID: </h2>
               <paper-icon-button
-                slot="bottom" 
                 icon="close"
                 @click="${this.hideDialog}"
               ></paper-icon-button>
-            </paper-toolbar>
+            </app-toolbar>
             <paper-tabs 
               selected="${this.selectedTab}"
               class="ma-0"
@@ -152,6 +146,11 @@ class ProtocolBase extends LitElement {
       }
       paper-spinner {
         --paper-spinner-layer-1-color: #fff;
+      }
+      app-toolbar {
+        background: #4285f4;
+        color: white;
+        --app-toolbar-font-size: 17px;
       }
       .ma-0 {
         margin: 0;
