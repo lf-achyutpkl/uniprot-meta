@@ -58,10 +58,7 @@ class ProtocolSteps extends LitElement {
         overflow:auto;
         padding:30px;
       }
-      .steps-container{
-        padding:10px;
-        font-size: 14px;
-      }
+      
       paper-tabs {
         --paper-tab-ink: #4285f4;
         --paper-tabs-selection-bar-color: #4285f4;

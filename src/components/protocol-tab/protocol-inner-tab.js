@@ -17,13 +17,36 @@ class ProtocolInnerTab extends LitElement{
     
     static get styles(){
         return css `
-        paper-tabs {
-            --paper-tab-ink: #4285f4;
-            --paper-tabs-selection-bar-color: #4285f4;
-          }
-          iron-pages{
-            padding:10px;
-          }
+            table{
+                border:1px solid black;
+                width:100%;
+            }
+            td{
+                border: 1px solid black;
+                padding:10px;
+            }
+            th{
+                font-size:16px;
+            }
+            .steps-title{
+                color:white;
+                font-size:18px;
+                background-color:grey;
+                padding:10px;
+                
+                
+              }
+            .steps-container{
+                padding:10px;
+                font-size: 14px;
+              }
+            paper-tabs {
+                --paper-tab-ink: #4285f4;
+                --paper-tabs-selection-bar-color: #4285f4;
+            }
+            iron-pages{
+                padding:10px;
+            }
         `;
     }
     
@@ -78,23 +101,23 @@ class ProtocolInnerTab extends LitElement{
         </div>
           
 
-          <!-- page steps -->
-          <div >
-            ${Object.entries(this.protocolSteps).map(([title, details]) => {
-              return html `
-                <div class="protocol-container">
-                  <span class="steps-title">${title}</span>
-                  <div class="steps-container">
-                    ${details.map(step => {
-                      return html`
-                        <steps-component stepIndex="${step.stepNumber}" description="${step.description}"></steps-component>
-                        `
-                      })} 
-                  </div>
+        <!-- page steps -->
+        <div >
+        ${Object.entries(this.protocolSteps).map(([title, details]) => {
+            return html `
+            <div class="protocol-container">
+                <span class="steps-title">${title}</span>
+                <div class="steps-container">
+                ${details.map(step => {
+                    return html`
+                    <steps-component stepIndex="${step.stepNumber}" description="${step.description}"></steps-component>
+                    `
+                    })} 
                 </div>
-                `
-              })}
-          </div>
+            </div>
+            `
+            })}
+        </div>
           <!-- page 3 -->
           <div>
             <table>
