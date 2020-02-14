@@ -1,5 +1,6 @@
 import admin from 'firebase-admin';
 
+import './../env';
 import serviceAccount from '../config';
 
 admin.initializeApp({
