@@ -8,9 +8,8 @@ import '@polymer/paper-dialog/paper-dialog'
 import '@polymer/app-layout/app-toolbar/app-toolbar'
 import '@polymer/paper-spinner/paper-spinner'
 import '@polymer/iron-icons'
-
 import '../components/protocol-overview'
-import '../components/protocol-steps'
+import './protocol-tab/protocol-tab'
 import '../components/protocol-data'
 
 /**
@@ -66,7 +65,7 @@ class ProtocolBase extends LitElement {
   render() {
     return html `
     <paper-input
-      label="${this.label}"
+      label="${this.label}" value="${this.protocolId}"
     >
       <span slot="prefix">
         <iron-icon 
@@ -99,7 +98,7 @@ class ProtocolBase extends LitElement {
             <app-toolbar
               class="ma-0"
             >
-              <h2 main-title>Protocol </h2>
+              <h2 main-title >GeneID: </h2>
               <paper-icon-button
                 icon="close"
                 @click="${this.hideDialog}"
