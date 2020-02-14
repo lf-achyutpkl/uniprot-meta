@@ -6,6 +6,7 @@ import '@polymer/paper-tabs/paper-tab';
 import '@polymer/paper-tabs/paper-tabs';
 import './step-component';
 import './protocol-inner-tab';
+import './no-protocol-found';
 
 class ProtocolSteps extends LitElement {
 
@@ -20,7 +21,8 @@ class ProtocolSteps extends LitElement {
 
   constructor(){
     super();
-    this.protocolId="single-molecule-fish-bb4qiqvw";
+    this.protocolId= null;
+    // this.protocolId="single-molecule-fish-bb4qiqvw";
     this.isDataLoaded = false;
     this.protocolDetails ='';
   }
@@ -45,14 +47,7 @@ class ProtocolSteps extends LitElement {
       border-bottom:1px solid black;
       margin-top:10px;
     }
-      .steps-title{
-        color:white;
-        font-size:18px;
-        background-color:grey;
-        padding:10px;
-        
-        
-      }
+      
       .wrapper{
         height:400px;
         overflow:auto;
@@ -70,15 +65,24 @@ class ProtocolSteps extends LitElement {
   }
  
   render() {
-    if(!this.isDataLoaded){
-      return html `<span>Loading</span>`
+    if(this.protocolId !== null){
+      if(!this.isDataLoaded){
+        return html `<span>Loading</span>`
+      }else{
+        return html `
+        <div class="wrapper">
+          <protocol-inner-tab .protocolDetails = ${this.protocolDetails}></protocol-inner-tab>
+        </div>
+      `;
+      }
     }else{
       return html `
-      <div class="wrapper">
-        <protocol-inner-tab .protocolDetails = ${this.protocolDetails}></protocol-inner-tab>
-      </div>
-    `;
+        <div class="wrapper">
+          <no-protocol-found></no-protocol-found>
+        </div>
+      `;
     }
+    
     
   }
 }
