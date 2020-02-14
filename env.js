@@ -2,4 +2,4 @@ import dotenv from 'dotenv';
 /**
  * Initialize environment variables.
  */
-dotenv.config({ path: `${__dirname}/../.env` });
+dotenv.config({ path: `${__dirname}/.env` });
