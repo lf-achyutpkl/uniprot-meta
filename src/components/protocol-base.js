@@ -9,7 +9,7 @@ import '@polymer/app-layout/app-toolbar/app-toolbar'
 import '@polymer/paper-spinner/paper-spinner'
 import '@polymer/iron-icons'
 import '../components/protocol-overview'
-import './protocol-steps/protocol-steps'
+import './protocol-tab/protocol-tab'
 import '../components/protocol-data'
 
 /**
