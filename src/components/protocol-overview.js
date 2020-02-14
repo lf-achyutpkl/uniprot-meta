@@ -19,7 +19,9 @@ class ProtocolOverview extends LitElement {
     return{
       protocolDetails: { type: Object },
       overviewDetails: { type: Object },
-      editable: { type: Boolean }
+      editable: { type: Boolean },
+      oncreate: { type: Function },
+      onupdate: { type: Function },
     }
   }
 
@@ -32,7 +34,19 @@ class ProtocolOverview extends LitElement {
       experimentId: '12',
       experimentNotes: 'This is a note'
     }
+    this.formValues = {}
     this.editable = !this.overviewDetails
+  }
+
+  saveMetaData () {
+    if (!this.overviewDetails) {
+      this.oncreate({
+        ...this.formValues,
+        protocolId: null
+      })
+    } else {
+      this.onupdate(this.formValues)
+    }
   }
 
   handleSubmit(){
@@ -96,7 +110,13 @@ class ProtocolOverview extends LitElement {
               label="Expertiment Notes"
               value="${this.overviewDetails.experimentNotes}"
             ></paper-textarea>
-            <paper-button raised class="green right btn">Save</paper-button>  
+            <paper-button 
+              raised
+              class="green right btn"
+              @click="${this.saveMetaData}"
+            >
+              Save
+            </paper-button>  
           </form>`
         }
       </div>

@@ -62,6 +62,16 @@ class ProtocolBase extends LitElement {
     return res.json();
   }
 
+  createMetaData (payload) {
+    console.log(payload)
+    alert('create')
+  }
+
+  updateMetaData (payload) {
+    console.log(payload)
+    alert('update')
+  }
+
   render() {
     return html `
     <paper-input
@@ -125,9 +135,13 @@ class ProtocolBase extends LitElement {
               <protocol-overview
                 .protocolDetails="${this.protocolDetails}"
                 .isEditable="${this.isEditable}"
+                .oncreate="${this.createMetaData}"
+                .onupdate="${this.updateMetaData}"
               ></protocol-overview>
               <protocol-steps
-                .protocolDetails="${this.protocolDetails}"              
+                .protocolDetails="${this.protocolDetails}"
+                .oncreate="${this.createMetaData}"
+                .onupdate="${this.updateMetaData}"
               ></protocol-steps>
               <protocol-data
                 .protocolDetails="${this.protocolDetails}"
