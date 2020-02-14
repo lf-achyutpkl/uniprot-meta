@@ -103,7 +103,7 @@ class ProtocolBase extends LitElement {
               bottom-justify="end"
               class="ma-0"
             >
-              <h2 slot="top">Protocol </h2>
+              <h2 slot="top">GeneID: </h2>
               <paper-icon-button
                 slot="bottom" 
                 icon="close"

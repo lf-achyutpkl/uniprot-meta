@@ -1,6 +1,9 @@
 import { LitElement, html,css } from 'lit-element';
 import '@polymer/paper-input/paper-input';
 import '@polymer/paper-button/paper-button';
+import '@polymer/iron-pages/iron-pages';
+import '@polymer/paper-tabs/paper-tab';
+import '@polymer/paper-tabs/paper-tabs';
 import './step-component';
 
 /**
@@ -15,13 +18,20 @@ class ProtocolSteps extends LitElement {
   static get properties(){
     return{
       protocolDetails: { type: Object },
-      protocolSteps: { type: Object }
+      protocolSteps: { type: Object },
+      selectedTab:{type : Number}
     }
   }  
 
   constructor(){
     super();
-    this.protocolSteps = {}
+    this.protocolSteps = {};
+    this.tabs = [
+      { title: 'Abstract'},
+      { title: 'Steps'},
+      { title: 'Material'}
+    ];
+    this.selectedTab = 0;
   }
 
   connectedCallback () {
@@ -60,28 +70,47 @@ class ProtocolSteps extends LitElement {
         padding:10px;
         font-size: 17px;
       }
+      paper-tabs {
+        border:1px solid black;
+        --paper-tab-ink: #4285f4;
+        --paper-tabs-selection-bar-color: #4285f4;
+      }
     `;
   }
  
   render() {
     return html `
-    <div class="wrapper">
-      ${Object.entries(this.protocolSteps).map(([title, details]) => {
-        return html `
-          <div class="protocol-container">
-            <span class="steps-title">${title}</span>
-            <div class="steps-container">
-              ${details.map(step => {
-                return html`
-                  <steps-component stepIndex="${step.stepNumber}" description="${step.description}"></steps-component>
-                  `
-              })} 
-            </div>
-          </div>`
-          })}
+      <div class="wrapper">
+        <paper-tabs>
+          ${this.tabs.map((tab,index) =>{
+            return html`
+              <paper-tab @click="${()=>{this.selectedTab = index}}">${tab.title}</paper-tab>
+            `;
+          })}      
+        </paper-tabs>
+        <iron-pages selected=${this.selectedTab}>
+          <div >test 1</div>
+          <div >test 2</div>
+          <div >test 3</div>
+        </iron-pages>
       </div>
     `;
   }
 }
 
 window.customElements.define('protocol-steps', ProtocolSteps);
+// <!-- ${Object.entries(this.protocolSteps).map(([title, details]) => {
+//   return html `
+//     <div class="protocol-container">
+      
+//       <span class="steps-title">${title}</span>
+//       <div class="steps-container">
+//         ${details.map(step => {
+//           return html`
+//             <steps-component stepIndex="${step.stepNumber}" description="${step.description}"></steps-component>
+//             `
+//         })} 
+//       </div>
+//     </div>
+//     `
+//     })} -->
