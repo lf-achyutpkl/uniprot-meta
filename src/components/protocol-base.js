@@ -151,7 +151,7 @@ class ProtocolBase extends LitElement {
       app-toolbar {
         background: #4285f4;
         color: white;
-        --app-toolbar-font-size: 17px;
+        --app-toolbar-font-size: 15px;
       }
       .ma-0 {
         margin: 0;

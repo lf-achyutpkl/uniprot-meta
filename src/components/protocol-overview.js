@@ -20,6 +20,40 @@ class ProtocolOverview extends LitElement {
     }
   }
 
+  constructor(){
+    super();
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(){
+    const URL = 'https://my-awesome-project-a149c.firebaseio.com/overview.json';
+    fetch(URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(this.data)
+    })
+    .then(response => {
+      if(!response.ok) throw response;
+      return response.json();
+    })
+  }
+
+  render() {
+    return html`
+      <form>
+        <div class="wrapper">
+          <paper-input class="name-input" label="Name"> </paper-input>
+          <paper-textarea label="Description"> </paper-textarea>
+          <paper-input class="name-input" label="Experiment ID" >
+            <iron-icon icon="open-in-new" slot="suffix"></iron-icon>
+          </paper-input>            
+          <paper-textarea label="Expertiment Notes"></paper-textarea>
+        </div>
+        <paper-button raised class="green right btn">Save</paper-button>  
+      </form>
+    `;
+  }
+
   static get styles(){
     return css `
       .green{
@@ -33,9 +67,8 @@ class ProtocolOverview extends LitElement {
         font-size:20px;
       }
       .wrapper{
-        height:400px;
         overflow:auto;
-        padding:0 30px ;
+        padding:30px 100px ;
       }
       .btn{
         margin:10px;
@@ -46,66 +79,6 @@ class ProtocolOverview extends LitElement {
     `;
   }
 
-  constructor(){
-    super();
-    this.name = '';
-    this.experimentId = '';
-    this.description = '';
-    this.experimentNotes = '';
-    this.data = {
-      "description":"some-description","experiment-id":9,"experiment-notes":"some-notes","name":"xyz"
-    }
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-   firstUpdated(){
-      
-   }
-   fetchDataOverview(){
-    //  const ID = '';
-    //  const URL = `https://my-awesome-project-a149c.firebaseio.com/overview/${ID}.json`;
-    //  fetch(URL,{
-    //    method:'GET',
-    //    headers:{'Content-Type':'application/json'}
-    //  })
-    //  .then(response => {
-    //    if(!response.ok) throw response;
-    //    return response.json();
-    //  })
-    //  .then(data => )
-
-   }
-  handleSubmit(){
-    const URL = 'https://my-awesome-project-a149c.firebaseio.com/overview.json';
-    fetch(URL,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(this.data)
-    })
-    .then(response => {
-      if(!response.ok) throw response;
-      return response.json();
-    })
-    .then(data => console.log(data))
-    .catch(error => console.error(error))
-    
-  }
-
-  render() {
-    return html`
-      <form>
-        <div class="wrapper">
-          <paper-input class="name-input" label="Name" value=${this.name}> </paper-input>
-          <paper-textarea label="Description" value=${this.description}> </paper-textarea>
-          <paper-input class="name-input" label="Experiment ID" value=${this.experimentId} >
-            <iron-icon icon="open-in-new" slot="suffix"></iron-icon>
-          </paper-input>            
-          <paper-textarea label="Expertiment Notes" value=${this.experimentNotes}></paper-textarea>
-        </div>
-        <paper-button raised class="green right btn" @click=${this.handleSubmit}>Save</paper-button>  
-      </form>
-    `;
-  }
 }
 
 window.customElements.define('protocol-overview', ProtocolOverview);
