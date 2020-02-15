@@ -1,16 +1,17 @@
-import { LitElement, html, css } from 'lit-element';
-import '@polymer/paper-tabs/paper-tabs.js';
+import '@polymer/iron-icons';
 import '@polymer/paper-tabs/paper-tab.js';
+import '@polymer/paper-input/paper-input';
+import '@polymer/paper-tabs/paper-tabs.js';
 import '@polymer/iron-pages/iron-pages.js';
-import '@polymer/paper-input/paper-input'
-import '@polymer/paper-button/paper-button'
-import '@polymer/paper-dialog/paper-dialog'
-import '@polymer/app-layout/app-toolbar/app-toolbar'
-import '@polymer/paper-spinner/paper-spinner'
-import '@polymer/iron-icons'
-import '../components/protocol-overview'
-import './protocol-tab/protocol-tab'
-import '../components/protocol-data'
+import '@polymer/paper-dialog/paper-dialog';
+import '@polymer/paper-button/paper-button';
+import '@polymer/paper-spinner/paper-spinner';
+import { LitElement, html, css } from 'lit-element';
+import '@polymer/app-layout/app-toolbar/app-toolbar';
+
+import './overview-tab/meta-overview';
+import './protocol-data';
+import './protocol-tab/protocol-tab';
 
 /**
  * `protocol-base`
@@ -19,34 +20,46 @@ import '../components/protocol-data'
  * @customElement
  * @polymer
  */
-class ProtocolBase extends LitElement {
+class MetaBase extends LitElement {
 
   static get properties () {
     return {
       label: { type: String },
+      metaId: { type: String },
+      isLoading: { type: Boolean },
+      allowEdit: { type: Boolean },
       selectedTab: { type: Number },
-      isEditable: { type: Boolean },
       showDialog: { type: Boolean },
-      protocolId: { type: String },
-      protocolDetails: {type: Object },
-      loading: { type: Boolean }
+      protocolDetails: {type: Object }
     }
   }
 
   constructor () {
-    super()
+    super();
+
     this.tabs = [
       { title: 'Overview'},
       { title: 'Protocol'},
       { title: 'Data'}
     ]
-    this.selectedTab = 0
-    this.showDialog = false
+
+    this.selectedTab = 0;
+    this.showDialog = false;
   }
 
   async displayDialog () {
-    this.protocolDetails = await this.fetchProtocolDetails()
-    this.showDialog = true
+    this.isLoading = true;
+    this.protocolDetails = await this.fetchMetaData(this.metaId);
+    this.showDialog = true;
+    this.isLoading = false;
+
+    // TODO remove this after integrating with firebase.
+    this.overviewDetails = {
+      name: 'Random Name',
+      description: 'Loren Ipsum dilor sir amet Loren Ipsum dilor sir amet Loren Ipsum dilor sir amet Loren Ipsum dilor sir amet Loren Ipsum dilor sir amet',
+      experimentId: '12',
+      experimentNotes: 'This is a note'
+    }
   }
 
   hideDialog () {
@@ -54,50 +67,32 @@ class ProtocolBase extends LitElement {
     this.selectedTab = 0
   }
 
-  async fetchProtocolDetails() {
-    this.loading = true
-    const uri = `https://www.protocols.io/api/v3/protocols/${this.protocolId}`
+  async fetchMetaData(metaId) {
+    // call firebase app to fetch meta id for id = this.metaId and get overview, protocolId, and data.
+    // const { overview, protocolId, data } = firebase.getMetaData(metaId);
+    const protocolId = 'single-molecule-fish-bb4qiqvw'; // TODO replace this id with protocolId from firebase
+    const uri = `https://www.protocols.io/api/v3/protocols/${protocolId}`; 
     const res = await fetch(uri);
-    this.loading = false
     return res.json();
-  }
-
-  createMetaData (payload) {
-    console.log(payload)
-    alert('create')
-  }
-
-  updateMetaData (payload) {
-    console.log(payload)
-    alert('update')
   }
 
   render() {
     return html `
-    <paper-input
-      label="${this.label}" value="${this.protocolId}"
-    >
-      <span slot="prefix">
-        <iron-icon 
-          class="mr-6"
-          icon="info-outline"
-        ></iron-icon>
-      </span>
+      <slot></slot>
       <span slot="suffix">
         <paper-button
-          id="show-protocol-button"
+          id="show-meta-information-button"
           @click="${this.displayDialog}"
         >
-          ${this.loading ? 
+          ${this.isLoading ? 
             html `
               <paper-spinner
                 active
               ></paper-spinner>
-            ` : 'Show Protocol'} 
+            ` : 'Show Meta Information'} 
         </paper-button>
       </span>
-    </paper-input>
-    
+
     ${
       this.showDialog ? 
         html `
@@ -105,15 +100,14 @@ class ProtocolBase extends LitElement {
             .opened="${this.showDialog}"
             modal
           >
-            <app-toolbar
-              class="ma-0"
-            >
-              <h2 main-title >GeneID: </h2>
+            <app-toolbar class="ma-0">
+              <h2 main-title> ${this.label} </h2>
               <paper-icon-button
                 icon="close"
                 @click="${this.hideDialog}"
               ></paper-icon-button>
             </app-toolbar>
+
             <paper-tabs 
               selected="${this.selectedTab}"
               class="ma-0"
@@ -127,24 +121,22 @@ class ProtocolBase extends LitElement {
                   </paper-tab>
                 `
               })}
-            </paper-tabs>    
+            </paper-tabs>  
+  
             <iron-pages 
               class="ma-0 pa-0"
               selected=${this.selectedTab} 
             >
-              <protocol-overview
-                .protocolDetails="${this.protocolDetails}"
-                .isEditable="${this.isEditable}"
-                .oncreate="${this.createMetaData}"
-                .onupdate="${this.updateMetaData}"
-              ></protocol-overview>
+              <meta-overview
+                .overviewDetails="${this.overviewDetails}"
+                .allowEdit="${this.allowEdit}"
+              ></meta-overview>
               <protocol-steps
+                .allowEdit="${this.allowEdit}"
                 .protocolDetails="${this.protocolDetails}"
-                .oncreate="${this.createMetaData}"
-                .onupdate="${this.updateMetaData}"
               ></protocol-steps>
               <protocol-data
-                .protocolDetails="${this.protocolDetails}"
+                .allowEdit="${this.allowEdit}"
               ></protocol-data>
             </iron-pages>
           </paper-dialog>        
@@ -175,7 +167,7 @@ class ProtocolBase extends LitElement {
       .mr-6 {
         margin-right: 6px;
       }
-      #show-protocol-button {
+      #show-meta-information-button {
         background: #4285f4;
         color: #fff;
       }
@@ -187,4 +179,4 @@ class ProtocolBase extends LitElement {
   }
 }
 
-window.customElements.define('protocol-base', ProtocolBase);
+window.customElements.define('meta-base', MetaBase);
