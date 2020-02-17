@@ -60,7 +60,6 @@ class MetaBase extends LitElement {
   }
 
   refreshData () {
-    alert("refreshing data...");
     this.fetchMetaData(this.metaId)
   }
 

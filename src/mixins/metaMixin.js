@@ -8,7 +8,6 @@ const MetaMixin = function (superClass) {
       if (this.isNewRecord) {
         return postMeta(requestData)
       } else {
-        alert("put");
         return putMeta(requestData)      
       }
     }

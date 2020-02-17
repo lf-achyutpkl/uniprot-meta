@@ -50,7 +50,7 @@ class ProtocolSteps extends LitElement {
 
   }
   closeForm(){
-    alert("form closing...");
+  
     this.isEditable = false;
     this.onRefreshData();
   }
@@ -119,6 +119,9 @@ class ProtocolSteps extends LitElement {
     this.protocolDetails = null;
     this.isEditable = true;
   }
+  handleView(){
+    
+  }
   displayNoProtocolFound(){
     
   }
@@ -145,11 +148,11 @@ class ProtocolSteps extends LitElement {
       
     }else{
       // admin view
-      console.log("admin view");
       if(this.isEditable){
         //admin pressed edit button
         return html `
         <div class="wrapper">
+          
           <insert-protocol-id 
             .handleSubmit=${this.handleFindId} 
             .data=${this.protocolDetails} 
