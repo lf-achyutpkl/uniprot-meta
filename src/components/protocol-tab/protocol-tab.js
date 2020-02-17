@@ -77,15 +77,21 @@ class ProtocolSteps extends LitElement {
     console.log("id",this.protocolId);
     const uri = `https://www.protocols.io/api/v3/protocols/${this.protocolId}`
     fetch(uri)
-    .then(response => response.json())
+    .then(response => {
+      if(!response.ok) throw response;
+      return response.json();
+    })
     .then(data => {
       this.protocolDetails = data;
       this.isDataLoaded = true;
     })
+    .catch(error => {
+      
+    })
   }
+
   handleFindId(id){
-    console.log("clicked",id);
-    // this.fetchProtocol(id);
+    this.fetchProtocol(id);
   }
  
   render() {
@@ -100,6 +106,7 @@ class ProtocolSteps extends LitElement {
       `;
       }
     }else{
+      // you can edit here
       return html `
         <div class="wrapper">
           <insert-protocol-id .handleSubmit=${this.handleFindId}></insert-protocol-id>
