@@ -27,15 +27,19 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
   }
 
   initializeForm () {
+    // @todo this method requires refactor
+    if (this.metaDetails && this.metaDetails.name) {
+      return
+    }
     if (!this.metaDetails) {
       this.isNewRecord = true
-      this.metaDetails = {
-        uuid: this.metaId,
-        name: '',
-        description: '',
-        experimentId: '',
-        experimentNotes: ''
-      }
+    }
+    this.metaDetails = {
+      uuid: this.metaId,
+      name: '',
+      description: '',
+      experimentId: '',
+      experimentNotes: ''
     }
   }
 

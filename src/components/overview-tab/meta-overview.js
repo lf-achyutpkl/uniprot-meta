@@ -30,9 +30,10 @@ class MetaOverview extends LitElement {
   }
 
   render() {
+    let isDataAvailable = this.metaDetails && this.metaDetails.name
     return html`
       <div class="wrapper">
-        ${this.allowEdit && this.metaDetails ? html`
+        ${this.allowEdit && isDataAvailable ? html`
           <div class="edit-icon-wrp"> 
             <paper-icon-button
               icon="${this.editable ? 'visibility' : 'create'}"
@@ -41,11 +42,11 @@ class MetaOverview extends LitElement {
           <!-- @todo add nothing directive instead of empty string -->
           </div>` : '' 
         }
-        
+      
         ${
           this.editable ?
             this.renderOverviewForm()
-            : this.metaDetails ? 
+            : isDataAvailable ? 
               this.renderOverviewDetails()
               : this.renderNoDataAvailable() 
         }
