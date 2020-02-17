@@ -38,7 +38,8 @@ class MetaOverview extends LitElement {
               icon="${this.editable ? 'visibility' : 'create'}"
               @click="${() => {this.editable = !this.editable}}"
             ></paper-icon-button>
-          </div>` : ''
+          <!-- @todo add nothing directive instead of empty string -->
+          </div>` : '' 
         }
         
         ${
@@ -58,12 +59,17 @@ class MetaOverview extends LitElement {
         class="text-center"
       >
         <h3>No Data Available</h3>
-        <paper-button
-          class="green"
-          @click="${() => this.editable = true}"
-        >
-          Create New
-        </paper-button>
+        ${
+          this.allowEdit ? 
+            html `
+            <paper-button
+              class="green"
+              @click="${() => this.editable = true}"
+            >
+              Create New
+            </paper-button>            
+            `: ''
+        }
       </div>`
   }
 

@@ -34,8 +34,7 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
         name: '',
         description: '',
         experimentId: '',
-        experimentNotes: '',
-        protocolId: null
+        experimentNotes: ''
       }
     }
   }
