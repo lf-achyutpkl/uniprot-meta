@@ -33,7 +33,13 @@ class MetaOverview extends LitElement {
         }
 
         ${
-          !this.editable ? 
+          !this.overviewDetails ? 
+          'No Data Available':
+          null
+        }
+
+        ${
+          !this.editable && this.overviewDetails? 
           html `
             <div>
               <div class="item-body">

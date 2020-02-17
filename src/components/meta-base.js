@@ -13,6 +13,8 @@ import './overview-tab/meta-overview';
 import './protocol-data';
 import './protocol-tab/protocol-tab';
 
+import { getMeta } from '../../firebase_util/firebaseGet'
+
 /**
  * `protocol-base`
  * Display protocol for any process.
@@ -30,7 +32,7 @@ class MetaBase extends LitElement {
       allowEdit: { type: Boolean },
       selectedTab: { type: Number },
       showDialog: { type: Boolean },
-      protocolDetails: {type: Object }
+      metaDetails: {type: Object }
     }
   }
 
@@ -49,17 +51,9 @@ class MetaBase extends LitElement {
 
   async displayDialog () {
     this.isLoading = true;
-    this.protocolDetails = await this.fetchMetaData(this.metaId);
+    this.metaDetails = await this.fetchMetaData(this.metaId);
     this.showDialog = true;
     this.isLoading = false;
-
-    // TODO remove this after integrating with firebase.
-    this.overviewDetails = {
-      name: 'Random Name',
-      description: 'Loren Ipsum dilor sir amet Loren Ipsum dilor sir amet Loren Ipsum dilor sir amet Loren Ipsum dilor sir amet Loren Ipsum dilor sir amet',
-      experimentId: '12',
-      experimentNotes: 'This is a note'
-    }
   }
 
   hideDialog () {
@@ -68,12 +62,13 @@ class MetaBase extends LitElement {
   }
 
   async fetchMetaData(metaId) {
-    // call firebase app to fetch meta id for id = this.metaId and get overview, protocolId, and data.
-    // const { overview, protocolId, data } = firebase.getMetaData(metaId);
-    const protocolId = 'single-molecule-fish-bb4qiqvw'; // TODO replace this id with protocolId from firebase
-    const uri = `https://www.protocols.io/api/v3/protocols/${protocolId}`; 
-    const res = await fetch(uri);
-    return res.json();
+    return getMeta(metaId)
+      .then(response => {
+        this.overviewDetails = response.data()
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
 
   render() {
@@ -133,7 +128,7 @@ class MetaBase extends LitElement {
               ></meta-overview>
               <protocol-steps
                 .allowEdit="${this.allowEdit}"
-                .protocolDetails="${this.protocolDetails}"
+                .protocolId="${this.metaDetails ? this.metaDetails.id : null}"
               ></protocol-steps>
               <protocol-data
                 .allowEdit="${this.allowEdit}"
