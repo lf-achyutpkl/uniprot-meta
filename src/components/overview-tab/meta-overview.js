@@ -4,6 +4,8 @@ import '@polymer/paper-icon-button/paper-icon-button';
 
 import './meta-overview-edit';
 
+import { getMeta } from '../../../firebase_util/firebaseGet'
+
 /**
  * `protocol-overview`
  * Display protocol overview for any process.
@@ -17,7 +19,16 @@ class MetaOverview extends LitElement {
       editable: { type: Boolean },
       allowEdit: { type: Boolean },
       metaDetails: { type: Object },
+      metaId: { type: String }
     }
+  }
+
+  closeForm () {
+    getMeta(this.metaId)
+      .then(response => {
+        this.metaDetails = response.data()
+        this.editable = false
+      })
   }
 
   render() {
@@ -62,6 +73,8 @@ class MetaOverview extends LitElement {
     return html `
     <meta-overview-edit
       .metaDetails=${this.metaDetails}
+      .metaId=${this.metaId}
+      .onCloseForm="${this.closeForm.bind(this)}"
     ></meta-overview-edit>`
   }
 

@@ -3,7 +3,7 @@ import '@polymer/paper-input/paper-input';
 import '@polymer/paper-input/paper-textarea';
 import { LitElement, html,css } from 'lit-element';
 
-import MyMixin from '../../mixins/metaMixin';
+import MetaMixin from '../../mixins/metaMixin';
 
 /**
  * `protocol-overview`
@@ -12,39 +12,68 @@ import MyMixin from '../../mixins/metaMixin';
  * @customElement
  * @polymer
  */
-class MetaOverviewEdit extends MyMixin(LitElement) {
+class MetaOverviewEdit extends MetaMixin(LitElement) {
   static get properties(){
     return{
-      overviewDetails: { type: Object },
+      metaDetails: { type: Object },
+      metaId: { type: String },
+      onCloseForm: { type: Function }
     }
   }
 
+  connectedCallback () {
+    super.connectedCallback()
+    this.initializeForm()
+  }
+
+  initializeForm () {
+    if (!this.metaDetails) {
+      this.isNewRecord = true
+      this.metaDetails = {
+        uuid: this.metaId,
+        name: '',
+        description: '',
+        experimentId: '',
+        experimentNotes: '',
+        protocolId: null
+      }
+    }
+  }
+
+  async saveData () {
+   await this.saveMetaData(this.metaDetails)
+   this.onCloseForm()
+  }
+  
   render() {
     return html`
       <form>
         <paper-input 
           class="name-input" 
           label="Name"
-          value="${this.overviewDetails.name}"
+          value="${this.metaDetails.name}"
+          @input="${(e) => {this.metaDetails.name = e.target.value}}"
         ></paper-input>
         <paper-textarea 
           label="Description"
-          value="${this.overviewDetails.description}"
+          value="${this.metaDetails.description}"
+          @input="${(e) => {this.metaDetails.description = e.target.value}}"
         ></paper-textarea>
         <paper-input 
           class="name-input"
           label="Experiment ID"
-          value="${this.overviewDetails.experimentId}"
-        >
-        </paper-input>
+          value="${this.metaDetails.experimentId}"
+          @input="${(e) => {this.metaDetails.experimentId = e.target.value}}"
+        ></paper-input>
         <paper-textarea
           label="Expertiment Notes"
-          value="${this.overviewDetails.experimentNotes}"
+          value="${this.metaDetails.experimentNotes}"
+          @input="${(e) => {this.metaDetails.experimentNotes = e.target.value}}"
         ></paper-textarea>
-        <paper-button 
+        <paper-button
           raised
           class="green right btn"
-          @click="${this.saveMetaData}"
+          @click="${this.saveData}"
         >
           Save
         </paper-button>  
