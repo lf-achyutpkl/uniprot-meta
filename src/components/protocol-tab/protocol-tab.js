@@ -71,7 +71,7 @@ class ProtocolSteps extends LitElement {
     }
       
       .wrapper{
-        height:400px;
+        height:300px;
         overflow:auto;
         padding:30px;
       }
@@ -106,24 +106,7 @@ class ProtocolSteps extends LitElement {
     })
   }
 
-  postProtocolId(){
-    console.log("post id to the firebase");
-    
-    // const uri = `https://www.protocols.io/api/v3/protocols/${id}`
-    // fetch(uri)
-    // .then(response => {
-    //   if(!response.ok) throw response;
-    //   return response.json();
-    // })
-    // .then(data => {
-    //   this.protocolDetails = data;
-    //   this.isDataLoaded = true;
-    // })
-    // .catch(error => {
-    //   console.error(error);
-    //   this.protocolDetails = null;
-    // })
-  }
+ 
 
   handleFindId(id){
     id ? this.fetchProtocol(id) : console.log("please fill the input id", id); 
@@ -152,7 +135,7 @@ class ProtocolSteps extends LitElement {
         if(!this.isDataLoaded){
           return html `<span>Loading</span>`
         }else{
-          return html `s
+          return html `
           <div class="wrapper">
             <protocol-inner-tab .protocolDetails = ${this.protocolDetails}></protocol-inner-tab>
           </div>
