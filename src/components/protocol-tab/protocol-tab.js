@@ -7,6 +7,7 @@ import '@polymer/paper-tabs/paper-tabs';
 import './step-component';
 import './protocol-inner-tab';
 import './no-protocol-found';
+import './insert-protocol-id';
 
 class ProtocolSteps extends LitElement {
 
@@ -16,30 +17,37 @@ class ProtocolSteps extends LitElement {
       protocolDetails: { type: Object },
       selectedTab:{type : Number},
       isDataLoaded: {type: Boolean},
+      isEditable: {type:Boolean}
     }
   }  
 
   constructor(){
     super();
-    this.protocolId= null;
-    // this.protocolId="single-molecule-fish-bb4qiqvw";
+    // this.protocolId= '';
+    this.protocolId="single-molecule-fish-bb4qiqvw";
     this.isDataLoaded = false;
     this.protocolDetails ='';
+    this.fetchProtocol = this.fetchProtocol.bind(this);
+    this.handleFindId = this.handleFindId.bind(this);
+    this.checkEditable = this.checkEditable.bind(this);
   }
 
+  firstUpdated(){
+    this.checkEditable();
+  }
+
+  checkEditable(){
+    if(this.protocolId == ''){
+      this.isEditable = true;
+    }else{
+      this.isEditable = false;
+    }
+  }
 
   connectedCallback () {
     super.connectedCallback()
-    const uri = `https://www.protocols.io/api/v3/protocols/${this.protocolId}`
-    fetch(uri)
-    .then(response => response.json())
-    .then(data => {
-      this.protocolDetails = data;
-      this.isDataLoaded = true;
-    })
-    
+    this.fetchProtocol(this.protocolId); 
   }
-
 
   static get styles(){
     return css `
@@ -63,9 +71,25 @@ class ProtocolSteps extends LitElement {
       }
     `;
   }
+  
+  fetchProtocol(id){
+    this.protocolId = id;
+    console.log("id",this.protocolId);
+    const uri = `https://www.protocols.io/api/v3/protocols/${this.protocolId}`
+    fetch(uri)
+    .then(response => response.json())
+    .then(data => {
+      this.protocolDetails = data;
+      this.isDataLoaded = true;
+    })
+  }
+  handleFindId(id){
+    console.log("clicked",id);
+    // this.fetchProtocol(id);
+  }
  
   render() {
-    if(this.protocolId !== null){
+    if(!this.isEditable){
       if(!this.isDataLoaded){
         return html `<span>Loading</span>`
       }else{
@@ -78,7 +102,7 @@ class ProtocolSteps extends LitElement {
     }else{
       return html `
         <div class="wrapper">
-          <no-protocol-found></no-protocol-found>
+          <insert-protocol-id .handleSubmit=${this.handleFindId}></insert-protocol-id>
         </div>
       `;
     }
