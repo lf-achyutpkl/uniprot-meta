@@ -123,9 +123,11 @@ class MetaBase extends LitElement {
               <meta-overview
                 .metaDetails="${this.metaDetails}"
                 .allowEdit="${this.allowEdit}"
+                .metaId=${this.metaId}
               ></meta-overview>
               <protocol-steps
                 .allowEdit="${this.allowEdit}"
+                .metaId=${this.metaId}
                 .protocolId="${this.metaDetails ? this.metaDetails.id : null}"
               ></protocol-steps>
               <protocol-data

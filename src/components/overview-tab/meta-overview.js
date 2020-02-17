@@ -4,6 +4,8 @@ import '@polymer/paper-icon-button/paper-icon-button';
 
 import './meta-overview-edit';
 
+import { getMeta } from '../../../firebase_util/firebaseGet'
+
 /**
  * `protocol-overview`
  * Display protocol overview for any process.
@@ -17,13 +19,22 @@ class MetaOverview extends LitElement {
       editable: { type: Boolean },
       allowEdit: { type: Boolean },
       metaDetails: { type: Object },
+      metaId: { type: String }
     }
+  }
+
+  closeForm () {
+    getMeta(this.metaId)
+      .then(response => {
+        this.metaDetails = response.data()
+        this.editable = false
+      })
   }
 
   render() {
     return html`
       <div class="wrapper">
-        ${this.allowEdit ? html`
+        ${this.allowEdit && this.metaDetails ? html`
           <div class="edit-icon-wrp"> 
             <paper-icon-button
               icon="${this.editable ? 'visibility' : 'create'}"
@@ -31,50 +42,74 @@ class MetaOverview extends LitElement {
             ></paper-icon-button>
           </div>` : ''
         }
-
+        
         ${
-          !this.metaDetails ? 
-          'No Data Available':
-          null
-        }
-
-        ${
-          !this.editable && this.metaDetails? 
-          html `
-            <div>
-              <div class="item-body">
-                <span class="label">Name</span>
-                <span class="value">${this.metaDetails['name']}</span>
-              </div>
-
-              <div class="item-body">
-                <span class="label">Description</span>
-                <span class="value">${this.metaDetails['description']}</span>
-              </div>
-
-              <div class="item-body">
-                <span class="label">Experiment Id</span>
-                <span class="value">
-                  <a href="${this.metaDetails['experimentId']}">${this.metaDetails['experimentId']}</a>
-                </span>
-              </div>
-
-              <div class="item-body">
-                <span class="label">Experiment Note</span>
-                <span class="value">${this.metaDetails['experimentNotes']}</span>
-              </div>
-            </div>
-          </div>
-          `: 
-          html `
-          <meta-overview-edit .metaDetails=${this.metaDetails}></meta-overview-edit>`
+          this.editable ?
+            this.renderOverviewForm()
+            : this.metaDetails ? 
+              this.renderOverviewDetails()
+              : this.renderNoDataAvailable() 
         }
       </div>
     `;
   }
 
+  renderNoDataAvailable () {
+    return html `
+      <div
+        class="text-center"
+      >
+        <h3>No Data Available</h3>
+        <paper-button
+          class="green"
+          @click="${() => this.editable = true}"
+        >
+          Create New
+        </paper-button>
+      </div>`
+  }
+
+  renderOverviewForm () {
+    return html `
+    <meta-overview-edit
+      .metaDetails=${this.metaDetails}
+      .metaId=${this.metaId}
+      .onCloseForm="${this.closeForm.bind(this)}"
+    ></meta-overview-edit>`
+  }
+
+  renderOverviewDetails () {
+    return html `
+      <div>
+        <div class="item-body">
+          <span class="label">Name</span>
+          <span class="value">${this.metaDetails['name']}</span>
+        </div>
+
+        <div class="item-body">
+          <span class="label">Description</span>
+          <span class="value">${this.metaDetails['description']}</span>
+        </div>
+
+        <div class="item-body">
+          <span class="label">Experiment Id</span>
+          <span class="value">
+            <a href="${this.metaDetails['experimentId']}">${this.metaDetails['experimentId']}</a>
+          </span>
+        </div>
+
+        <div class="item-body">
+          <span class="label">Experiment Note</span>
+          <span class="value">${this.metaDetails['experimentNotes']}</span>
+        </div>
+      </div>`
+  }
+
   static get styles(){
     return css `
+      .text-center {
+        text-align:center;
+      }    
       .green{
         background-color:#30B542;
         color:white;
