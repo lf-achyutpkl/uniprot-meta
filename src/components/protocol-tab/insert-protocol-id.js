@@ -45,7 +45,7 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement){
             uuid:this.metaId,
             protocolId: this.id 
         }
-        alert(this.isNewRecord);
+
         await this.saveMetaData(payload);
         this.onCloseForm();
 
