@@ -1,13 +1,11 @@
-import admin from 'firebase-admin';
+import firebase from 'firebase';
 
-import './../env';
-import serviceAccount from '../config';
+// import './../env';
+import firebaseConfig from '../config';
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-  });
+admin.initializeApp(firebaseConfig);
 
-const db = admin.firestore();
+const db = firebase.firestore();
 let metaCollection =  db.collection('meta-project');
 
 export default metaCollection; 
