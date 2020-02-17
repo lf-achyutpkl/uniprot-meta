@@ -1,3 +1,4 @@
+import { LitElement, html, css } from 'lit-element';
 import '@polymer/iron-icons';
 import '@polymer/paper-tabs/paper-tab.js';
 import '@polymer/paper-input/paper-input';
@@ -6,7 +7,6 @@ import '@polymer/iron-pages/iron-pages.js';
 import '@polymer/paper-dialog/paper-dialog';
 import '@polymer/paper-button/paper-button';
 import '@polymer/paper-spinner/paper-spinner';
-import { LitElement, html, css } from 'lit-element';
 import '@polymer/app-layout/app-toolbar/app-toolbar';
 
 import './overview-tab/meta-overview';
@@ -38,22 +38,20 @@ class MetaBase extends LitElement {
 
   constructor () {
     super();
-
     this.tabs = [
       { title: 'Overview'},
       { title: 'Protocol'},
       { title: 'Data'}
     ]
-
     this.selectedTab = 0;
     this.showDialog = false;
   }
 
   async displayDialog () {
     this.isLoading = true;
-    this.metaDetails = await this.fetchMetaData(this.metaId);
-    this.showDialog = true;
+    await this.fetchMetaData(this.metaId);
     this.isLoading = false;
+    this.showDialog = true;
   }
 
   hideDialog () {
@@ -64,7 +62,7 @@ class MetaBase extends LitElement {
   async fetchMetaData(metaId) {
     return getMeta(metaId)
       .then(response => {
-        this.overviewDetails = response.data()
+        this.metaDetails = response.data()
       })
       .catch(error => {
         console.log(error)
@@ -123,7 +121,7 @@ class MetaBase extends LitElement {
               selected=${this.selectedTab} 
             >
               <meta-overview
-                .overviewDetails="${this.overviewDetails}"
+                .metaDetails="${this.metaDetails}"
                 .allowEdit="${this.allowEdit}"
               ></meta-overview>
               <protocol-steps

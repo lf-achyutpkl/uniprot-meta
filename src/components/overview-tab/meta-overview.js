@@ -16,7 +16,7 @@ class MetaOverview extends LitElement {
     return{
       editable: { type: Boolean },
       allowEdit: { type: Boolean },
-      overviewDetails: { type: Object },
+      metaDetails: { type: Object },
     }
   }
 
@@ -33,41 +33,41 @@ class MetaOverview extends LitElement {
         }
 
         ${
-          !this.overviewDetails ? 
+          !this.metaDetails ? 
           'No Data Available':
           null
         }
 
         ${
-          !this.editable && this.overviewDetails? 
+          !this.editable && this.metaDetails? 
           html `
             <div>
               <div class="item-body">
                 <span class="label">Name</span>
-                <span class="value">${this.overviewDetails['name']}</span>
+                <span class="value">${this.metaDetails['name']}</span>
               </div>
 
               <div class="item-body">
                 <span class="label">Description</span>
-                <span class="value">${this.overviewDetails['description']}</span>
+                <span class="value">${this.metaDetails['description']}</span>
               </div>
 
               <div class="item-body">
                 <span class="label">Experiment Id</span>
                 <span class="value">
-                  <a href="${this.overviewDetails['experimentId']}">${this.overviewDetails['experimentId']}</a>
+                  <a href="${this.metaDetails['experimentId']}">${this.metaDetails['experimentId']}</a>
                 </span>
               </div>
 
               <div class="item-body">
                 <span class="label">Experiment Note</span>
-                <span class="value">${this.overviewDetails['experimentNotes']}</span>
+                <span class="value">${this.metaDetails['experimentNotes']}</span>
               </div>
             </div>
           </div>
           `: 
           html `
-          <meta-overview-edit .overviewDetails=${this.overviewDetails}></meta-overview-edit>`
+          <meta-overview-edit .metaDetails=${this.metaDetails}></meta-overview-edit>`
         }
       </div>
     `;
