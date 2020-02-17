@@ -19,16 +19,14 @@ class MetaOverview extends LitElement {
       editable: { type: Boolean },
       allowEdit: { type: Boolean },
       metaDetails: { type: Object },
-      metaId: { type: String }
+      metaId: { type: String },
+      onRefreshData: { type: Function }
     }
   }
 
   closeForm () {
-    getMeta(this.metaId)
-      .then(response => {
-        this.metaDetails = response.data()
-        this.editable = false
-      })
+    this.editable = false
+    this.onRefreshData()
   }
 
   render() {

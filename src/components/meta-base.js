@@ -59,6 +59,10 @@ class MetaBase extends LitElement {
     this.selectedTab = 0
   }
 
+  refreshData () {
+    this.fetchMetaData(this.metaId)
+  }
+
   async fetchMetaData(metaId) {
     return getMeta(metaId)
       .then(response => {
@@ -124,6 +128,7 @@ class MetaBase extends LitElement {
                 .metaDetails="${this.metaDetails}"
                 .allowEdit="${this.allowEdit}"
                 .metaId=${this.metaId}
+                .onRefreshData="${this.refreshData.bind(this)}"
               ></meta-overview>
               <protocol-steps
                 .allowEdit="${this.allowEdit}"
