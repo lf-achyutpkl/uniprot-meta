@@ -2,12 +2,15 @@ import {LitElement, html,css} from 'lit-element';
 import '@polymer/paper-input/paper-input';
 import '@polymer/paper-button/paper-button';
 import '../protocol-tab/protocol-inner-tab';
-import MyMixin from '../../mixins/metaMixin';
+import MetaMixin from '../../mixins/metaMixin';
 
-class InsertProtocolIdComponent extends MyMixin(LitElement){
+class InsertProtocolIdComponent extends MetaMixin(LitElement){
     static get properties(){
         return {
-            data : {type: Object}
+            data : {type: Object},
+            metaDetails : {type: Object},
+            metaId: {type:String},
+            onCloseForm: {type:Function}
         }
     }
     constructor(){
@@ -34,6 +37,20 @@ class InsertProtocolIdComponent extends MyMixin(LitElement){
             }
         `;
     }
+    async saveData(){
+        if(!this.metaDetails){
+            this.isNewRecord = true;
+        }
+        let payload = {
+            uuid:this.metaId,
+            protocolId: this.id 
+        }
+        alert(this.isNewRecord);
+        await this.saveMetaData(payload);
+        this.onCloseForm();
+
+        
+    }
     render(){
         return html `
             <span>No protocol linked!, Enter new protocol Id below</span>
@@ -42,7 +59,7 @@ class InsertProtocolIdComponent extends MyMixin(LitElement){
                 <paper-button @click = ${()=>{this.handleSubmit(this.id)}}>Find</paper-button>
                 ${this.data ? 
                 html `<protocol-inner-tab .protocolDetails = ${this.data} class="overflow-wrapper"></protocol-inner-tab>
-                    <paper-button>Save</paper-button>
+                    <paper-button @click=${this.saveData}>Save</paper-button>
                 `    
                 : html `<h1>No protocol found</h1>`}
             </div>

@@ -14,16 +14,20 @@ class ProtocolSteps extends LitElement {
   static get properties(){
     return{
       protocolId:{type:String},
+      metaId:{type:String},
+      metaDetails:{type:Object},
       allowEdit:{type:Boolean},
       protocolDetails:{type:Object},
       selectedTab:{type : Number},
       isDataLoaded: {type: Boolean},
-      isEditable: {type:Boolean}
+      isEditable: {type:Boolean},
+      onRefreshData : {type: Function}
     }
   }  
 
   constructor(){
     super();
+    this.protocolId = null;
     this.isDataLoaded = false;
     this.protocolDetails ='';
     this.fetchProtocol = this.fetchProtocol.bind(this);
@@ -34,16 +38,25 @@ class ProtocolSteps extends LitElement {
   }
 
   firstUpdated(){
-    this.protocolId= null;
-    this.allowEdit = false;
+    console.log(this.metaDetails);
+    if(this.metaDetails){
+      this.protocolId = this.metaDetails.protocolId;
+    }
+    // this.protocolId= null;
+    // this.allowEdit = false;
     // this.protocolId="single-molecule-fish-bb4qiqvw";
-    this.fetchProtocol(this.protocolId); 
+    this.fetchProtocol(this.protocolId); //if no id
     this.checkEditable();
 
   }
+  closeForm(){
+    alert("form closing...");
+    this.isEditable = false;
+    this.onRefreshData();
+  }
 
   checkEditable(){
-    if(this.protocolId === null){
+    if(!this.protocolId){
       this.isEditable = true;
     }else{
       this.isEditable = false;
@@ -129,7 +142,7 @@ class ProtocolSteps extends LitElement {
  
   render() {
     if(!this.allowEdit){
-      if(this.protocolId === null){
+      if(!this.protocolId){
         return html `
           <div class="wrapper">
             <h1> No protocol Found</h1>
@@ -154,7 +167,14 @@ class ProtocolSteps extends LitElement {
         //admin pressed edit button
         return html `
         <div class="wrapper">
-          <insert-protocol-id .handleSubmit=${this.handleFindId} .data=${this.protocolDetails} .handlePost = ${this.handlePost}></insert-protocol-id>
+          <insert-protocol-id 
+            .handleSubmit=${this.handleFindId} 
+            .data=${this.protocolDetails} 
+            .handlePost = ${this.handlePost} 
+            .metaId = ${this.metaId}
+            .metaDetails = ${this.metaDetails} 
+            .onCloseForm = ${this.closeForm.bind(this)}
+          ></insert-protocol-id>
         </div>
       `;
       }else{

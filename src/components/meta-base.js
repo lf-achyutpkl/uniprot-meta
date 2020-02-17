@@ -60,6 +60,7 @@ class MetaBase extends LitElement {
   }
 
   refreshData () {
+    alert("refreshing data...");
     this.fetchMetaData(this.metaId)
   }
 
@@ -133,6 +134,7 @@ class MetaBase extends LitElement {
         .allowEdit="${this.allowEdit}"
         .metaId=${this.metaId}
         .metaDetails="${this.metaDetails}"
+        .onRefreshData="${this.refreshData.bind(this)}"
       ></protocol-steps>
       <protocol-data
         .allowEdit="${this.allowEdit}"
