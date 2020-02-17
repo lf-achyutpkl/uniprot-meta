@@ -99,7 +99,7 @@ class MetaOverview extends LitElement {
         <div class="item-body">
           <span class="label">Experiment Id</span>
           <span class="value">
-            <a href="${this.metaDetails['experimentId']}">${this.metaDetails['experimentId']}</a>
+            <a target="_blank" href="${this.metaDetails['experimentId']}">${this.metaDetails['experimentId']}</a>
           </span>
         </div>
 
