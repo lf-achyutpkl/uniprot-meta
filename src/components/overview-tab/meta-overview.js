@@ -33,7 +33,7 @@ class MetaOverview extends LitElement {
     let isDataAvailable = this.metaDetails && this.metaDetails.name
     return html`
       <div class="wrapper">
-        ${this.allowEdit && isDataAvailable ? html`
+        ${this.allowEdit ? html`
           <div class="edit-icon-wrp"> 
             <paper-icon-button
               icon="${this.editable ? 'visibility' : 'create'}"
