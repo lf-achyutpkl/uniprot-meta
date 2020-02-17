@@ -31,8 +31,9 @@ class ProtocolInnerTab extends LitElement{
             .steps-title{
                 color:white;
                 font-size:18px;
-                background-color:grey;
+                background-color:#4285f4;
                 padding:5px;
+                box-shadow:0 5px 10px #f0f0f0;
                 
                 
               }

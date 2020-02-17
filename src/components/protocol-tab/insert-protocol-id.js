@@ -53,7 +53,7 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement){
     }
     render(){
         return html `
-            <span>No protocol linked!, Enter new protocol Id below</span>
+            <span>Insert New Protocol ID</span>
             <div class="wrapper">
                 <paper-input label="Protocol Id" name=id @change=${this.handleChange}></paper-input>
                 <paper-button @click = ${()=>{this.handleSubmit(this.id)}}>Find</paper-button>
