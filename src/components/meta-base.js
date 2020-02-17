@@ -75,6 +75,35 @@ class MetaBase extends LitElement {
 
   render() {
     return html `
+      ${this.renderSlot()}
+      ${
+        this.showDialog ? 
+          html `
+            <paper-dialog
+              .opened="${this.showDialog}"
+              modal
+            >
+              <app-toolbar class="ma-0">
+                <h2 main-title> ${this.label} </h2>
+                <paper-icon-button
+                  icon="close"
+                  @click="${this.hideDialog}"
+                ></paper-icon-button>
+              </app-toolbar>
+              ${this.renderTabButtons()}
+              <iron-pages 
+                class="ma-0 pa-0"
+                selected=${this.selectedTab} 
+              >
+                ${this.renderTabComponents()}
+              </iron-pages>
+            </paper-dialog>        
+          `: null
+      }`;
+  }
+
+  renderSlot () {
+    return html `
       <slot></slot>
       <span slot="suffix">
         <paper-button
@@ -83,66 +112,50 @@ class MetaBase extends LitElement {
         >
           ${this.isLoading ? 
             html `
-              <paper-spinner
-                active
-              ></paper-spinner>
-            ` : 'Show Meta Information'} 
+            <paper-spinner
+              active
+            ></paper-spinner>`
+            : 'Show Meta Information'
+          } 
         </paper-button>
-      </span>
+      </span>`
+  }
 
-    ${
-      this.showDialog ? 
-        html `
-          <paper-dialog
-            .opened="${this.showDialog}"
-            modal
-          >
-            <app-toolbar class="ma-0">
-              <h2 main-title> ${this.label} </h2>
-              <paper-icon-button
-                icon="close"
-                @click="${this.hideDialog}"
-              ></paper-icon-button>
-            </app-toolbar>
+  renderTabComponents () {
+    return html `
+      <meta-overview
+        .metaDetails="${this.metaDetails}"
+        .allowEdit="${this.allowEdit}"
+        .metaId=${this.metaId}
+        .onRefreshData="${this.refreshData.bind(this)}"
+      ></meta-overview>
+      <protocol-steps
+        .allowEdit="${this.allowEdit}"
+        .metaId=${this.metaId}
+        .protocolId="${this.metaDetails ? this.metaDetails.id : null}"
+      ></protocol-steps>
+      <protocol-data
+        .allowEdit="${this.allowEdit}"
+      ></protocol-data>
+    `
+  }
 
-            <paper-tabs 
-              selected="${this.selectedTab}"
-              class="ma-0"
+  renderTabButtons () {
+    return html`
+      <paper-tabs 
+        selected="${this.selectedTab}"
+        class="ma-0"
+      >
+        ${this.tabs.map((tab, index) => {
+          return html`
+            <paper-tab
+              @click="${() => {this.selectedTab = index}}"
             >
-              ${this.tabs.map((tab, index) => {
-                return html`
-                  <paper-tab
-                    @click="${() => {this.selectedTab = index}}"
-                  >
-                    <h3>${tab.title}</h3>
-                  </paper-tab>
-                `
-              })}
-            </paper-tabs>  
-  
-            <iron-pages 
-              class="ma-0 pa-0"
-              selected=${this.selectedTab} 
-            >
-              <meta-overview
-                .metaDetails="${this.metaDetails}"
-                .allowEdit="${this.allowEdit}"
-                .metaId=${this.metaId}
-                .onRefreshData="${this.refreshData.bind(this)}"
-              ></meta-overview>
-              <protocol-steps
-                .allowEdit="${this.allowEdit}"
-                .metaId=${this.metaId}
-                .protocolId="${this.metaDetails ? this.metaDetails.id : null}"
-              ></protocol-steps>
-              <protocol-data
-                .allowEdit="${this.allowEdit}"
-              ></protocol-data>
-            </iron-pages>
-          </paper-dialog>        
-        `: null
-      }
-    `;
+              <h3>${tab.title}</h3>
+            </paper-tab>`
+        })}
+      </paper-tabs>
+    `
   }
 
   static get styles() {
