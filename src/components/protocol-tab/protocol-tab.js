@@ -6,6 +6,8 @@ import '@polymer/paper-tabs/paper-tab';
 import '@polymer/paper-tabs/paper-tabs';
 import './step-component';
 import './protocol-inner-tab';
+import './no-protocol-found';
+import './insert-protocol-id';
 
 class ProtocolSteps extends LitElement {
 
@@ -15,29 +17,37 @@ class ProtocolSteps extends LitElement {
       protocolDetails: { type: Object },
       selectedTab:{type : Number},
       isDataLoaded: {type: Boolean},
+      isEditable: {type:Boolean}
     }
   }  
 
   constructor(){
     super();
+    // this.protocolId= '';
     this.protocolId="single-molecule-fish-bb4qiqvw";
     this.isDataLoaded = false;
     this.protocolDetails ='';
+    this.fetchProtocol = this.fetchProtocol.bind(this);
+    this.handleFindId = this.handleFindId.bind(this);
+    this.checkEditable = this.checkEditable.bind(this);
   }
 
+  firstUpdated(){
+    this.checkEditable();
+  }
+
+  checkEditable(){
+    if(this.protocolId == ''){
+      this.isEditable = true;
+    }else{
+      this.isEditable = false;
+    }
+  }
 
   connectedCallback () {
     super.connectedCallback()
-    const uri = `https://www.protocols.io/api/v3/protocols/${this.protocolId}`
-    fetch(uri)
-    .then(response => response.json())
-    .then(data => {
-      this.protocolDetails = data;
-      this.isDataLoaded = true;
-    })
-    
+    this.fetchProtocol(this.protocolId); 
   }
-
 
   static get styles(){
     return css `
@@ -45,14 +55,7 @@ class ProtocolSteps extends LitElement {
       border-bottom:1px solid black;
       margin-top:10px;
     }
-      .steps-title{
-        color:white;
-        font-size:18px;
-        background-color:grey;
-        padding:10px;
-        
-        
-      }
+      
       .wrapper{
         height:400px;
         overflow:auto;
@@ -68,17 +71,49 @@ class ProtocolSteps extends LitElement {
       }
     `;
   }
+  
+  fetchProtocol(id){
+    this.protocolId = id;
+    console.log("id",this.protocolId);
+    const uri = `https://www.protocols.io/api/v3/protocols/${this.protocolId}`
+    fetch(uri)
+    .then(response => {
+      if(!response.ok) throw response;
+      return response.json();
+    })
+    .then(data => {
+      this.protocolDetails = data;
+      this.isDataLoaded = true;
+    })
+    .catch(error => {
+      
+    })
+  }
+
+  handleFindId(id){
+    this.fetchProtocol(id);
+  }
  
   render() {
-    if(!this.isDataLoaded){
-      return html `<span>Loading</span>`
+    if(!this.isEditable){
+      if(!this.isDataLoaded){
+        return html `<span>Loading</span>`
+      }else{
+        return html `
+        <div class="wrapper">
+          <protocol-inner-tab .protocolDetails = ${this.protocolDetails}></protocol-inner-tab>
+        </div>
+      `;
+      }
     }else{
+      // you can edit here
       return html `
-      <div class="wrapper">
-        <protocol-inner-tab .protocolDetails = ${this.protocolDetails}></protocol-inner-tab>
-      </div>
-    `;
+        <div class="wrapper">
+          <insert-protocol-id .handleSubmit=${this.handleFindId}></insert-protocol-id>
+        </div>
+      `;
     }
+    
     
   }
 }

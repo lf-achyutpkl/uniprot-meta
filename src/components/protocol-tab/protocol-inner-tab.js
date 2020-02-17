@@ -32,7 +32,7 @@ class ProtocolInnerTab extends LitElement{
                 color:white;
                 font-size:18px;
                 background-color:grey;
-                padding:10px;
+                padding:5px;
                 
                 
               }
