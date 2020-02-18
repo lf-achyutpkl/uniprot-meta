@@ -47,11 +47,17 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
    await this.saveMetaData(this.metaDetails)
    this.onCloseForm()
   }
+  // async getOverviewName(){
+  //   await this.getMetaName("ishan");
+  // }
   
   render() {
     return html`
       <form>
+        <!-- searching field -->
+        
         <div class="wrapper">
+          
           <paper-input 
             class="name-input" 
             label="Name"

@@ -13,7 +13,7 @@ import './overview-tab/meta-overview';
 import './protocol-data';
 import './protocol-tab/protocol-tab';
 
-import { getMeta } from '../../firebase_util/firebaseGet'
+import { getMeta } from '../../firebase_util/firebase-get'
 
 /**
  * `protocol-base`
