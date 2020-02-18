@@ -1,6 +1,7 @@
 import '@polymer/paper-button';
 import '@polymer/paper-input/paper-input';
 import '@polymer/paper-input/paper-textarea';
+import '../protocol-tab/search-component';
 import { LitElement, html,css } from 'lit-element';
 
 import MetaMixin from '../../mixins/metaMixin';
@@ -17,13 +18,32 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
     return{
       metaDetails: { type: Object },
       metaId: { type: String },
-      onCloseForm: { type: Function }
+      onCloseForm: { type: Function },
+      searchArray: {type:Array},
+      dataLoaded: {type: Boolean},
+      searchName : {type: String}
     }
+  }
+  constructor(){
+    super();
+    this.searchArray = [];
+    this.dataLoaded = false;
+    this.searchName = '';
+    this.handleChange = this.handleChange.bind(this);
+    this.getOverviewName = this.getOverviewName.bind(this);
+    this.searchItemClicked = this.searchItemClicked.bind(this);
+    this.saveData = this.saveData.bind(this);
+
   }
 
   connectedCallback () {
     super.connectedCallback()
     this.initializeForm()
+  }
+
+  handleChange(e){        
+    this[e.target.name] = e.target.value;
+    this.getOverviewName(this.searchName);
   }
 
   initializeForm () {
@@ -47,15 +67,48 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
    await this.saveMetaData(this.metaDetails)
    this.onCloseForm()
   }
-  // async getOverviewName(){
-  //   await this.getMetaName("ishan");
-  // }
+
+  async getOverviewName(name){   
+    console.log(name) 
+    return this.getMetaName(name)
+      .then(response => {
+        console.log(response);
+        
+        this.data = response;
+        this.searchArray = [];
+        this.data.docs.map(item => {
+          this.searchArray.push(item.data())
+          console.log(this.searchArray);
+          this.dataLoaded = true;
+          
+        })
+      })
+      .catch(error => console.log(error))
+      
+  }
+  searchItemClicked(data){
+    this.metaDetails = {
+      uuid: this.metaId,
+      name: data.name,
+      description: data.description,
+      experimentId: data.experimentId,
+      experimentNotes: data.experimentNotes
+    }
+    console.log(this.metaDetails);
+  }
   
   render() {
     return html`
       <form>
         <!-- searching field -->
-        
+        <search-component 
+          .data = ${this.searchArray} 
+          .handleChange = ${this.handleChange} 
+          .fetchName = ${this.getOverviewName}
+          .searchName = ${this.searchName}
+          .searchItemClicked = ${this.searchItemClicked}
+          >
+        </search-component>
         <div class="wrapper">
           
           <paper-input 
