@@ -33,7 +33,6 @@ class ProtocolSteps extends LitElement {
     this.fetchProtocol = this.fetchProtocol.bind(this);
     this.handleFindId = this.handleFindId.bind(this);
     this.checkEditable = this.checkEditable.bind(this);
-    this.handlePost = this.handlePost.bind(this);
   }
 
   firstUpdated(){
@@ -68,7 +67,8 @@ class ProtocolSteps extends LitElement {
       .wrapper{
         height:300px;
         overflow:auto;
-        padding:30px;
+        padding:5px 30px 30px;
+
       }
       
       paper-tabs {
@@ -112,9 +112,7 @@ class ProtocolSteps extends LitElement {
   handleFindId(id){  
     id ? this.fetchProtocol(id) : console.log("please fill the input id", id); 
   }
-  handlePost(){
-    console.log("save button clicked"); 
-  }
+
   handleEdit(){
     this.protocolId = null;
     this.protocolDetails = null;
@@ -152,12 +150,11 @@ class ProtocolSteps extends LitElement {
       // admin view
       if(this.isEditable){
         return html `
-        <paper-icon-button @click = ${this.handleView} icon="visibility"></paper-icon-button>
         <div class="wrapper">
+          <paper-icon-button @click = ${this.handleView} icon="visibility"></paper-icon-button>
           <insert-protocol-id 
             .handleSubmit=${this.handleFindId} 
             .data=${this.protocolDetails} 
-            .handlePost = ${this.handlePost} 
             .metaId = ${this.metaId}
             .metaDetails = ${this.metaDetails} 
             .onCloseForm = ${this.closeForm.bind(this)}
@@ -171,8 +168,8 @@ class ProtocolSteps extends LitElement {
           return html `<span>Loading</span>`
         }else{
           return html `
-          <paper-icon-button @click = ${this.handleEdit} icon="create"></paper-icon-button>
           <div class="wrapper">
+            <paper-icon-button @click = ${this.handleEdit} icon="create"></paper-icon-button>
             <protocol-inner-tab 
               .protocolDetails = ${this.protocolDetails}
             ></protocol-inner-tab>

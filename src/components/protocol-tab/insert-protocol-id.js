@@ -23,8 +23,9 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement){
         this.handleChange = this.handleChange.bind(this);
     }
     firstUpdated(){
-        console.log("test",this.metaDetails.protocolId);
-        this.id = this.metaDetails.protocolId;
+        if(this.metaDetails.protocolId){
+         return this.id = this.metaDetails.protocolId;
+        }
         
     }
     
