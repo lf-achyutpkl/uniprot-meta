@@ -121,7 +121,24 @@ class MetaBase extends LitElement {
     return html `
       <slot></slot>
       <span slot="suffix">
-        <paper-button
+
+
+      ${this.isLoading ? 
+            html `
+            <paper-spinner
+              active
+            ></paper-spinner>`
+            : html `
+      <paper-icon-button
+                  @click="${this.displayDialog}"
+                  icon="info-outline"
+                ></paper-icon-button>   
+            `
+          } 
+
+  
+
+        <!-- <paper-button
           id="show-meta-information-button"
           @click="${this.displayDialog}"
         >
@@ -132,7 +149,7 @@ class MetaBase extends LitElement {
             ></paper-spinner>`
             : 'Show Meta Information'
           } 
-        </paper-button>
+        </paper-button> -->
       </span>`
   }
 
@@ -185,7 +202,7 @@ class MetaBase extends LitElement {
         width: 50%;
       }
       paper-spinner {
-        --paper-spinner-layer-1-color: #fff;
+        --paper-spinner-layer-1-color: #4285f4;
       }
       app-toolbar {
         background: #4285f4;
