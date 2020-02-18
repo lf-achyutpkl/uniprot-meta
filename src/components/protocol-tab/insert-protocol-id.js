@@ -63,6 +63,7 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement){
                     <paper-icon-button @click = ${()=>{this.handleSubmit(this.id)}} icon="search" slot="suffix">
                 </paper-icon-button>
             </paper-input>
+            
                 ${this.data ? 
                 html `<protocol-inner-tab .protocolDetails = ${this.data} class="overflow-wrapper"></protocol-inner-tab>
                     <paper-button @click=${this.saveData}>Save</paper-button>
