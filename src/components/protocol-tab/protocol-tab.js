@@ -34,14 +34,12 @@ class ProtocolSteps extends LitElement {
     this.handleFindId = this.handleFindId.bind(this);
     this.checkEditable = this.checkEditable.bind(this);
     this.handlePost = this.handlePost.bind(this);
-    this.displayNoProtocolFound = this.displayNoProtocolFound.bind(this);
   }
 
   firstUpdated(){
     if(this.metaDetails){
       this.protocolId = this.metaDetails.protocolId;
     }
-
     this.fetchProtocol(this.protocolId); 
     this.checkEditable();
 
@@ -105,14 +103,13 @@ class ProtocolSteps extends LitElement {
     .catch(error => {
       console.error(error);
       this.protocolDetails = null;
+      this.isDataLoaded = false;
     })
   }
 
  
 
-  handleFindId(id){
-
-    
+  handleFindId(id){  
     id ? this.fetchProtocol(id) : console.log("please fill the input id", id); 
   }
   handlePost(){
@@ -123,14 +120,13 @@ class ProtocolSteps extends LitElement {
     this.protocolDetails = null;
     this.isEditable = true;
   }
+
   handleView(){
     this.protocolId = this.metaDetails.protocolId;
     this.protocolDetails = this.prevData;
     this.isEditable = false;
   }
-  displayNoProtocolFound(){
-    
-  }
+
  
   render() {
     if(!this.allowEdit){
@@ -177,7 +173,9 @@ class ProtocolSteps extends LitElement {
           return html `
           <paper-icon-button @click = ${this.handleEdit} icon="create"></paper-icon-button>
           <div class="wrapper">
-            <protocol-inner-tab .protocolDetails = ${this.protocolDetails}></protocol-inner-tab>
+            <protocol-inner-tab 
+              .protocolDetails = ${this.protocolDetails}
+            ></protocol-inner-tab>
           </div>
         `;
         }

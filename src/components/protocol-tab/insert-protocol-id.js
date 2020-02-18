@@ -16,7 +16,8 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement){
     }
     constructor(){
         super();
-        this.id = '';
+        alert(this.metaDetails);
+        this.id = this.metaId;
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -27,6 +28,7 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement){
         return css `
             paper-input{
                 box-shadow:0 5px 10px #f0f0f0;
+                padding:10px;
 
             }
             paper-button{
@@ -35,9 +37,7 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement){
                 color:white;
                 padding:10px;
             }
-            .wrapper{
-
-            }
+            
 
         `;
     }
@@ -59,10 +59,11 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement){
         return html `
 
             <div class="wrapper">
-                <paper-input label="Enter New Protocol Id" name="id" @change=${this.handleChange}>
+                <paper-input label="Enter New Protocol Id" name="id" @change=${this.handleChange} value=${this.id}>
                     <paper-icon-button @click = ${()=>{this.handleSubmit(this.id)}} icon="search" slot="suffix">
                 </paper-icon-button>
             </paper-input>
+            <!-- ${!this.dataLoaded ? html`<h1>loading</h1>  `:''} -->
             
                 ${this.data ? 
                 html `<protocol-inner-tab .protocolDetails = ${this.data} class="overflow-wrapper"></protocol-inner-tab>

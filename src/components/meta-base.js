@@ -32,20 +32,35 @@ class MetaBase extends LitElement {
       allowEdit: { type: Boolean },
       selectedTab: { type: Number },
       showDialog: { type: Boolean },
-      metaDetails: {type: Object }
+      metaDetails: {type: Object },
+      showProtocol: {type: Boolean},
+      showData : {type : Boolean},
+      tabs:{type:Array}
     }
   }
 
   constructor () {
     super();
     this.tabs = [
-      { title: 'Overview'},
-      { title: 'Protocol'},
-      { title: 'Data'}
-    ]
+      { title: 'Overview'}
+    ];
     this.selectedTab = 0;
     this.showDialog = false;
+    
   }
+  firstUpdated(){
+    this.initTabButton();
+
+  }
+  initTabButton(){
+    if(this.showProtocol){
+      this.tabs.push({title:'Protocol'});
+    }
+    if(this.showData){
+      this.tabs.push({title:'Data'});
+    }
+  }
+  
 
   async displayDialog () {
     this.isLoading = true;
@@ -129,15 +144,20 @@ class MetaBase extends LitElement {
         .metaId=${this.metaId}
         .onRefreshData="${this.refreshData.bind(this)}"
       ></meta-overview>
-      <protocol-steps
-        .allowEdit="${this.allowEdit}"
-        .metaId=${this.metaId}
-        .metaDetails="${this.metaDetails}"
-        .onRefreshData="${this.refreshData.bind(this)}"
-      ></protocol-steps>
-      <protocol-data
-        .allowEdit="${this.allowEdit}"
-      ></protocol-data>
+      ${this.showProtocol ? html`
+        <protocol-steps
+          .allowEdit="${this.allowEdit}"
+          .metaId=${this.metaId}
+          .metaDetails="${this.metaDetails}"
+          .onRefreshData="${this.refreshData.bind(this)}"
+        ></protocol-steps>
+      ` : ''}
+      ${this.showData ? html `
+        <protocol-data
+          .allowEdit="${this.allowEdit}"
+        ></protocol-data>
+      ` : ''}
+      
     `
   }
 
