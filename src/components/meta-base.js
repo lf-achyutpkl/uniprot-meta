@@ -50,8 +50,8 @@ class MetaBase extends LitElement {
   }
   firstUpdated(){
     this.initTabButton();
-
   }
+  
   initTabButton(){
     if(this.showProtocol){
       this.tabs.push({title:'Protocol'});
