@@ -2,7 +2,7 @@
 
 This guide contains information on available components and their props.
 
-#### 1) ```<meta-base>```
+### 1) <meta-base>
  #### Props
  1)  **label**: ``` STRING``` A label fot the component.
  2) **metaId**: ``` STRING``` ID of the metadata to be displayed.
@@ -25,7 +25,7 @@ This guide contains information on available components and their props.
   </meta-base>
 ```
 
-#### 2) ```<uniprot-meta>```
+### 2) <uniprot-meta>
  #### Props
  1)  **metaUrl**: ``` STRING``` URL to fetch meta data.
  2) **fieldPath**: ``` STRING``` Path of the field present in the response of metaUrl. The value obtained from the path is used to display extra information when hovered on info icon.
@@ -46,3 +46,5 @@ This guide contains information on available components and their props.
   <input name="geneID" type="text" />
 </uniprot-meta>
 ```
+
+
