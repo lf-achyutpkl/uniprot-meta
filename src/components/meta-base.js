@@ -99,7 +99,7 @@ class MetaBase extends LitElement {
               modal
             >
               <app-toolbar class="ma-0">
-                <h2 main-title> ${this.label} </h2>
+                <h3 main-title> ${this.label} : ${this.metaId} </h3>
                 <paper-icon-button
                   icon="close"
                   @click="${this.hideDialog}"
