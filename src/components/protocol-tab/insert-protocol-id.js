@@ -10,7 +10,8 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement){
             data : {type: Object},
             metaDetails : {type: Object},
             metaId: {type:String},
-            onCloseForm: {type:Function}
+            onCloseForm: {type:Function},
+            dataLoaded:{type:Boolean}
         }
     }
     constructor(){
@@ -24,17 +25,20 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement){
     }
     static get styles(){
         return css `
+            paper-input{
+                box-shadow:0 5px 10px #f0f0f0;
+
+            }
             paper-button{
                 float:right;
-                background-color:green;
+                background-color:#4285f4;
                 color:white;
+                padding:10px;
             }
             .wrapper{
 
             }
-            .overflow-wrapper{
-                overflow:auto;
-            }
+
         `;
     }
     async saveData(){
@@ -53,15 +57,17 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement){
     }
     render(){
         return html `
-            <span>Insert New Protocol ID</span>
+
             <div class="wrapper">
-                <paper-input label="Protocol Id" name=id @change=${this.handleChange}></paper-input>
-                <paper-button @click = ${()=>{this.handleSubmit(this.id)}}>Find</paper-button>
+                <paper-input label="Enter New Protocol Id" name="id" @change=${this.handleChange}>
+                    <paper-icon-button @click = ${()=>{this.handleSubmit(this.id)}} icon="search" slot="suffix">
+                </paper-icon-button>
+            </paper-input>
                 ${this.data ? 
                 html `<protocol-inner-tab .protocolDetails = ${this.data} class="overflow-wrapper"></protocol-inner-tab>
                     <paper-button @click=${this.saveData}>Save</paper-button>
                 `    
-                : html `<h1>No protocol found</h1>`}
+                : ''}
             </div>
         `;
     }

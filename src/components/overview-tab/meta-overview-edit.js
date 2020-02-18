@@ -51,31 +51,34 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
   render() {
     return html`
       <form>
-        <paper-input 
-          class="name-input" 
-          label="Name"
-          value="${this.metaDetails.name}"
-          @input="${(e) => {this.metaDetails.name = e.target.value}}"
-        ></paper-input>
-        <paper-textarea 
-          label="Description"
-          value="${this.metaDetails.description}"
-          @input="${(e) => {this.metaDetails.description = e.target.value}}"
-        ></paper-textarea>
-        <paper-input 
-          class="name-input"
-          label="Experiment ID"
-          value="${this.metaDetails.experimentId}"
-          @input="${(e) => {this.metaDetails.experimentId = e.target.value}}"
-        ></paper-input>
-        <paper-textarea
-          label="Expertiment Notes"
-          value="${this.metaDetails.experimentNotes}"
-          @input="${(e) => {this.metaDetails.experimentNotes = e.target.value}}"
-        ></paper-textarea>
+        <div class="wrapper">
+          <paper-input 
+            class="name-input" 
+            label="Name"
+            value="${this.metaDetails.name}"
+            @input="${(e) => {this.metaDetails.name = e.target.value}}"
+          ></paper-input>
+          <paper-textarea 
+            label="Description"
+            value="${this.metaDetails.description}"
+            @input="${(e) => {this.metaDetails.description = e.target.value}}"
+          ></paper-textarea>
+          <paper-input 
+            class="name-input"
+            label="Experiment ID"
+            value="${this.metaDetails.experimentId}"
+            @input="${(e) => {this.metaDetails.experimentId = e.target.value}}"
+          ></paper-input>
+          <paper-textarea
+            label="Expertiment Notes"
+            value="${this.metaDetails.experimentNotes}"
+            @input="${(e) => {this.metaDetails.experimentNotes = e.target.value}}"
+          ></paper-textarea>
+       </div>
+
         <paper-button
-          raised
-          class="green right btn"
+     
+          class="right btn"
           @click="${this.saveData}"
         >
           Save
@@ -86,16 +89,20 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
 
   static get styles(){
     return css `
-      .green{
-        background-color:#30B542;
-        color:white;
-      }
+     
       .right{
         float:right;
       }
       .btn{
         margin:10px;
+        background-color:#4285f4;
+        color:white;
       }
+      .wrapper{
+        height:300px;
+        overflow:auto;
+      }
+      
     `;
   }
 }

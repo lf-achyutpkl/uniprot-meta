@@ -38,14 +38,11 @@ class ProtocolSteps extends LitElement {
   }
 
   firstUpdated(){
-    console.log(this.metaDetails);
     if(this.metaDetails){
       this.protocolId = this.metaDetails.protocolId;
     }
-    // this.protocolId= null;
-    // this.allowEdit = false;
-    // this.protocolId="single-molecule-fish-bb4qiqvw";
-    this.fetchProtocol(this.protocolId); //if no id
+
+    this.fetchProtocol(this.protocolId); 
     this.checkEditable();
 
   }
@@ -80,6 +77,10 @@ class ProtocolSteps extends LitElement {
         --paper-tab-ink: #4285f4;
         --paper-tabs-selection-bar-color: #4285f4;
       }
+      paper-tab{
+        background-color:red;
+        
+      }
       iron-pages{
         padding:10px;
       }
@@ -97,6 +98,7 @@ class ProtocolSteps extends LitElement {
       return response.json();
     })
     .then(data => {
+      this.prevData = data;
       this.protocolDetails = data;
       this.isDataLoaded = true;
     })
@@ -109,6 +111,8 @@ class ProtocolSteps extends LitElement {
  
 
   handleFindId(id){
+
+    
     id ? this.fetchProtocol(id) : console.log("please fill the input id", id); 
   }
   handlePost(){
@@ -120,7 +124,9 @@ class ProtocolSteps extends LitElement {
     this.isEditable = true;
   }
   handleView(){
-    
+    this.protocolId = this.metaDetails.protocolId;
+    this.protocolDetails = this.prevData;
+    this.isEditable = false;
   }
   displayNoProtocolFound(){
     
@@ -149,10 +155,9 @@ class ProtocolSteps extends LitElement {
     }else{
       // admin view
       if(this.isEditable){
-        //admin pressed edit button
         return html `
+        <paper-icon-button @click = ${this.handleView} icon="visibility"></paper-icon-button>
         <div class="wrapper">
-          
           <insert-protocol-id 
             .handleSubmit=${this.handleFindId} 
             .data=${this.protocolDetails} 
@@ -160,6 +165,7 @@ class ProtocolSteps extends LitElement {
             .metaId = ${this.metaId}
             .metaDetails = ${this.metaDetails} 
             .onCloseForm = ${this.closeForm.bind(this)}
+            .dataLoaded = ${this.isDataLoaded}
           ></insert-protocol-id>
         </div>
       `;
@@ -169,8 +175,8 @@ class ProtocolSteps extends LitElement {
           return html `<span>Loading</span>`
         }else{
           return html `
+          <paper-icon-button @click = ${this.handleEdit} icon="create"></paper-icon-button>
           <div class="wrapper">
-          <paper-icon-button @click = ${this.handleEdit} icon="create">Edit</paper-icon-button>
             <protocol-inner-tab .protocolDetails = ${this.protocolDetails}></protocol-inner-tab>
           </div>
         `;

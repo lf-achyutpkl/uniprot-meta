@@ -188,6 +188,12 @@ class MetaBase extends LitElement {
       paper-tabs {
         --paper-tab-ink: #4285f4;
         --paper-tabs-selection-bar-color: #4285f4;
+        box-shadow: 0 1px 5px #e3e3e3;
+
+      }
+      paper-tab{
+        
+
       }
     `;
   }

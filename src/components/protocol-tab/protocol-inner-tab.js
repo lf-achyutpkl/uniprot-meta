@@ -18,7 +18,7 @@ class ProtocolInnerTab extends LitElement{
     static get styles(){
         return css `
             table{
-                border:1px solid black;
+               
                 width:100%;
             }
             td{
@@ -29,9 +29,9 @@ class ProtocolInnerTab extends LitElement{
                 font-size:16px;
             }
             .steps-title{
-                color:white;
+                color:black;
                 font-size:18px;
-                background-color:#4285f4;
+     
                 padding:5px;
                 box-shadow:0 5px 10px #f0f0f0;
                 
@@ -47,6 +47,9 @@ class ProtocolInnerTab extends LitElement{
             }
             iron-pages{
                 padding:10px;
+            }
+            .protocol-container{
+              border-bottom:1px solid grey;
             }
         `;
     }

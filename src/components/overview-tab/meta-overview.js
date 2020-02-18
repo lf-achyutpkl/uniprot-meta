@@ -127,6 +127,7 @@ class MetaOverview extends LitElement {
       }
       .wrapper{
         overflow:auto;
+        height:300px;
         padding:5px 30px 30px;
       }
       .btn{
