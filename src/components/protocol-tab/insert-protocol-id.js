@@ -11,16 +11,23 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement){
             metaDetails : {type: Object},
             metaId: {type:String},
             onCloseForm: {type:Function},
-            dataLoaded:{type:Boolean}
+            dataLoaded:{type:Boolean},
+            id:{type:String}
         }
     }
+    
     constructor(){
         super();
-        alert(this.metaDetails);
-        this.id = this.metaId;
+        this.id = '';
+        
         this.handleChange = this.handleChange.bind(this);
     }
-
+    firstUpdated(){
+        console.log("test",this.metaDetails.protocolId);
+        this.id = this.metaDetails.protocolId;
+        
+    }
+    
     handleChange(e){
         this[e.target.name] = e.target.value; 
     }
@@ -55,6 +62,7 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement){
 
         
     }
+   
     render(){
         return html `
 
