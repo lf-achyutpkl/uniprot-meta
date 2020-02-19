@@ -20,6 +20,7 @@ class SearchComponent extends LitElement {
         position: relative;
       }
       paper-input {
+      
       }
       #floating-wrapper {
         position: absolute;

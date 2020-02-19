@@ -30,16 +30,17 @@ class MetaOverview extends LitElement {
   render() {
     let isDataAvailable = this.metaDetails && this.metaDetails.name
     return html`
+      ${this.allowEdit ? html`
+            <div class="edit-icon-wrp"> 
+              <paper-icon-button
+                icon="${this.editable ? 'visibility' : 'create'}"
+                @click="${() => {this.editable = !this.editable}}"
+              ></paper-icon-button>
+            <!-- @todo add nothing directive instead of empty string -->
+            </div>` : '' 
+          }
       <div class="wrapper">
-        ${this.allowEdit ? html`
-          <div class="edit-icon-wrp"> 
-            <paper-icon-button
-              icon="${this.editable ? 'visibility' : 'create'}"
-              @click="${() => {this.editable = !this.editable}}"
-            ></paper-icon-button>
-          <!-- @todo add nothing directive instead of empty string -->
-          </div>` : '' 
-        }
+        
       
         ${
           this.editable ?
@@ -147,8 +148,9 @@ class MetaOverview extends LitElement {
         padding: 10px;
       }
       .edit-icon-wrp {
-        display: flex;
-        justify-content: flex-end;
+        display:flex;
+        justify-content:flex-end;
+      
       }
     `;
   }

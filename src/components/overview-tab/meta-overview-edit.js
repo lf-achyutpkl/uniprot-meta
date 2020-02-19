@@ -43,6 +43,9 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
 
   handleChange(e){        
     this[e.target.name] = e.target.value;
+    if(!this.searchName){
+      return this.searchArray = [];
+    }
     this.getOverviewName(this.searchName);
   }
 
@@ -90,24 +93,24 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
       experimentId: data.experimentId,
       experimentNotes: data.experimentNotes
     }
-
-    
+ 
   }
   
   render() {
     return html`
       <form>
+      
         <!-- searching field -->
-        <search-component 
-          .data = ${this.searchArray} 
-          .handleChange = ${this.handleChange} 
-          .fetchName = ${this.getOverviewName}
-          .searchName = ${this.searchName}
-          .searchItemClicked = ${this.searchItemClicked}
-          >
-        </search-component>
+        
         <div class="wrapper">
-          
+          <search-component 
+            .data = ${this.searchArray} 
+            .handleChange = ${this.handleChange} 
+            .fetchName = ${this.getOverviewName}
+            .searchName = ${this.searchName}
+            .searchItemClicked = ${this.searchItemClicked}
+            >
+          </search-component>
           <paper-input 
             class="name-input" 
             label="Name"
@@ -133,7 +136,6 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
        </div>
 
         <paper-button
-     
           class="right btn"
           @click="${this.saveData}"
         >
