@@ -80,6 +80,9 @@ class ProtocolSteps extends LitElement {
       paper-icon-button {
         float: right;
       }
+      .no-protocol-mesg{
+        text-align:center;
+      }
     `;
   }
 
@@ -119,6 +122,7 @@ class ProtocolSteps extends LitElement {
   }
 
   render() {
+    //user view
     if (!this.allowEdit) {
       if (!this.protocolId) {
         return html`
@@ -161,24 +165,38 @@ class ProtocolSteps extends LitElement {
           </div>
         `;
       } else {
-        //admin doesnt press edit button
-        if (!this.isDataLoaded) {
-          return html`
-            <span>Loading</span>
-          `;
-        } else {
+        //admin press view button
+        console.log(this.protocolId)
+        if (!this.protocolId) {
           return html`
             <div class="wrapper">
-              <paper-icon-button
-                @click=${this.handleEdit}
-                icon="create"
-              ></paper-icon-button>
-              <protocol-inner-tab
-                .protocolDetails=${this.protocolDetails}
-              ></protocol-inner-tab>
+            <paper-icon-button
+                  @click=${this.handleEdit}
+                  icon="create"
+                ></paper-icon-button>
+              <h3 class="no-protocol-mesg">No protocol Found</h3>
             </div>
           `;
+        }else{
+          if (!this.isDataLoaded) {
+            return html`
+              <span>Loading</span>
+            `;
+          } else {
+            return html`
+              <div class="wrapper">
+                <paper-icon-button
+                  @click=${this.handleEdit}
+                  icon="create"
+                ></paper-icon-button>
+                <protocol-inner-tab
+                  .protocolDetails=${this.protocolDetails}
+                ></protocol-inner-tab>
+              </div>
+            `;
+          }
         }
+        
       }
     }
   }
