@@ -14,7 +14,7 @@ const MetaMixin = function (superClass) {
     }
 
     getMetaName (overviewName){
-      return getMetaByOverviewName(overviewName);
+      return getMetaByOverviewName(overviewName,10);
     }
   }
 }
