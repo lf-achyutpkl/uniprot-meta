@@ -19,9 +19,10 @@ class ProtocolInnerTab extends LitElement {
     return css`
       table {
         width: 100%;
+        border:1px solid black;
       }
+      
       td {
-        border: 1px solid black;
         padding: 10px;
       }
       th {
@@ -136,14 +137,18 @@ class ProtocolInnerTab extends LitElement {
             </tr>
             ${this.protocolDetails.protocol.materials.map(material => {
               return html`
-                <tr>
+                <tr class="material">
                   <td>${material.name}</td>
                   <td>${material.sku}</td>
                   <td>${material.vendor.name}</td>
                 </tr>
+                
               `;
             })}
           </table>
+
+          <!-- testing the google chart -->
+        
         </div>
       </iron-pages>
     `;
