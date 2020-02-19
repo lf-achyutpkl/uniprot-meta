@@ -81,6 +81,7 @@ class MetaBase extends LitElement {
   async fetchMetaData(metaId) {
     return getMeta(metaId)
       .then(response => {
+        console.log(response);
         this.metaDetails = response.data()
       })
       .catch(error => {
@@ -183,6 +184,7 @@ class MetaBase extends LitElement {
     return css`
       paper-dialog {
         width: 50%;
+        height:600px;
       }
       paper-spinner {
         --paper-spinner-layer-1-color: #fff;

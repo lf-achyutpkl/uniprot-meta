@@ -35,14 +35,17 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement) {
     return css`
       paper-input {
         box-shadow: 0 5px 10px #f0f0f0;
-        padding: 10px;
+        padding: 0 10px;
+        width:80%;
       }
       paper-button {
         float: right;
         background-color: #4285f4;
         color: white;
         padding: 10px;
+        margin:10px;
       }
+      
     `;
   }
   async saveData() {
@@ -62,8 +65,9 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement) {
     return html`
       <div class="wrapper">
         <paper-input
-          label="Enter New Protocol Id"
+          placeholder="Search for Protocol"
           name="id"
+          no-label-float
           @change=${this.handleChange}
           value=${this.id}
         >
@@ -76,19 +80,18 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement) {
           >
           </paper-icon-button>
         </paper-input>
-        <!-- ${!this.dataLoaded
-          ? html`
-              <h1>loading</h1>
-            `
-          : ""} -->
+       
 
         ${this.data
           ? html`
-              <protocol-inner-tab
+          
+          <protocol-inner-tab
                 .protocolDetails=${this.data}
-                class="overflow-wrapper"
+                
               ></protocol-inner-tab>
-              <paper-button @click=${this.saveData}>Save</paper-button>
+         
+              
+              <paper-button @click=${this.saveData} class="save-button">Save</paper-button>
             `
           : ""}
       </div>

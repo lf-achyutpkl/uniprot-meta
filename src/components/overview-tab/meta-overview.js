@@ -1,8 +1,9 @@
-import '@polymer/iron-icons';
-import { LitElement, html,css } from 'lit-element';
-import '@polymer/paper-icon-button/paper-icon-button';
+import "@polymer/iron-icons";
+import { LitElement, html, css } from "lit-element";
+import "@polymer/paper-icon-button/paper-icon-button";
 
-import './meta-overview-edit';
+import "./meta-overview-edit";
+import MetaMixin from "../../mixins/metaMixin";
 
 /**
  * `protocol-overview`
@@ -12,128 +13,135 @@ import './meta-overview-edit';
  * @polymer
  */
 class MetaOverview extends LitElement {
-  static get properties(){
-    return{
+  static get properties() {
+    return {
       editable: { type: Boolean },
       allowEdit: { type: Boolean },
       metaDetails: { type: Object },
       metaId: { type: String },
       onRefreshData: { type: Function }
-    }
+    };
   }
 
-  closeForm () {
-    this.editable = false
-    this.onRefreshData()
+  closeForm() {
+    this.editable = false;
+    this.onRefreshData();
   }
 
   render() {
-    let isDataAvailable = this.metaDetails && this.metaDetails.name
+    let isDataAvailable = this.metaDetails && this.metaDetails.name;
     return html`
-      ${this.allowEdit ? html`
-            <div class="edit-icon-wrp"> 
-              <paper-icon-button
-                icon="${this.editable ? 'visibility' : 'create'}"
-                @click="${() => {this.editable = !this.editable}}"
-              ></paper-icon-button>
-            <!-- @todo add nothing directive instead of empty string -->
-            </div>` : '' 
-          }
       <div class="wrapper">
-        
-      
-        ${
-          this.editable ?
-            this.renderOverviewForm()
-            : isDataAvailable ? 
-              this.renderOverviewDetails()
-              : this.renderNoDataAvailable() 
-        }
+        ${this.editable
+          ? this.renderOverviewForm()
+          : isDataAvailable
+          ? this.renderOverviewDetails()
+          : this.renderNoDataAvailable()}
       </div>
     `;
   }
 
-  renderNoDataAvailable () {
-    return html `
-      <div
-        class="text-center"
-      >
+  renderNoDataAvailable() {
+    return html`
+      <div class="text-center">
         <h3>No Data Available</h3>
-        ${
-          this.allowEdit ? 
-            html `
-            <paper-button
-              class="green"
-              @click="${() => this.editable = true}"
-            >
-              Create New
-            </paper-button>            
-            `: ''
-        }
-      </div>`
+        ${this.allowEdit
+          ? html`
+              <paper-button
+                class="green"
+                @click="${() => (this.editable = true)}"
+              >
+                Create New
+              </paper-button>
+            `
+          : ""}
+      </div>
+    `;
+  }
+  toggleEditable() {
+    console.log(this.editable);
+
+    this.editable = !this.editable;
   }
 
-  renderOverviewForm () {
-    return html `
-    <meta-overview-edit
-      .metaDetails=${this.metaDetails}
-      .metaId=${this.metaId}
-      .onCloseForm="${this.closeForm.bind(this)}"
-    ></meta-overview-edit>`
+  renderOverviewForm() {
+    return html`
+      <meta-overview-edit
+        .metaDetails=${this.metaDetails}
+        .metaId=${this.metaId}
+        .onCloseForm="${this.closeForm.bind(this)}"
+        .editable=${this.editable}
+        .toggleEditable=${this.toggleEditable.bind(this)}
+      ></meta-overview-edit>
+    `;
   }
 
-  renderOverviewDetails () {
-    return html `
+  renderOverviewDetails() {
+    return html`
+      ${this.allowEdit
+        ? html`
+            <paper-icon-button
+              class="toggle-edit"
+              icon="${this.editable ? "visibility" : "create"}"
+              @click="${() => {
+                this.editable = !this.editable;
+              }}"
+            ></paper-icon-button>
+          `
+        : ""}
+
       <div>
         <div class="item-body">
           <span class="label">Name</span>
-          <span class="value">${this.metaDetails['name']}</span>
+          <span class="value">${this.metaDetails["name"]}</span>
         </div>
 
         <div class="item-body">
           <span class="label">Description</span>
-          <span class="value">${this.metaDetails['description']}</span>
+          <span class="value">${this.metaDetails["description"]}</span>
         </div>
 
         <div class="item-body">
           <span class="label">Experiment Id</span>
           <span class="value">
-            <a target="_blank" href="${this.metaDetails['experimentId']}">${this.metaDetails['experimentId']}</a>
+            <a target="_blank" href="${this.metaDetails["experimentId"]}"
+              >${this.metaDetails["experimentId"]}</a
+            >
           </span>
         </div>
 
         <div class="item-body">
           <span class="label">Experiment Note</span>
-          <span class="value">${this.metaDetails['experimentNotes']}</span>
+          <span class="value">${this.metaDetails["experimentNotes"]}</span>
         </div>
-      </div>`
+      </div>
+    `;
   }
 
-  static get styles(){
-    return css `
+  static get styles() {
+    return css`
       .text-center {
-        text-align:center;
-      }    
-      .green{
-        background-color:#30B542;
-        color:white;
+        text-align: center;
       }
-      .right{
-        float:right;
+      .green {
+        background-color: #30b542;
+        color: white;
       }
-      .bolder{
-        font-size:20px;
+      .right {
+        float: right;
       }
-      .wrapper{
-        overflow:auto;
-        height:300px;
-        padding:5px 30px 30px;
+      .bolder {
+        font-size: 20px;
       }
-      .btn{
-        margin:10px;
+      .wrapper {
+        
+        padding: 5px 30px 30px;
       }
-      iron-icon{
-        cursor:pointer;
+      .btn {
+        margin: 10px;
+      }
+      iron-icon {
+        cursor: pointer;
       }
       .label {
         font-size: 0.9em;
@@ -148,12 +156,14 @@ class MetaOverview extends LitElement {
         padding: 10px;
       }
       .edit-icon-wrp {
-        display:flex;
-        justify-content:flex-end;
-      
+        display: flex;
+        justify-content: flex-end;
+      }
+      .toggle-edit {
+        float: right;
       }
     `;
   }
 }
 
-window.customElements.define('meta-overview', MetaOverview);
+window.customElements.define("meta-overview", MetaOverview);

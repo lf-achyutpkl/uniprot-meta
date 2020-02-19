@@ -45,6 +45,8 @@ class ProtocolInnerTab extends LitElement {
       }
       iron-pages {
         padding: 10px;
+        height:250px;
+        overflow:auto;
       }
       .protocol-container {
         border-bottom: 1px solid grey;
@@ -147,8 +149,6 @@ class ProtocolInnerTab extends LitElement {
             })}
           </table>
 
-          <!-- testing the google chart -->
-        
         </div>
       </iron-pages>
     `;

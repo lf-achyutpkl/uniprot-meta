@@ -62,8 +62,7 @@ class ProtocolSteps extends LitElement {
       }
 
       .wrapper {
-        height: 300px;
-        overflow: auto;
+        height: 350px;    
         padding: 5px 30px 30px;
       }
 
@@ -116,7 +115,10 @@ class ProtocolSteps extends LitElement {
   }
 
   handleView() {
-    this.protocolId = this.metaDetails.protocolId;
+    if(this.metaDetails){
+
+      this.protocolId = this.metaDetails.protocolId;
+    }
     this.protocolDetails = this.prevData;
     this.isEditable = false;
   }
@@ -166,7 +168,7 @@ class ProtocolSteps extends LitElement {
         `;
       } else {
         //admin press view button
-        console.log(this.protocolId)
+        this.handleView();
         if (!this.protocolId) {
           return html`
             <div class="wrapper">
