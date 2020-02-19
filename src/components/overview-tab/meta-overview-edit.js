@@ -69,16 +69,12 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
   }
 
   async getOverviewName(name){   
-    console.log(name) 
     return this.getMetaName(name)
       .then(response => {
-        console.log(response);
-        
         this.data = response;
         this.searchArray = [];
         this.data.docs.map(item => {
           this.searchArray.push(item.data())
-          console.log(this.searchArray);
           this.dataLoaded = true;
           
         })
@@ -94,7 +90,8 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
       experimentId: data.experimentId,
       experimentNotes: data.experimentNotes
     }
-    console.log(this.metaDetails);
+
+    
   }
   
   render() {

@@ -22,35 +22,41 @@ class SearchComponent extends LitElement{
                 position:absolute;
                 background-color:white;
                 z-index:2;
-                box-shadow:0 5px 10px grey;
+                box-shadow:0 5px 10px #e8e8e8;
                 width:100%;
+                display:block;
             }
             .item{
-            
-                width:100%;
                 padding:10px;
                 cursor:pointer;
             }
-            .hide{
-                display:none;
+            .item:hover{
+                background-color:#f5f5f5
             }
-            
         `;
     }
     constructor(){
         super();
+        this.element = '';
         
     }
     render(){
+        this.element = this.shadowRoot.getElementById("floating-wrapper"); 
         return html`
         <div class="wrapper"> 
-        <paper-input label="search" name="searchName" @input = ${this.handleChange}>
-             <!-- <paper-icon-button icon="search" slot="suffix" @click=${() => this.fetchName(this.searchName)} ></paper-icon-button> -->
+        <paper-input label="search by name" name="searchName" @input = ${(e) => {
+            this.handleChange(e)}
+        }>
+             <paper-icon-button icon="search" slot="suffix" @click=${() => this.fetchName(this.searchName)} ></paper-icon-button>
         </paper-input>
             <div id="floating-wrapper">
                 ${this.data.map(item => {
+                    this.element.style.display = `block`
                 return html  `
-                    <div class="item" @click=${()=>{
+                    
+                    <div class="item" @click=${()=>{   
+
+                        this.element.style.display = "none";
                         this.searchItemClicked(item)}}>${item.name}</div>
                     ` 
                 })}
