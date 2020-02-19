@@ -1,5 +1,6 @@
-import { postMeta } from '../../firebase_util/firebasePost'
-import { putMeta } from '../../firebase_util/firebasePut'
+import { postMeta } from '../../firebase_util/firebase-post'
+import { putMeta } from '../../firebase_util/firebase-put'
+import { getMetaByOverviewName} from '../../firebase_util/firebase-search'
 
 const MetaMixin = function (superClass) {
   return class extends superClass {
@@ -10,6 +11,10 @@ const MetaMixin = function (superClass) {
       } else {
         return putMeta(requestData)      
       }
+    }
+
+    getMetaName (overviewName){
+      return getMetaByOverviewName(overviewName);
     }
   }
 }

@@ -4,8 +4,6 @@ import '@polymer/paper-icon-button/paper-icon-button';
 
 import './meta-overview-edit';
 
-import { getMeta } from '../../../firebase_util/firebaseGet'
-
 /**
  * `protocol-overview`
  * Display protocol overview for any process.
