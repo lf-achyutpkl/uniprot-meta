@@ -5,8 +5,12 @@ import "@polymer/paper-icon-button/paper-icon-button";
 class SearchComponent extends LitElement {
   static get properties() {
     return {
+      // TODO: @roshan I think fetchName is not being used. 
+      // Also remove it from from attribute where this component is used
       fetchName: { type: Function },
       handleChange: { type: Function },
+      // TODO: @roshan change the name of property from data 
+      // to something more descriptive. How about overviewList ? 
       data: { type: Array },
       searchName: { type: String },
       searchItemClicked: { type: Function },
@@ -14,6 +18,8 @@ class SearchComponent extends LitElement {
       showSearchBar: { type: Boolean }
     };
   }
+
+  // TODO: @roshan keep styles method at the end.
   static get styles() {
     return css`
       #wrapper {
@@ -55,11 +61,13 @@ class SearchComponent extends LitElement {
 
   constructor() {
     super();
+    // TODO: @roshan I don't think this.element is being used
     this.element = null;
     this.showSearchBar = false;
    
   }
-  
+
+  // TODO: @roshan break down templates using functions
   render() {
     
   
@@ -75,6 +83,9 @@ class SearchComponent extends LitElement {
                 name="searchName"
                 type="search"
                 @input=${e => {
+                  // TODO: @roshan It's not a good practive to write
+                  // multi line javascript inside render function
+                  // let's put them inside method and call that method instead                 
                    this.shadowRoot.getElementById('floating-wrapper').style.display = "block";
                   this.handleChange(e);
                 }}
@@ -90,10 +101,15 @@ class SearchComponent extends LitElement {
               </paper-input>
               <div id="floating-wrapper">
                 ${this.data.map(item => {
+                  // TODO: @roshan let's call it overview 
+                  // or overviewDetail insted of item
                   return html`
                     <div
                       class="item"
                       @click=${() => {
+                        // TODO: @roshan It's not a good practive to write
+                        // multi line javascript inside render function
+                        // let's put them inside method and call that method instead                 
                         this.shadowRoot.getElementById('floating-wrapper').style.display = "none";
                         this.searchItemClicked(item);
                       }}

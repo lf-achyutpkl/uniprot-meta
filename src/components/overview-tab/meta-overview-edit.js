@@ -3,6 +3,7 @@ import "@polymer/paper-input/paper-input";
 import "@polymer/paper-input/paper-textarea";
 import "@polymer/iron-icon/iron-icon";
 import "./search-component";
+// TODO: @roshan import LitElement related stuffs on the first line
 import { LitElement, html, css } from "lit-element";
 
 import MetaMixin from "../../mixins/metaMixin";
@@ -110,8 +111,8 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
     };
   }
 
+  // TODO: @roshan break down templates using functions
   render() {
-    // TODO: @roshan break down templates using functions
     return html`
       <div class="header-wrapper">
         <paper-button
