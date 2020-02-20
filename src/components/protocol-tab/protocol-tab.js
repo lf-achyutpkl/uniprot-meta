@@ -111,7 +111,6 @@ class ProtocolSteps extends LitElement {
         this.isDataLoaded = true;
       })
       .catch(error => {
-        console.error(error);
         this.protocolDetails = null;
         this.isDataLoaded = false;
       });
@@ -174,14 +173,7 @@ class ProtocolSteps extends LitElement {
     `;
   }
 
-  renderReadOnlyMode() {
-    return html`
-      ${!this.protocolId
-        ? this.renderNoProtocolFound()
-        : this.renderProtocolData()}
-    `;
-  }
-  renderInsertProtocolId() {
+  renderInsertProtocolIdAdmin() {
     return html`
       <div class="wrapper">
         <paper-button class="cancel-button" @click=${this.handleView}>
@@ -217,10 +209,17 @@ class ProtocolSteps extends LitElement {
     `;
   }
 
+  renderReadOnlyMode() {
+    return html`
+      ${!this.protocolId
+        ? this.renderNoProtocolFound()
+        : this.renderProtocolData()}
+    `;
+  }
   renderReadAndWriteMode() {
     return html`
       ${this.isEditable
-        ? this.renderInsertProtocolId()
+        ? this.renderInsertProtocolIdAdmin()
         : this.renderViewProtocolAdmin()}
     `;
   }

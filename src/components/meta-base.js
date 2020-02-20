@@ -44,7 +44,8 @@ class MetaBase extends LitElement {
     this.selectedTab = 0;
     this.showDialog = false;
   }
-  firstUpdated() {
+  connectedCallback() {
+    super.connectedCallback();
     this.initTabButton();
   }
 
@@ -74,9 +75,9 @@ class MetaBase extends LitElement {
   }
 
   async fetchMetaData(metaId) {
-    return firebaseUtill.getMeta(metaId)
+    return firebaseUtill
+      .getMeta(metaId)
       .then(response => {
-        console.log(response);
         this.metaDetails = response.data();
       })
       .catch(error => {
@@ -103,7 +104,8 @@ class MetaBase extends LitElement {
               </iron-pages>
             </paper-dialog>
           `
-        : null}`;
+        : null}
+    `;
   }
 
   renderSlot() {
@@ -120,7 +122,8 @@ class MetaBase extends LitElement {
               `
             : "Show Meta Information"}
         </paper-button>
-      </span>`;
+      </span>
+    `;
   }
 
   renderTabComponents() {
@@ -138,7 +141,8 @@ class MetaBase extends LitElement {
               .metaId=${this.metaId}
               .metaDetails="${this.metaDetails}"
               .onRefreshData="${this.refreshData.bind(this)}"
-            ></protocol-steps>`
+            ></protocol-steps>
+          `
         : ""}
       ${this.showData
         ? html`
@@ -197,8 +201,6 @@ class MetaBase extends LitElement {
         --paper-tab-ink: #4285f4;
         --paper-tabs-selection-bar-color: #4285f4;
         box-shadow: 0 1px 5px #e3e3e3;
-      }
-      paper-tab {
       }
     `;
   }

@@ -92,7 +92,6 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement) {
   renderInnerProtocolTab() {
     return html`
       <protocol-inner-tab .protocolDetails=${this.data}></protocol-inner-tab>
-
       <paper-button @click=${this.saveData} class="save-button"
         >Save</paper-button
       >

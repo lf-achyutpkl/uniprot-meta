@@ -48,10 +48,9 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
     this.showSearchBar = false;
   }
 
-  firstUpdated() {
+  connectedCallback() {
+    super.connectedCallback();
     this.initializeForm();
-    // TODO: @roshan remove this.element
-    this.element = this.shadowRoot.querySelector("search-component");
   }
 
   handleChange(e) {
