@@ -3,7 +3,7 @@ import "@polymer/paper-input/paper-input";
 import "@polymer/paper-input/paper-textarea";
 import "@polymer/iron-icon/iron-icon";
 import "./search-component";
-// TODO: @roshan import LitElement related stuffs on the first line
+// TODO: @roshan let's import LitElement related stuffs on the first line
 import { LitElement, html, css } from "lit-element";
 
 import MetaMixin from "../../mixins/metaMixin";
@@ -26,7 +26,7 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
       // and searchName to overviewName
       searchArray: { type: Array },
       searchName: { type: String },
-      // TODO: @roshan by convention, prefex boolean variable 
+      // TODO: @roshan by convention, let's prefex boolean variable 
       // by 'is' for example isDataLoaded
       dataLoaded: { type: Boolean },
       showSearchBar: { type: Boolean },
@@ -40,7 +40,7 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
     this.dataLoaded = false;
     this.searchName = "";
     // TODO: @roshan don't bind the methods here
-    // bind them where they are called
+    // let's bind them where they are called
     this.handleChange = this.handleChange.bind(this);
     this.getOverviewName = this.getOverviewName.bind(this);
     this.searchItemClicked = this.searchItemClicked.bind(this);
@@ -55,7 +55,7 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
   }
 
   handleChange(e) {
-    // TODO: @roshan change the parameter name from just e to event
+    // TODO: @roshan let's change the parameter name from just e to event
     this[e.target.name] = e.target.value;
     if (!this.searchName) {
       return (this.searchArray = []);

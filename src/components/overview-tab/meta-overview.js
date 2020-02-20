@@ -1,4 +1,5 @@
 import "@polymer/iron-icons";
+// TODO: @roshan let's import LitElement related stuffs on the first line
 import { LitElement, html, css } from "lit-element";
 import "@polymer/paper-icon-button/paper-icon-button";
 import "@polymer/iron-icon/iron-icon";
