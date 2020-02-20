@@ -42,7 +42,6 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
 
   firstUpdated() {
     this.initializeForm();
-    this.element = this.shadowRoot.querySelector("search-component");
   }
 
   handleChange(e) {
@@ -106,10 +105,9 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
             this.toggleEditable();
           }}"
         >
-        cancel
-        <iron-icon icon="cancel" class="cancle-icon"></iron-icon>
-    
-    </paper-button>
+          cancel
+          <iron-icon icon="cancel" class="cancle-icon"></iron-icon>
+        </paper-button>
         <div class="search-container">
           <search-component
             .data=${this.searchArray}
@@ -120,9 +118,8 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
           >
           </search-component>
         </div>
-        
       </div>
-      
+
       <form>
         <div class="wrapper">
           <h3>Edit Overview Detail</h3>
@@ -184,18 +181,18 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
       .toggle-edit {
         float: right;
         background-color: #4285f4;
-        padding:5px;
-        color:white;
+        padding: 5px;
+        color: white;
       }
       .header-wrapper {
         position: relative;
-        height:50px;
+        height: 50px;
       }
-      .search-container{
-        width:70%;
-        position:relative;
+      .search-container {
+        width: 70%;
+        position: relative;
       }
-      .cancle-icon{
+      .cancle-icon {
         --iron-icon-height: 15px;
         --iron-icon-width: 15px;
       }

@@ -1,9 +1,8 @@
-import metaCollection from './db';
+import metaCollection from "./db";
 
-export async function postMeta(meta){
+export async function postMeta(meta) {
+  const metaDoc = "meta_" + `${meta.uuid}`;
 
-    const metaDoc = 'meta_' + `${meta.uuid}`;
-
-    let newMetaData = await metaCollection.doc(metaDoc).set(meta);
-    return newMetaData;
+  let newMetaData = await metaCollection.doc(metaDoc).set(meta);
+  return newMetaData;
 }

@@ -1,7 +1,7 @@
 import "@polymer/iron-icons";
 import { LitElement, html, css } from "lit-element";
 import "@polymer/paper-icon-button/paper-icon-button";
-import '@polymer/iron-icon/iron-icon';
+import "@polymer/iron-icon/iron-icon";
 
 import "./meta-overview-edit";
 import MetaMixin from "../../mixins/metaMixin";
@@ -86,7 +86,7 @@ class MetaOverview extends LitElement {
               @click="${() => {
                 this.editable = !this.editable;
               }}"
-              >
+            >
               Edit
               <iron-icon icon="create" class="edit-icon"></iron-icon>
             </paper-button>
@@ -164,14 +164,12 @@ class MetaOverview extends LitElement {
       .toggle-edit {
         float: right;
         background-color: #4285f4;
-        padding:5px;
-        color:white;
+        padding: 5px;
+        color: white;
       }
       .edit-icon {
         --iron-icon-height: 15px;
-       --iron-icon-width: 15px;
-
-       
+        --iron-icon-width: 15px;
       }
     `;
   }

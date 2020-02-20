@@ -3,7 +3,7 @@ import "@polymer/paper-input/paper-input";
 import "@polymer/paper-button/paper-button";
 import "@polymer/iron-pages/iron-pages";
 import "@polymer/paper-tabs/paper-tab";
-import '@polymer/iron-icons/iron-icons';
+import "@polymer/iron-icons/iron-icons";
 import "@polymer/paper-tabs/paper-tabs";
 import "./step-component";
 import "./protocol-inner-tab";
@@ -63,7 +63,7 @@ class ProtocolSteps extends LitElement {
       }
 
       .wrapper {
-        height: 350px;    
+        height: 350px;
         padding: 5px 30px 30px;
       }
 
@@ -80,21 +80,21 @@ class ProtocolSteps extends LitElement {
       .cancel-button {
         float: right;
         background-color: #4285f4;
-        padding:5px;
-        color:white;
+        padding: 5px;
+        color: white;
       }
       .edit-button {
         float: right;
         background-color: #4285f4;
-        padding:5px;
-        color:white;
+        padding: 5px;
+        color: white;
       }
-      .no-protocol-mesg{
-        text-align:center;
+      .no-protocol-mesg {
+        text-align: center;
       }
-      iron-icon{
+      iron-icon {
         --iron-icon-height: 15px;
-       --iron-icon-width: 15px;
+        --iron-icon-width: 15px;
       }
     `;
   }
@@ -129,8 +129,7 @@ class ProtocolSteps extends LitElement {
   }
 
   handleView() {
-    if(this.metaDetails){
-
+    if (this.metaDetails) {
       this.protocolId = this.metaDetails.protocolId;
     }
     this.protocolDetails = this.prevData;
@@ -166,13 +165,10 @@ class ProtocolSteps extends LitElement {
       if (this.isEditable) {
         return html`
           <div class="wrapper">
-            <paper-button class="cancel-button"
-              
-              @click=${this.handleView}
-            >
-            cancel
+            <paper-button class="cancel-button" @click=${this.handleView}>
+              cancel
               <iron-icon icon="cancel"></iron-icon>
-          </paper-button>
+            </paper-button>
             <insert-protocol-id
               .handleSubmit=${this.handleFindId}
               .data=${this.protocolDetails}
@@ -189,16 +185,14 @@ class ProtocolSteps extends LitElement {
         if (!this.protocolId) {
           return html`
             <div class="wrapper">
-            <paper-button class="edit-button"
-                  @click=${this.handleEdit}
-                >
-              Edit
-              <iron-icon icon="create"></iron-icon>
+              <paper-button class="edit-button" @click=${this.handleEdit}>
+                Edit
+                <iron-icon icon="create"></iron-icon>
               </paper-button>
               <h3 class="no-protocol-mesg">No protocol Found</h3>
             </div>
           `;
-        }else{
+        } else {
           if (!this.isDataLoaded) {
             return html`
               <span>Loading</span>
@@ -206,12 +200,10 @@ class ProtocolSteps extends LitElement {
           } else {
             return html`
               <div class="wrapper">
-              <paper-button class="edit-button"
-                  @click=${this.handleEdit}
-                >
-              Edit
-              <iron-icon icon="create"></iron-icon>
-              </paper-button>
+                <paper-button class="edit-button" @click=${this.handleEdit}>
+                  Edit
+                  <iron-icon icon="create"></iron-icon>
+                </paper-button>
                 <protocol-inner-tab
                   .protocolDetails=${this.protocolDetails}
                 ></protocol-inner-tab>
@@ -219,7 +211,6 @@ class ProtocolSteps extends LitElement {
             `;
           }
         }
-        
       }
     }
   }

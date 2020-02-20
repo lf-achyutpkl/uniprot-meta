@@ -19,9 +19,9 @@ class ProtocolInnerTab extends LitElement {
     return css`
       table {
         width: 100%;
-        border:1px solid black;
+        border: 1px solid black;
       }
-      
+
       td {
         padding: 10px;
       }
@@ -45,8 +45,8 @@ class ProtocolInnerTab extends LitElement {
       }
       iron-pages {
         padding: 10px;
-        height:250px;
-        overflow:auto;
+        height: 250px;
+        overflow: auto;
       }
       .protocol-container {
         border-bottom: 1px solid grey;
@@ -144,11 +144,9 @@ class ProtocolInnerTab extends LitElement {
                   <td>${material.sku}</td>
                   <td>${material.vendor.name}</td>
                 </tr>
-                
               `;
             })}
           </table>
-
         </div>
       </iron-pages>
     `;
