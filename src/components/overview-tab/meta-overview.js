@@ -62,9 +62,6 @@ class MetaOverview extends LitElement {
     `;
   }
   toggleEditable() {
-    // TODO: @roshan let's remove all console.logs
-    console.log(this.editable);
-
     this.editable = !this.editable;
   }
 

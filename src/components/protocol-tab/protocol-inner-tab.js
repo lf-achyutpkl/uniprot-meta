@@ -88,6 +88,59 @@ class ProtocolInnerTab extends LitElement {
       });
     });
   }
+  renderAbstractTab() {
+    return html`
+      <div>
+        <span>Abstract</span>
+        <div>${unsafeHTML(this.protocolAbstract)}</div>
+      </div>
+    `;
+  }
+
+  renderStepsTab() {
+    return html`<div>
+    ${Object.entries(this.protocolSteps).map(([title, details]) => {
+      return html`
+        <div class="protocol-container">
+          <span class="steps-title">${title}</span>
+          <div class="steps-container">
+            ${details.map(step => {
+              return html`
+                <steps-component
+                  stepIndex="${step.stepNumber}"
+                  description="${step.description}"
+                ></steps-component>
+              `;
+            })}
+          </div>
+        </div>
+      `;
+    })}
+  </div>`;
+    
+  }
+  
+  renderMaterialTab(){
+    return html `<div>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Catalog#</th>
+        <th>Vendor</th>
+      </tr>
+      ${this.protocolDetails.protocol.materials.map(material => {
+        return html`
+          <tr class="material">
+            <td>${material.name}</td>
+            <td>${material.sku}</td>
+            <td>${material.vendor.name}</td>
+          </tr>
+        `;
+      })}
+    </table>
+  </div>`
+
+  }
   render() {
     return html`
       <paper-tabs selected=${this.selectedTab} scrollable>
@@ -103,51 +156,9 @@ class ProtocolInnerTab extends LitElement {
         })}
       </paper-tabs>
       <iron-pages selected=${this.selectedTab}>
-        <!-- page Abstract -->
-        <div>
-          <span>Abstract</span>
-          <div>${unsafeHTML(this.protocolAbstract)}</div>
-        </div>
-
-        <!-- page steps -->
-        <div>
-          ${Object.entries(this.protocolSteps).map(([title, details]) => {
-            return html`
-              <div class="protocol-container">
-                <span class="steps-title">${title}</span>
-                <div class="steps-container">
-                  ${details.map(step => {
-                    return html`
-                      <steps-component
-                        stepIndex="${step.stepNumber}"
-                        description="${step.description}"
-                      ></steps-component>
-                    `;
-                  })}
-                </div>
-              </div>
-            `;
-          })}
-        </div>
-        <!-- page 3 -->
-        <div>
-          <table>
-            <tr>
-              <th>Name</th>
-              <th>Catalog#</th>
-              <th>Vendor</th>
-            </tr>
-            ${this.protocolDetails.protocol.materials.map(material => {
-              return html`
-                <tr class="material">
-                  <td>${material.name}</td>
-                  <td>${material.sku}</td>
-                  <td>${material.vendor.name}</td>
-                </tr>
-              `;
-            })}
-          </table>
-        </div>
+        ${this.renderAbstractTab()}
+        ${this.renderStepsTab()}
+        ${this.renderMaterialTab()}
       </iron-pages>
     `;
   }

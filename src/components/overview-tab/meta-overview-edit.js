@@ -45,6 +45,7 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
     this.getOverviewName = this.getOverviewName.bind(this);
     this.searchItemClicked = this.searchItemClicked.bind(this);
     this.saveData = this.saveData.bind(this);
+    this.renderForm = this.renderForm.bind(this);
     this.showSearchBar = false;
   }
 
@@ -87,10 +88,6 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
   async getOverviewName(name) {
     return this.getMetaName(name)
       .then(response => {
-        // TODO: @roshan 
-        // there's no need to create this.data here
-        // you can simply use .map on response itself and
-        // assign the result to this.searchArray
         this.data = response;
         this.searchArray = [];
         this.data.docs.map(item => {
@@ -110,7 +107,39 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
     };
   }
 
-  // TODO: @roshan let's break down templates using functions
+  renderForm(){
+    return html `<h3>Edit Overview Detail</h3>
+    <paper-input
+      class="name-input"
+      label="Name"
+      value="${this.metaDetails.name}"
+      @input="${e => {
+        this.metaDetails.name = e.target.value;
+      }}"
+    ></paper-input>
+    <paper-textarea
+      label="Description"
+      value="${this.metaDetails.description}"
+      @input="${e => {
+        this.metaDetails.description = e.target.value;
+      }}"
+    ></paper-textarea>
+    <paper-input
+      class="name-input"
+      label="Experiment ID"
+      value="${this.metaDetails.experimentId}"
+      @input="${e => {
+        this.metaDetails.experimentId = e.target.value;
+      }}"
+    ></paper-input>
+    <paper-textarea
+      label="Expertiment Notes"
+      value="${this.metaDetails.experimentNotes}"
+      @input="${e => {
+        this.metaDetails.experimentNotes = e.target.value;
+      }}"
+    ></paper-textarea>`
+  }
   render() {
     return html`
       <div class="header-wrapper">
@@ -125,7 +154,7 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
         </paper-button>
         <div class="search-container">
           <search-component
-            .data=${this.searchArray}
+            .overviewDetails=${this.searchArray}
             .handleChange=${this.handleChange}
             .fetchName=${this.getOverviewName}
             .searchName=${this.searchName}
@@ -137,37 +166,7 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
 
       <form>
         <div class="wrapper">
-          <h3>Edit Overview Detail</h3>
-          <paper-input
-            class="name-input"
-            label="Name"
-            value="${this.metaDetails.name}"
-            @input="${e => {
-              this.metaDetails.name = e.target.value;
-            }}"
-          ></paper-input>
-          <paper-textarea
-            label="Description"
-            value="${this.metaDetails.description}"
-            @input="${e => {
-              this.metaDetails.description = e.target.value;
-            }}"
-          ></paper-textarea>
-          <paper-input
-            class="name-input"
-            label="Experiment ID"
-            value="${this.metaDetails.experimentId}"
-            @input="${e => {
-              this.metaDetails.experimentId = e.target.value;
-            }}"
-          ></paper-input>
-          <paper-textarea
-            label="Expertiment Notes"
-            value="${this.metaDetails.experimentNotes}"
-            @input="${e => {
-              this.metaDetails.experimentNotes = e.target.value;
-            }}"
-          ></paper-textarea>
+          ${this.renderForm()}
         </div>
 
         <paper-button class="right btn" @click="${this.saveData}">

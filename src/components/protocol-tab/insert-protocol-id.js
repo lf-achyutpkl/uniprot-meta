@@ -1,7 +1,10 @@
 import { LitElement, html, css } from "lit-element";
 import "@polymer/paper-input/paper-input";
 import "@polymer/paper-button/paper-button";
+import "@polymer/paper-spinner/paper-spinner";
+
 import "../protocol-tab/protocol-inner-tab";
+
 import MetaMixin from "../../mixins/metaMixin";
 
 class InsertProtocolIdComponent extends MetaMixin(LitElement) {
@@ -12,17 +15,20 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement) {
       metaId: { type: String },
       onCloseForm: { type: Function },
       dataLoaded: { type: Boolean },
-      id: { type: String }
+      id: { type: String },
+      isLoading: { type: Boolean },
+      isSavingProtocol : {type:Boolean}
     };
   }
 
   constructor() {
     super();
     this.id = "";
-
     this.handleChange = this.handleChange.bind(this);
+    this.isSavingProtocol = false;
   }
-  firstUpdated() {
+  connectedCallback() {
+    super.connectedCallback();
     if (this.metaDetails.protocolId) {
       return (this.id = this.metaDetails.protocolId);
     }
@@ -45,6 +51,11 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement) {
         padding: 10px;
         margin: 10px;
       }
+      .loader{
+        width:100%;
+        display:flex;
+        justify-content:center;
+      }
     `;
   }
   async saveData() {
@@ -55,18 +66,10 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement) {
       uuid: this.metaId,
       protocolId: this.id
     };
-
+    this.isSavingProtocol = true;
     await this.saveMetaData(payload);
+    this.isSavingProtocol = false;
     this.onCloseForm();
-  }
-
-  render() {
-    return html`
-      <div class="wrapper">
-        ${this.renderSearchBar()}
-        ${this.data ? this.renderInnerProtocolTab() : ""}
-      </div>
-    `;
   }
 
   renderSearchBar() {
@@ -89,12 +92,36 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement) {
       </paper-input>
     `;
   }
+
   renderInnerProtocolTab() {
     return html`
       <protocol-inner-tab .protocolDetails=${this.data}></protocol-inner-tab>
       <paper-button @click=${this.saveData} class="save-button"
-        >Save</paper-button
+        >
+        ${this.isSavingProtocol ? html `<paper-spinner active></paper-spinner>`: 'SAVE'}
+        </paper-button
       >
+    `;
+  }
+  checkStatusAndRender() {
+    if (!this.isLoading) {
+      return html`
+        ${this.data ? this.renderInnerProtocolTab() : ""}
+      `;
+    } else {
+      return html`
+      <div class="loader">
+        <paper-spinner active></paper-spinner>
+      </div>
+      `;
+    }
+  }
+  render() {
+    return html`
+      <div class="wrapper">
+        ${this.renderSearchBar()} 
+        ${this.checkStatusAndRender()}
+      </div>
     `;
   }
 }

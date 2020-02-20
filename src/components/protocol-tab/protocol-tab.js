@@ -20,7 +20,8 @@ class ProtocolSteps extends LitElement {
       selectedTab: { type: Number },
       isDataLoaded: { type: Boolean },
       isEditable: { type: Boolean },
-      onRefreshData: { type: Function }
+      onRefreshData: { type: Function },
+      isLoading :{ type:Boolean }
     };
   }
 
@@ -29,12 +30,15 @@ class ProtocolSteps extends LitElement {
     this.protocolId = null;
     this.isDataLoaded = false;
     this.protocolDetails = "";
+    this.isLoading = false;
     this.fetchProtocol = this.fetchProtocol.bind(this);
     this.handleFindId = this.handleFindId.bind(this);
     this.checkEditable = this.checkEditable.bind(this);
+    
   }
 
-  firstUpdated() {
+  connectedCallback() {
+    super.connectedCallback();
     if (this.metaDetails) {
       this.protocolId = this.metaDetails.protocolId;
     }
@@ -99,6 +103,7 @@ class ProtocolSteps extends LitElement {
   }
 
   fetchProtocol(id) {
+    this.isLoading = true;
     const uri = `https://www.protocols.io/api/v3/protocols/${id}`;
     fetch(uri)
       .then(response => {
@@ -109,10 +114,10 @@ class ProtocolSteps extends LitElement {
         this.prevData = data;
         this.protocolDetails = data;
         this.isDataLoaded = true;
+        this.isLoading = false;
       })
       .catch(error => {
         this.protocolDetails = null;
-        this.isDataLoaded = false;
       });
   }
 
@@ -187,6 +192,7 @@ class ProtocolSteps extends LitElement {
           .metaDetails=${this.metaDetails}
           .onCloseForm=${this.closeForm.bind(this)}
           .dataLoaded=${this.isDataLoaded}
+          .isLoading = ${this.isLoading}
         ></insert-protocol-id>
       </div>
     `;
