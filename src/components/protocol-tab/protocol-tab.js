@@ -141,11 +141,9 @@ class ProtocolSteps extends LitElement {
   }
   renderProtocolInnerTab() {
     return html`
-      <div class="wrapper">
-        <protocol-inner-tab
-          .protocolDetails=${this.protocolDetails}
-        ></protocol-inner-tab>
-      </div>
+      <protocol-inner-tab
+        .protocolDetails=${this.protocolDetails}
+      ></protocol-inner-tab>
     `;
   }
 
@@ -156,6 +154,23 @@ class ProtocolSteps extends LitElement {
             <span>Loading</span>
           `
         : this.renderProtocolInnerTab()}
+    `;
+  }
+  renderProtocolDataForAdmin() {
+    return html`
+      ${!this.isDataLoaded
+        ? html`
+            <span>Loading</span>
+          `
+        : html`
+            <div class="wrapper">
+              <paper-button class="edit-button" @click=${this.handleEdit}>
+                Edit
+                <iron-icon icon="create"></iron-icon>
+              </paper-button>
+              ${this.renderProtocolInnerTab()}
+            </div>
+          `}
     `;
   }
 
@@ -184,18 +199,21 @@ class ProtocolSteps extends LitElement {
       </div>
     `;
   }
+
   renderViewProtocolAdmin() {
     this.handleView();
     return html`
       ${!this.protocolId
         ? html`
-            <paper-button class="edit-button" @click=${this.handleEdit}>
-              Edit
-              <iron-icon icon="create"></iron-icon>
-            </paper-button>
-            ${this.renderNoProtocolFound()}
+            <div class="wrapper">
+              <paper-button class="edit-button" @click=${this.handleEdit}>
+                Edit
+                <iron-icon icon="create"></iron-icon>
+              </paper-button>
+              ${this.renderNoProtocolFound()}
+            </div>
           `
-        : this.renderProtocolData()}
+        : this.renderProtocolDataForAdmin()}
     `;
   }
 
@@ -208,58 +226,11 @@ class ProtocolSteps extends LitElement {
   }
 
   render() {
-    //change
     return html`
       ${!this.allowEdit
         ? this.renderReadOnlyMode()
         : this.renderReadAndWriteMode()}
     `;
-
-    //user view
-    // if (!this.allowEdit) {
-    //   if (!this.protocolId) {
-    //     this.renderNoProtocolFound();
-    //   } else {
-
-    //   }
-    // } else {
-    //   // admin view
-    //   if (this.isEditable) {
-    //    
-    //   } else {
-    //     //admin press view button
-    //     this.handleView();
-    //     if (!this.protocolId) {
-    //       return html`
-    //         <div class="wrapper">
-    //           <paper-button class="edit-button" @click=${this.handleEdit}>
-    //             Edit
-    //             <iron-icon icon="create"></iron-icon>
-    //           </paper-button>
-    //           <h3 class="no-protocol-mesg">No protocol Found</h3>
-    //         </div>
-    //       `;
-    //     } else {
-    //       if (!this.isDataLoaded) {
-    //         return html`
-    //           <span>Loading</span>
-    //         `;
-    //       } else {
-    //         return html`
-    //           <div class="wrapper">
-    //             <paper-button class="edit-button" @click=${this.handleEdit}>
-    //               Edit
-    //               <iron-icon icon="create"></iron-icon>
-    //             </paper-button>
-    //             <protocol-inner-tab
-    //               .protocolDetails=${this.protocolDetails}
-    //             ></protocol-inner-tab>
-    //           </div>
-    //         `;
-    //       }
-    //     }
-    //   }
-    // }
   }
 }
 
