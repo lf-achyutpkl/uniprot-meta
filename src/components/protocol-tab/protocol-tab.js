@@ -7,7 +7,6 @@ import "@polymer/iron-icons/iron-icons";
 import "@polymer/paper-tabs/paper-tabs";
 import "./step-component";
 import "./protocol-inner-tab";
-import "./no-protocol-found";
 import "./insert-protocol-id";
 
 class ProtocolSteps extends LitElement {
@@ -135,84 +134,132 @@ class ProtocolSteps extends LitElement {
     this.protocolDetails = this.prevData;
     this.isEditable = false;
   }
+  renderNoProtocolFound() {
+    return html`
+      <h3 class="no-protocol-mesg">No protocol Found</h3>
+    `;
+  }
+  renderProtocolInnerTab() {
+    return html`
+      <div class="wrapper">
+        <protocol-inner-tab
+          .protocolDetails=${this.protocolDetails}
+        ></protocol-inner-tab>
+      </div>
+    `;
+  }
+
+  renderProtocolData() {
+    return html`
+      ${!this.isDataLoaded
+        ? html`
+            <span>Loading</span>
+          `
+        : this.renderProtocolInnerTab()}
+    `;
+  }
+
+  renderReadOnlyMode() {
+    return html`
+      ${!this.protocolId
+        ? this.renderNoProtocolFound()
+        : this.renderProtocolData()}
+    `;
+  }
+  renderInsertProtocolId() {
+    return html`
+      <div class="wrapper">
+        <paper-button class="cancel-button" @click=${this.handleView}>
+          cancel
+          <iron-icon icon="cancel"></iron-icon>
+        </paper-button>
+        <insert-protocol-id
+          .handleSubmit=${this.handleFindId}
+          .data=${this.protocolDetails}
+          .metaId=${this.metaId}
+          .metaDetails=${this.metaDetails}
+          .onCloseForm=${this.closeForm.bind(this)}
+          .dataLoaded=${this.isDataLoaded}
+        ></insert-protocol-id>
+      </div>
+    `;
+  }
+  renderViewProtocolAdmin() {
+    this.handleView();
+    return html`
+      ${!this.protocolId
+        ? html`
+            <paper-button class="edit-button" @click=${this.handleEdit}>
+              Edit
+              <iron-icon icon="create"></iron-icon>
+            </paper-button>
+            ${this.renderNoProtocolFound()}
+          `
+        : this.renderProtocolData()}
+    `;
+  }
+
+  renderReadAndWriteMode() {
+    return html`
+      ${this.isEditable
+        ? this.renderInsertProtocolId()
+        : this.renderViewProtocolAdmin()}
+    `;
+  }
 
   render() {
+    //change
+    return html`
+      ${!this.allowEdit
+        ? this.renderReadOnlyMode()
+        : this.renderReadAndWriteMode()}
+    `;
+
     //user view
-    if (!this.allowEdit) {
-      if (!this.protocolId) {
-        return html`
-          <div class="wrapper">
-            <h1>No protocol Found</h1>
-          </div>
-        `;
-      } else {
-        if (!this.isDataLoaded) {
-          return html`
-            <span>Loading</span>
-          `;
-        } else {
-          return html`
-            <div class="wrapper">
-              <protocol-inner-tab
-                .protocolDetails=${this.protocolDetails}
-              ></protocol-inner-tab>
-            </div>
-          `;
-        }
-      }
-    } else {
-      // admin view
-      if (this.isEditable) {
-        return html`
-          <div class="wrapper">
-            <paper-button class="cancel-button" @click=${this.handleView}>
-              cancel
-              <iron-icon icon="cancel"></iron-icon>
-            </paper-button>
-            <insert-protocol-id
-              .handleSubmit=${this.handleFindId}
-              .data=${this.protocolDetails}
-              .metaId=${this.metaId}
-              .metaDetails=${this.metaDetails}
-              .onCloseForm=${this.closeForm.bind(this)}
-              .dataLoaded=${this.isDataLoaded}
-            ></insert-protocol-id>
-          </div>
-        `;
-      } else {
-        //admin press view button
-        this.handleView();
-        if (!this.protocolId) {
-          return html`
-            <div class="wrapper">
-              <paper-button class="edit-button" @click=${this.handleEdit}>
-                Edit
-                <iron-icon icon="create"></iron-icon>
-              </paper-button>
-              <h3 class="no-protocol-mesg">No protocol Found</h3>
-            </div>
-          `;
-        } else {
-          if (!this.isDataLoaded) {
-            return html`
-              <span>Loading</span>
-            `;
-          } else {
-            return html`
-              <div class="wrapper">
-                <paper-button class="edit-button" @click=${this.handleEdit}>
-                  Edit
-                  <iron-icon icon="create"></iron-icon>
-                </paper-button>
-                <protocol-inner-tab
-                  .protocolDetails=${this.protocolDetails}
-                ></protocol-inner-tab>
-              </div>
-            `;
-          }
-        }
-      }
-    }
+    // if (!this.allowEdit) {
+    //   if (!this.protocolId) {
+    //     this.renderNoProtocolFound();
+    //   } else {
+
+    //   }
+    // } else {
+    //   // admin view
+    //   if (this.isEditable) {
+    //    
+    //   } else {
+    //     //admin press view button
+    //     this.handleView();
+    //     if (!this.protocolId) {
+    //       return html`
+    //         <div class="wrapper">
+    //           <paper-button class="edit-button" @click=${this.handleEdit}>
+    //             Edit
+    //             <iron-icon icon="create"></iron-icon>
+    //           </paper-button>
+    //           <h3 class="no-protocol-mesg">No protocol Found</h3>
+    //         </div>
+    //       `;
+    //     } else {
+    //       if (!this.isDataLoaded) {
+    //         return html`
+    //           <span>Loading</span>
+    //         `;
+    //       } else {
+    //         return html`
+    //           <div class="wrapper">
+    //             <paper-button class="edit-button" @click=${this.handleEdit}>
+    //               Edit
+    //               <iron-icon icon="create"></iron-icon>
+    //             </paper-button>
+    //             <protocol-inner-tab
+    //               .protocolDetails=${this.protocolDetails}
+    //             ></protocol-inner-tab>
+    //           </div>
+    //         `;
+    //       }
+    //     }
+    //   }
+    // }
   }
 }
 

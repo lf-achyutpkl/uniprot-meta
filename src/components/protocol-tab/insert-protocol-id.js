@@ -63,35 +63,39 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement) {
   render() {
     return html`
       <div class="wrapper">
-        <paper-input
-          placeholder="Search for Protocol"
-          name="id"
-          no-label-float
-          @change=${this.handleChange}
-          value=${this.id}
-        >
-          <paper-icon-button
-            @click=${() => {
-              this.handleSubmit(this.id);
-            }}
-            icon="search"
-            slot="suffix"
-          >
-          </paper-icon-button>
-        </paper-input>
-
-        ${this.data
-          ? html`
-              <protocol-inner-tab
-                .protocolDetails=${this.data}
-              ></protocol-inner-tab>
-
-              <paper-button @click=${this.saveData} class="save-button"
-                >Save</paper-button
-              >
-            `
-          : ""}
+        ${this.renderSearchBar()}
+        ${this.data ? this.renderInnerProtocolTab() : ""}
       </div>
+    `;
+  }
+
+  renderSearchBar() {
+    return html`
+      <paper-input
+        placeholder="Search for Protocol"
+        name="id"
+        no-label-float
+        @change=${this.handleChange}
+        value=${this.id}
+      >
+        <paper-icon-button
+          @click=${() => {
+            this.handleSubmit(this.id);
+          }}
+          icon="search"
+          slot="suffix"
+        >
+        </paper-icon-button>
+      </paper-input>
+    `;
+  }
+  renderInnerProtocolTab() {
+    return html`
+      <protocol-inner-tab .protocolDetails=${this.data}></protocol-inner-tab>
+
+      <paper-button @click=${this.saveData} class="save-button"
+        >Save</paper-button
+      >
     `;
   }
 }
