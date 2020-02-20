@@ -1,19 +1,17 @@
-import { postMeta } from "../../firebase_util/firebase-post";
-import { putMeta } from "../../firebase_util/firebase-put";
-import { getMetaByOverviewName } from "../../firebase_util/firebase-search";
+import firebaseUtil from "../../utils/firebase";
 
 const MetaMixin = function(superClass) {
   return class extends superClass {
     saveMetaData(requestData) {
       if (this.isNewRecord) {
-        return postMeta(requestData);
+        return firebaseUtil.postMeta(requestData);
       } else {
-        return putMeta(requestData);
+        return firebaseUtil.putMeta(requestData);
       }
     }
 
     getMetaName(overviewName) {
-      return getMetaByOverviewName(overviewName, 10);
+      return firebaseUtil.getMetaByOverviewName(overviewName, 10);
     }
   };
 };

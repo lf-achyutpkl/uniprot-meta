@@ -13,7 +13,7 @@ import "./overview-tab/meta-overview";
 import "./protocol-data";
 import "./protocol-tab/protocol-tab";
 
-import { getMeta } from "../../firebase_util/firebase-get";
+import firebaseUtill from "../../utils/firebase";
 
 /**
  * `protocol-base`
@@ -74,7 +74,7 @@ class MetaBase extends LitElement {
   }
 
   async fetchMetaData(metaId) {
-    return getMeta(metaId)
+    return firebaseUtill.getMeta(metaId)
       .then(response => {
         console.log(response);
         this.metaDetails = response.data();

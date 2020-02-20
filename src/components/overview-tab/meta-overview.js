@@ -1,4 +1,5 @@
 import "@polymer/iron-icons";
+// TODO: @roshan let's import LitElement related stuffs on the first line
 import { LitElement, html, css } from "lit-element";
 import "@polymer/paper-icon-button/paper-icon-button";
 import "@polymer/iron-icon/iron-icon";
@@ -16,6 +17,7 @@ import MetaMixin from "../../mixins/metaMixin";
 class MetaOverview extends LitElement {
   static get properties() {
     return {
+      // TODO: @ishan prefix editable with is. eg: isEditable
       editable: { type: Boolean },
       allowEdit: { type: Boolean },
       metaDetails: { type: Object },
@@ -60,6 +62,7 @@ class MetaOverview extends LitElement {
     `;
   }
   toggleEditable() {
+    // TODO: @roshan let's remove all console.logs
     console.log(this.editable);
 
     this.editable = !this.editable;

@@ -3,6 +3,7 @@ import "@polymer/paper-input/paper-input";
 import "@polymer/paper-input/paper-textarea";
 import "@polymer/iron-icon/iron-icon";
 import "./search-component";
+// TODO: @roshan let's import LitElement related stuffs on the first line
 import { LitElement, html, css } from "lit-element";
 
 import MetaMixin from "../../mixins/metaMixin";
@@ -20,9 +21,14 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
       metaDetails: { type: Object },
       metaId: { type: String },
       onCloseForm: { type: Function },
+      // TODO: @roshan I think it makes more sense to  
+      // rename searchArray to overviewList
+      // and searchName to overviewName
       searchArray: { type: Array },
-      dataLoaded: { type: Boolean },
       searchName: { type: String },
+      // TODO: @roshan by convention, let's prefex boolean variable 
+      // by 'is' for example isDataLoaded
+      dataLoaded: { type: Boolean },
       showSearchBar: { type: Boolean },
       editable: { type: Boolean },
       toggleEditable: { type: Function }
@@ -33,6 +39,8 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
     this.searchArray = [];
     this.dataLoaded = false;
     this.searchName = "";
+    // TODO: @roshan don't bind the methods here
+    // let's bind them where they are called
     this.handleChange = this.handleChange.bind(this);
     this.getOverviewName = this.getOverviewName.bind(this);
     this.searchItemClicked = this.searchItemClicked.bind(this);
@@ -42,9 +50,12 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
 
   firstUpdated() {
     this.initializeForm();
+    // TODO: @roshan remove this.element
+    this.element = this.shadowRoot.querySelector("search-component");
   }
 
   handleChange(e) {
+    // TODO: @roshan let's change the parameter name from just e to event
     this[e.target.name] = e.target.value;
     if (!this.searchName) {
       return (this.searchArray = []);
@@ -53,7 +64,7 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
   }
 
   initializeForm() {
-    // @todo this method requires refactor
+    // TODO @ishan this method requires refactor
     if (this.metaDetails && this.metaDetails.name) {
       return;
     }
@@ -77,6 +88,10 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
   async getOverviewName(name) {
     return this.getMetaName(name)
       .then(response => {
+        // TODO: @roshan 
+        // there's no need to create this.data here
+        // you can simply use .map on response itself and
+        // assign the result to this.searchArray
         this.data = response;
         this.searchArray = [];
         this.data.docs.map(item => {
@@ -96,6 +111,7 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
     };
   }
 
+  // TODO: @roshan let's break down templates using functions
   render() {
     return html`
       <div class="header-wrapper">
