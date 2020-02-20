@@ -1,6 +1,7 @@
 import "@polymer/iron-icons";
 import { LitElement, html, css } from "lit-element";
 import "@polymer/paper-icon-button/paper-icon-button";
+import '@polymer/iron-icon/iron-icon';
 
 import "./meta-overview-edit";
 import MetaMixin from "../../mixins/metaMixin";
@@ -80,13 +81,15 @@ class MetaOverview extends LitElement {
     return html`
       ${this.allowEdit
         ? html`
-            <paper-icon-button
+            <paper-button
               class="toggle-edit"
-              icon="${this.editable ? "visibility" : "create"}"
               @click="${() => {
                 this.editable = !this.editable;
               }}"
-            ></paper-icon-button>
+              >
+              Edit
+              <iron-icon icon="create" class="edit-icon"></iron-icon>
+            </paper-button>
           `
         : ""}
 
@@ -134,7 +137,6 @@ class MetaOverview extends LitElement {
         font-size: 20px;
       }
       .wrapper {
-        
         padding: 5px 30px 30px;
       }
       .btn {
@@ -161,6 +163,15 @@ class MetaOverview extends LitElement {
       }
       .toggle-edit {
         float: right;
+        background-color: #4285f4;
+        padding:5px;
+        color:white;
+      }
+      .edit-icon {
+        --iron-icon-height: 15px;
+       --iron-icon-width: 15px;
+
+       
       }
     `;
   }

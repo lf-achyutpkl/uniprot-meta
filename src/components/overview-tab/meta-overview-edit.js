@@ -1,6 +1,7 @@
 import "@polymer/paper-button";
 import "@polymer/paper-input/paper-input";
 import "@polymer/paper-input/paper-textarea";
+import "@polymer/iron-icon/iron-icon";
 import "./search-component";
 import { LitElement, html, css } from "lit-element";
 
@@ -99,14 +100,16 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
   render() {
     return html`
       <div class="header-wrapper">
-        <paper-icon-button
+        <paper-button
           class="toggle-edit"
-          class="toggle-edit"
-          icon="${this.editable ? "visibility" : "create"}"
           @click="${() => {
             this.toggleEditable();
           }}"
-        ></paper-icon-button>
+        >
+        cancel
+        <iron-icon icon="cancel" class="cancle-icon"></iron-icon>
+    
+    </paper-button>
         <div class="search-container">
           <search-component
             .data=${this.searchArray}
@@ -180,6 +183,9 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
 
       .toggle-edit {
         float: right;
+        background-color: #4285f4;
+        padding:5px;
+        color:white;
       }
       .header-wrapper {
         position: relative;
@@ -188,6 +194,10 @@ class MetaOverviewEdit extends MetaMixin(LitElement) {
       .search-container{
         width:70%;
         position:relative;
+      }
+      .cancle-icon{
+        --iron-icon-height: 15px;
+        --iron-icon-width: 15px;
       }
     `;
   }

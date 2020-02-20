@@ -3,6 +3,7 @@ import "@polymer/paper-input/paper-input";
 import "@polymer/paper-button/paper-button";
 import "@polymer/iron-pages/iron-pages";
 import "@polymer/paper-tabs/paper-tab";
+import '@polymer/iron-icons/iron-icons';
 import "@polymer/paper-tabs/paper-tabs";
 import "./step-component";
 import "./protocol-inner-tab";
@@ -76,11 +77,24 @@ class ProtocolSteps extends LitElement {
       iron-pages {
         padding: 10px;
       }
-      paper-icon-button {
+      .cancel-button {
         float: right;
+        background-color: #4285f4;
+        padding:5px;
+        color:white;
+      }
+      .edit-button {
+        float: right;
+        background-color: #4285f4;
+        padding:5px;
+        color:white;
       }
       .no-protocol-mesg{
         text-align:center;
+      }
+      iron-icon{
+        --iron-icon-height: 15px;
+       --iron-icon-width: 15px;
       }
     `;
   }
@@ -152,10 +166,13 @@ class ProtocolSteps extends LitElement {
       if (this.isEditable) {
         return html`
           <div class="wrapper">
-            <paper-icon-button
+            <paper-button class="cancel-button"
+              
               @click=${this.handleView}
-              icon="visibility"
-            ></paper-icon-button>
+            >
+            cancel
+              <iron-icon icon="cancel"></iron-icon>
+          </paper-button>
             <insert-protocol-id
               .handleSubmit=${this.handleFindId}
               .data=${this.protocolDetails}
@@ -172,10 +189,12 @@ class ProtocolSteps extends LitElement {
         if (!this.protocolId) {
           return html`
             <div class="wrapper">
-            <paper-icon-button
+            <paper-button class="edit-button"
                   @click=${this.handleEdit}
-                  icon="create"
-                ></paper-icon-button>
+                >
+              Edit
+              <iron-icon icon="create"></iron-icon>
+              </paper-button>
               <h3 class="no-protocol-mesg">No protocol Found</h3>
             </div>
           `;
@@ -187,10 +206,12 @@ class ProtocolSteps extends LitElement {
           } else {
             return html`
               <div class="wrapper">
-                <paper-icon-button
+              <paper-button class="edit-button"
                   @click=${this.handleEdit}
-                  icon="create"
-                ></paper-icon-button>
+                >
+              Edit
+              <iron-icon icon="create"></iron-icon>
+              </paper-button>
                 <protocol-inner-tab
                   .protocolDetails=${this.protocolDetails}
                 ></protocol-inner-tab>
