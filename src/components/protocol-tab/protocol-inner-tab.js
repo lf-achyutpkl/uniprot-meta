@@ -42,10 +42,14 @@ class ProtocolInnerTab extends LitElement {
       paper-tabs {
         --paper-tab-ink: #4285f4;
         --paper-tabs-selection-bar-color: #4285f4;
+        position:absolute;
+        bottom:0;
+        left:0;
+        width:100%;
+        background-color:white;
       }
       iron-pages {
-        padding: 10px;
-        height: 250px;
+        height: 350px;
         overflow: auto;
       }
       .protocol-container {
@@ -143,7 +147,14 @@ class ProtocolInnerTab extends LitElement {
   }
   render() {
     return html`
-      <paper-tabs selected=${this.selectedTab} scrollable>
+      
+      <iron-pages selected=${this.selectedTab}>
+        ${this.renderAbstractTab()}
+        ${this.renderStepsTab()}
+        ${this.renderMaterialTab()}
+      </iron-pages>
+    
+      <paper-tabs selected=${this.selectedTab}>
         ${this.tabs.map((tab, index) => {
           return html`
             <paper-tab
@@ -155,11 +166,6 @@ class ProtocolInnerTab extends LitElement {
           `;
         })}
       </paper-tabs>
-      <iron-pages selected=${this.selectedTab}>
-        ${this.renderAbstractTab()}
-        ${this.renderStepsTab()}
-        ${this.renderMaterialTab()}
-      </iron-pages>
     `;
   }
 }

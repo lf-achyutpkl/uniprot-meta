@@ -95,12 +95,15 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement) {
 
   renderInnerProtocolTab() {
     return html`
-      <protocol-inner-tab .protocolDetails=${this.data}></protocol-inner-tab>
-      <paper-button @click=${this.saveData} class="save-button"
-        >
+    <paper-button @click=${this.saveData} class="save-button">
         ${this.isSavingProtocol ? html `<paper-spinner active></paper-spinner>`: 'SAVE'}
         </paper-button
       >
+      <protocol-inner-tab .protocolDetails=${this.data}>
+      
+      
+      </protocol-inner-tab>
+      
     `;
   }
   checkStatusAndRender() {
@@ -118,10 +121,10 @@ class InsertProtocolIdComponent extends MetaMixin(LitElement) {
   }
   render() {
     return html`
-      <div class="wrapper">
+      
         ${this.renderSearchBar()} 
         ${this.checkStatusAndRender()}
-      </div>
+      
     `;
   }
 }

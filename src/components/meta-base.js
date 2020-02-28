@@ -174,7 +174,7 @@ class MetaBase extends LitElement {
     return css`
       paper-dialog {
         width: 50%;
-        height: 600px;
+        height: 80vh;
       }
       paper-spinner {
         --paper-spinner-layer-1-color: #fff;

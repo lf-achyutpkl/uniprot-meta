@@ -66,7 +66,7 @@ class ProtocolSteps extends LitElement {
       }
 
       .wrapper {
-        height: 350px;
+        height: 100%;
         padding: 5px 30px 30px;
       }
 
