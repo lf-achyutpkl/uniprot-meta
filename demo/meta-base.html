@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>unipro-meta demo</title>
+
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+
+    <script type="module">
+      import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
+      import '@polymer/iron-demo-helpers/demo-snippet';
+    </script>
+
+
+<custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+        img{
+          width:100%;
+        }
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic Protocol Wrapper</h3>
+      <demo-snippet>
+        <template>
+          
+          <meta-base
+            allowEdit
+            showProtocol
+            label="GeneID"
+            metaId="068aae74-b733-487a-8b8b-48ccdf8611123" 
+          >
+          <img src="../assets/images/area_graph.png"/>
+            <!-- <input type="text" placeholder="gene id"/> -->
+          </meta-base>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+  <script type="module" src="../src/components/meta-base.js"></script>
+</html>
