@@ -25,6 +25,7 @@ $ yarn start
 ```
 
 
+## Usage
 This guide contains information on available components and their props.
 
 ### 1) MetaBase ```<meta-base>```
