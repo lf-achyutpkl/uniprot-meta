@@ -1,5 +1,30 @@
 # Uniprot Meta
 
+## Developer Setup
+
+Make sure you have `node`, `npm`, `yarn` and `polymer-cli` installed. Install
+`node` and `npm` using your favorite tool. After that,
+
+```bash
+$ npm install -g polymer-cli
+```
+
+Install dependencies:
+
+```bash
+$ yarn
+```
+
+__Copy Firebase config to firebase.config file.__
+
+
+Running the app:
+
+```bash
+$ yarn start
+```
+
+
 This guide contains information on available components and their props.
 
 ### 1) MetaBase ```<meta-base>```
