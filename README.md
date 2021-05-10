@@ -74,3 +74,4 @@ This guide contains information on available components and their props.
 ```
 
 
+EDAM Oncology: https://bioportal.bioontology.org/ontologies/EDAM?p=classes&conceptid=topic_2640
